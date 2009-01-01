@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="673.0" prefWidth="1254.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.PreinscriptionController">
+   <children>
+      <BorderPane layoutX="117.0" layoutY="67.0" prefHeight="569.0" prefWidth="758.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <MenuBar BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#handleNewClick" text="New windows" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleInscriptionClick" text="Inscription" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleCloseClick" text="close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#handleRemoveClick" text="Delete" />
+                        <MenuItem fx:id="edit" mnemonicParsing="false" onAction="#handleEditClick" text="Edit" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#handleAboutClick" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <bottom>
+            <AnchorPane BorderPane.alignment="CENTER">
+               <children>
+                  <TableView fx:id="preinscriptionTab" editable="true" layoutX="8.0" prefHeight="363.0" prefWidth="982.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="284.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="id_inscription" prefWidth="75.0" text="Id" />
+                      <TableColumn fx:id="id_students" prefWidth="75.0" text="Id student" />
+                        <TableColumn fx:id="nom" prefWidth="75.0" text="Name" />
+                        <TableColumn fx:id="prenom" prefWidth="75.0" text="Surname" />
+                        <TableColumn fx:id="niveau" prefWidth="75.0" text="niveau" />
+                        <TableColumn fx:id="montant" prefWidth="75.0" text="Montant" />
+                        <TableColumn fx:id="date" prefWidth="75.0" text="Date" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <GridPane layoutX="9.0" layoutY="299.0" prefHeight="137.0" prefWidth="323.0" AnchorPane.bottomAnchor="53.0" AnchorPane.rightAnchor="663.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="308.0" minWidth="10.0" prefWidth="149.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="718.0" minWidth="10.0" prefWidth="184.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Id of student" GridPane.rowIndex="1" />
+                        <Label text="Montant preinscription" GridPane.rowIndex="2" />
+                        <Label text="Id" />
+                        <TextField fx:id="id" disable="true" prefHeight="40.0" prefWidth="181.0" promptText="Id will be generate automaticaly" text="Id will be generate automaticaly" GridPane.columnIndex="1" />
+                        <Spinner fx:id="id_student" editable="true" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="181.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="montantPreinscription" prefHeight="49.0" prefWidth="181.0" promptText="Enter first  slice" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <HBox layoutX="11.0" layoutY="602.0" prefHeight="37.0" prefWidth="325.0" spacing="5.0" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="663.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handleRefreshClick" prefHeight="37.0" prefWidth="149.0" text="Refresh table">
+                           <graphic>
+                              <MaterialDesignIconView glyphName="CACHED" size="25" />
+                           </graphic>
+                        </Button>
+                      <Button fx:id="btnRegister" defaultButton="true" mnemonicParsing="false" onAction="#handleRegisterClick" prefHeight="37.0" prefWidth="189.0" text="Register" />
+                     </children>
+                  </HBox>
+                  <Pane layoutX="363.0" layoutY="463.0" prefHeight="178.0" prefWidth="213.0" style="-fx-background-color: orange;" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="424.0">
+                     <children>
+                        <Label layoutX="67.0" layoutY="63.0" text="Total preinscrit" />
+                        <Label fx:id="totalPreinscrit" layoutX="103.0" layoutY="46.0" prefHeight="17.0" prefWidth="0.0" text="0" />
+                        <Label fx:id="totalMontant" layoutX="103.0" layoutY="108.0" text="0" />
+                        <Label layoutX="78.0" layoutY="133.0" text="Total montant" />
+                     </children>
+                  </Pane>
+                  <HBox layoutX="8.0" layoutY="475.0" spacing="5.0" AnchorPane.bottomAnchor="234.0" AnchorPane.rightAnchor="421.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="148.0" text="Imprimer cette liste" />
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="174.0" text="Imprimer le recu" />
+                        <TextField fx:id="recherche" onKeyReleased="#filteredTable" prefHeight="30.0" prefWidth="239.0" promptText="Search" />
+                     </children>
+                  </HBox>
+                  <PieChart fx:id="pieChart" layoutX="610.0" layoutY="434.0" prefHeight="262.0" prefWidth="376.0" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="14.0" />
+               </children>
+               <padding>
+                  <Insets bottom="2.0" />
+               </padding>
+            </AnchorPane>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>

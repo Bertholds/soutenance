@@ -33,6 +33,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 
 @Controller
 public class StudentController implements Initializable {
@@ -210,8 +211,9 @@ public class StudentController implements Initializable {
 			etudiantList.addAll(studentRepository.findByLastId(id));
 			studentTable.setItems(etudiantList);
 	}
+	
 	@FXML
-	private void filteredTable() {
+	private void filteredTable(KeyEvent event) {
 		FilteredList<Etudiant>filteredetudiants =new FilteredList<Etudiant>(etudiantList, e->true);
 		recherche.setOnKeyReleased(e->{
 			recherche.textProperty().addListener((observableValue, oldValue, newValue)->{

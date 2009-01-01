@@ -19,7 +19,6 @@ import com.codetreatise.service.impl.EtudiantServiceImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -114,15 +113,6 @@ public class StudentEditDialogController implements Initializable {
 		return chaine;
 	}
 	
-	  EventHandler<ActionEvent> event = new EventHandler<ActionEvent>()  
-      { 
-          public void handle(ActionEvent e) 
-          { 
-
-              // show the dialog 
-            //  d.show(); 
-          } 
-      };
 
 	@FXML
 	public Etudiant handleCreateStudentClick(ActionEvent event) {
@@ -159,7 +149,6 @@ public class StudentEditDialogController implements Initializable {
 			    newEtudiant = studentRepository.save(etudiant);
 				saveAlert(newEtudiant);
 				clearFields();
-				studentController.loadStudentDetailWhenCreate();
 				return newEtudiant;
 			}
 		}
@@ -333,7 +322,7 @@ public class StudentEditDialogController implements Initializable {
 	private void updateAlert(Etudiant etudiant) {
 
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Student saved successfully.");
+		alert.setTitle("Student updated successfully.");
 		alert.setHeaderText(null);
 		alert.setContentText("The Student " + etudiant.getNom() + " " + etudiant.getPrenom()
 				+ " has been update and \n" + getSexeTitle(etudiant.getSexe()) + " id is " + etudiant.getId() + ".");

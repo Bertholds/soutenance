@@ -1,5 +1,6 @@
 package com.codetreatise.repository;
 
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -26,5 +27,11 @@ public interface StudentRepository extends JpaRepository<Etudiant, Long> {
 	
 	@Query("select e from Etudiant e where e.id=(:id)")
 	public Etudiant findByLastId(@Param("id")Long id);
+	
+	@Query("from Etudiant as e inner join e.classe as c group by c.niveau")
+	public ResultSet groupByNiveau();
+	
+	//SELECT count(`id`), niveau from etudiant e\n" + 
+	//"INNER JOIN classe c ON e.id_classe = c.id_classe Group by niveau;
 	
 }

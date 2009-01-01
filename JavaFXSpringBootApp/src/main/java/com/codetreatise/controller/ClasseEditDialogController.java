@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.codetreatise.bean.Classe;
+import com.codetreatise.bean.Personel;
 import com.codetreatise.repository.ClasseRepository;
 import com.codetreatise.service.impl.ClasseServiceImpl;
 
@@ -40,7 +41,7 @@ public class ClasseEditDialogController implements Initializable {
 	private TextField nom;
 
 	@FXML
-	private ComboBox<String> leader;
+	private ComboBox<Object> leader;
 
 	@FXML
 	private TextField id;
@@ -60,15 +61,17 @@ public class ClasseEditDialogController implements Initializable {
 	@Autowired
 	private ClasseServiceImpl classeServiceImpl;
 
-	private ObservableList<String> classeList = FXCollections.observableArrayList();
+	private ObservableList<Object> classeList = FXCollections.observableArrayList();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ArrayList<String> list = classeRepository.loadLeader();
+		ArrayList<Personel> list = classeRepository.loadLeader();
 		classeList.clear();
-		classeList.addAll(list);
-
-		 leader.setItems(classeList);
+		for(int i=0; i<list.size(); i++) {
+			Personel personel = list.get(i);
+			classeList.add(personel.toString());
+			 leader.setItems(classeList);
+		}
 	}
 
 	EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
@@ -160,7 +163,7 @@ public class ClasseEditDialogController implements Initializable {
 	}
 
 	private String getLeader() {
-		return leader.getSelectionModel().getSelectedItem();
+		return  leader.getSelectionModel().getSelectedItem().toString();
 	}
 
 	private boolean isInputValid() {

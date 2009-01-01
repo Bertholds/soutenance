@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="673.0" prefWidth="1254.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.InscriptionController">
+   <children>
+      <BorderPane layoutX="117.0" layoutY="67.0" prefHeight="673.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <MenuBar BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleNewFileClick" text="New file" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePreinscriptionClick" text="Preinscription" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleCloseClick" text="close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#handleRemoveClick" text="Delete" />
+                        <MenuItem fx:id="edit" mnemonicParsing="false" onAction="#handleEditClick" text="Edit" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#handleAboutClick" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <center>
+            <AnchorPane prefHeight="500.0" prefWidth="854.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView fx:id="inscriptionTab" editable="true" layoutX="20.0" prefHeight="328.0" prefWidth="833.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="id_inscription" prefWidth="75.0" text="Id" />
+                      <TableColumn fx:id="id_students" prefWidth="75.0" text="Id student" />
+                        <TableColumn fx:id="nom" prefWidth="75.0" text="Name" />
+                        <TableColumn fx:id="prenom" prefWidth="75.0" text="Surname" />
+                        <TableColumn fx:id="classe" prefWidth="75.0" text="Classe" />
+                        <TableColumn fx:id="tranche1c" prefWidth="75.0" text="Tranche 1" />
+                        <TableColumn fx:id="tranche2c" prefWidth="75.0" text="Tranche 2" />
+                        <TableColumn fx:id="tranche3c" prefWidth="75.0" text="Tranche 3" />
+                        <TableColumn fx:id="tranche4c" prefWidth="75.0" text="Tranche 4" />
+                        <TableColumn fx:id="totalMontant" prefWidth="75.0" text="Total Montant" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <GridPane layoutX="20.0" layoutY="299.0" prefHeight="200.0" prefWidth="315.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="20.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="308.0" minWidth="10.0" prefWidth="139.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="497.0" minWidth="10.0" prefWidth="174.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Id of student" GridPane.rowIndex="1" />
+                        <Label text="Tranche 1" GridPane.rowIndex="2" />
+                        <Label text="Id" />
+                        <Label text="Tranche 2" GridPane.rowIndex="3" />
+                        <Label text="Tranche 3" GridPane.rowIndex="4" />
+                        <TextField fx:id="id" disable="true" prefHeight="35.0" prefWidth="180.0" promptText="Id will be generate automaticaly" GridPane.columnIndex="1" />
+                        <Spinner fx:id="id_student" editable="true" maxWidth="1.7976931348623157E308" prefHeight="34.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="tranche1" prefHeight="34.0" prefWidth="180.0" promptText="Enter first  slice" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="tranche2" prefHeight="33.0" prefWidth="180.0" promptText="Enter second slice" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="tranche3" prefHeight="34.0" prefWidth="180.0" promptText="Enter third slice" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label text="Tranche 4" GridPane.rowIndex="5" />
+                        <TextField fx:id="tranche4" prefHeight="31.0" prefWidth="180.0" promptText="Enter last slice" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                     </children>
+                     <padding>
+                        <Insets right="2.0" />
+                     </padding>
+                  </GridPane>
+                <Button fx:id="btnRegister" defaultButton="true" layoutX="158.0" layoutY="608.0" mnemonicParsing="false" onAction="#handleRegisterClick" prefHeight="29.0" prefWidth="175.0" text="Register" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="158.0" />
+                  <Button layoutX="16.0" layoutY="608.0" mnemonicParsing="false" onAction="#handleRefreshClick" prefHeight="29.0" prefWidth="136.0" text="Refresh table" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="16.0">
+                     <graphic>
+                        <MaterialDesignIconView glyphName="CACHED" size="20" />
+                     </graphic>
+                  </Button>
+                  <BarChart fx:id="BarChart" layoutX="329.0" layoutY="444.0" prefHeight="289.0" prefWidth="520.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.leftAnchor="329.0" AnchorPane.rightAnchor="5.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis fx:id="yAxis" side="LEFT" />
+                    </yAxis>
+                  </BarChart>
+                  <Button layoutX="20.0" layoutY="338.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="134.0" text="Imprimer cette liste" AnchorPane.bottomAnchor="279.0" AnchorPane.leftAnchor="20.0" />
+                  <Button layoutX="160.0" layoutY="338.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="173.0" text="Imprimer le recu" AnchorPane.bottomAnchor="279.0" />
+                  <TextField fx:id="recherche" layoutX="342.0" layoutY="338.0" onKeyReleased="#filteredTable" prefHeight="31.0" prefWidth="210.0" promptText="Search" AnchorPane.bottomAnchor="279.0" />
+                  <FontAwesomeIconView glyphName="SEARCH" layoutX="526.0" layoutY="360.0" size="19" AnchorPane.bottomAnchor="285.2857151031494" />
+               </children>
+            </AnchorPane>
+         </center>
+         <left>
+            <GridPane prefHeight="544.0" prefWidth="146.0" vgap="15.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: green;" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <children>
+                        <Label contentDisplay="CENTER" layoutX="26.0" layoutY="42.0" text="Total tranche 1" />
+                        <Label fx:id="totalTranche1" alignment="CENTER" contentDisplay="CENTER" layoutX="62.0" layoutY="14.0" text="0" />
+                        <Label contentDisplay="CENTER" layoutX="34.0" layoutY="97.0" text="Total montant " />
+                        <Label fx:id="totalMontant1" contentDisplay="CENTER" layoutX="59.0" layoutY="73.0" text="0" />
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: orange;" GridPane.rowIndex="1">
+                     <children>
+                        <Label layoutX="27.0" layoutY="39.0" text="Total tranche 2" />
+                        <Label fx:id="totalTranche2" layoutX="64.0" layoutY="14.0" text="0" />
+                        <Label layoutX="33.0" layoutY="92.0" text="Total montant" />
+                        <Label fx:id="totalMontant2" layoutX="61.0" layoutY="73.0" text="0" />
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: yellow;" GridPane.rowIndex="2">
+                     <children>
+                        <Label layoutX="27.0" layoutY="40.0" text="Total tranche 3" />
+                        <Label fx:id="totalMontant3" layoutX="63.0" layoutY="73.0" text="0" />
+                        <Label layoutX="33.0" layoutY="99.0" text="Total montant" />
+                        <Label fx:id="totalTranche3" layoutX="64.0" layoutY="23.0" text="0" />
+                     </children>
+                  </Pane>
+                  <Pane style="-fx-background-color: gray;" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                     <children>
+                        <Label layoutX="53.0" layoutY="42.0" text="Total" />
+                        <Label fx:id="total" layoutX="63.0" layoutY="14.0" text="0" />
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" GridPane.rowIndex="3">
+                     <children>
+                        <Label fx:id="totalTranche4" layoutX="70.0" layoutY="14.0" text="0" />
+                        <Label layoutX="36.0" layoutY="31.0" text="Total tranche 4" />
+                        <Label fx:id="totalMontant4" layoutX="72.0" layoutY="57.0" text="0" />
+                        <Label layoutX="38.0" layoutY="82.0" text="Total montant" />
+                     </children>
+                  </Pane>
+               </children>
+            </GridPane>
+         </left>
+      </BorderPane>
+   </children>
+</AnchorPane>

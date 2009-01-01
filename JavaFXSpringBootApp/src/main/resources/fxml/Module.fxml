@@ -78,7 +78,7 @@
                         <FontAwesomeIconView glyphName="UNIVERSITY" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="200.0" prefWidth="242.0" text="Staff" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#handleStaffClick" prefHeight="200.0" prefWidth="242.0" text="Staff" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS">
                      <graphic>
                         <MaterialIconView glyphName="PEOPLE" size="50" />
                      </graphic>
@@ -88,7 +88,7 @@
                         <MaterialIconView glyphName="ACCOUNT_CIRCLE" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="200.0" prefWidth="242.0" text="School fees" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSchoolFeesClick" prefHeight="200.0" prefWidth="242.0" text="School fees" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <graphic>
                         <MaterialIconView glyphName="MONETIZATION_ON" size="50" />
                      </graphic>
@@ -113,7 +113,7 @@
                         <MaterialDesignIconView glyphName="PLUS_NETWORK" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="200.0" prefWidth="242.0" text="Subject" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSubjectClick" prefHeight="200.0" prefWidth="242.0" text="Subject" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <graphic>
                         <OctIconView glyphName="BOOK" size="47" />
                      </graphic>

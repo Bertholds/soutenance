@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.codetreatise.bean.Classe;
+import com.codetreatise.bean.Personel;
 
 public interface ClasseRepository extends JpaRepository<Classe, Long> {
 	@Query("select distinct c.nom from Classe c")
@@ -15,8 +16,8 @@ public interface ClasseRepository extends JpaRepository<Classe, Long> {
 	@Query("select c from Classe c where c.nom=(:classe) or c.niveau=(:classe)")
 	public ArrayList<Classe> findClasse(@Param("classe")String classe);
 	
-	@Query("select  p.nom from Personel p")
-	public ArrayList<String> loadLeader();
+	@Query("select  p from Personel p")
+	public ArrayList<Personel> loadLeader();
 	
 	@Query("select distinct c.niveau from Classe c")
 	public ArrayList<String> loadAllNiveau();

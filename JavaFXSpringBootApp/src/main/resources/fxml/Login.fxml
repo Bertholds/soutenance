@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="587.0" style="-fx-background-color: transparent;" stylesheets="@../styles/login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.LoginController">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <VBox styleClass="background" HBox.hgrow="ALWAYS">
+               <cursor>
+                  <Cursor fx:constant="MOVE" />
+               </cursor></VBox>
+            <VBox alignment="TOP_CENTER" styleClass="background" stylesheets="@../styles/login.css" HBox.hgrow="ALWAYS">
+<!--                  <children> -->
+<!--                     <fx:include rotate="178.3" source="Title_bar.fxml" /> -->
+<!--                  </children> -->
+               <cursor>
+                  <Cursor fx:constant="MOVE" />
+               </cursor>
+             </VBox>
+         </children>
+      </HBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" stylesheets="@../styles/login.css">
+         <StackPane.margin>
+            <Insets bottom="45.0" left="45.0" right="45.0" top="45.0" />
+         </StackPane.margin>
+         <children>
+            <VBox alignment="TOP_CENTER" styleClass="backgroundNext" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="40.0" right="40.0" top="10.0" />
+               </VBox.margin>
+               <effect>
+                  <DropShadow />
+               </effect>
+               <children>
+                  <HBox prefHeight="34.0" prefWidth="229.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textLogin" text="Login" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="40.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="TOP_CENTER" styleClass="hboxfield">
+                     <VBox.margin>
+                        <Insets bottom="15.0" left="40.0" right="40.0" top="20.0" />
+                     </VBox.margin>
+                     <children>
+                        <TextField fx:id="username" promptText="UserName" styleClass="field" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <MaterialDesignIconView glyphName="ACCOUNT_KEY" size="35" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_RIGHT" styleClass="hboxfield">
+                     <children>
+                        <PasswordField fx:id="password" promptText="Password" styleClass="field" stylesheets="@../styles/login.css" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
+                        </PasswordField>
+                        <MaterialDesignIconView glyphName="KEY_VARIANT" size="35" />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Button contentDisplay="RIGHT" defaultButton="true" mnemonicParsing="false" onAction="#login" prefHeight="37.0" prefWidth="237.0" text="Login" textFill="#f8f7f7">
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </VBox.margin>
+                     <graphic>
+                        <MaterialDesignIconView glyphName="LOGIN" size="18" />
+                     </graphic>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
+               </padding>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</StackPane>

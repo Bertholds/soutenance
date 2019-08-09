@@ -1,0 +1,97 @@
+/* @charset "ISO-8859-1"; */
+.background {
+	-fx-background-color: #1d1d1d;
+}
+
+.backgroundModul {
+	-fx-background-color: #1d1d1d;
+	-fx-border-color: #ffffff;
+	-fx-border-width:2px;
+}
+
+.backgroundNext {
+	-fx-border-color: #ffffff;
+	-fx-border-radius: 10px;
+	 -fx-background-color: #1d1d1d;
+	 -fx-border-width:2px;
+}
+
+.backgroundNextModul {
+	-fx-border-color: #ffffff;
+	 -fx-background-color: #1d1d1d;
+}
+
+.field {
+	
+	-fx-background-color: transparent;
+}
+
+.hboxfield {
+	-fx-border-color: #fff;
+	-fx-border-width: 0.0 0.0 2px 0.0;
+}
+
+.textLogin {
+	-fx-fill: #ffffff;
+	-fx-font-size: 25px;
+	fx-font-weight: BOLD;
+	-fx-opacity: 1;
+}
+
+MaterialDesignIconView {
+	-fx-fill: #fff;
+	-fx-cursor: hand;
+}
+
+MaterialIconView {
+	-fx-fill: #fff;
+	-fx-cursor: hand;
+}
+
+OctIconView {
+	-fx-fill: #fff;
+	-fx-cursor: hand;
+}
+
+EmojiOneView {
+	-fx-fill: #fff;
+	-fx-cursor: hand;
+}
+
+FontAwesomeIconView {
+	-fx-fill: #fff;
+	-fx-cursor: hand;
+}
+
+.button {
+	 -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #d8d8d8;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+	-fx-background-color: #1d1d1d;
+	-fx-border-width: 2px;
+	-fx-border-color: #ffffff
+}
+
+.button:hover {
+		-fx-cursor:hand;
+    -fx-background-color: #3a3a3a;
+}
+
+.button:hover .glyph-icon{
+		-fx-cursor:hand;
+    -fx-fill:  #2D75E8;
+}
+
+.button:pressed, .button:default:hover:pressed {
+  -fx-background-color: white;
+  -fx-text-fill: #1d1d1d;
+}
+
+.buttonModule{
+	
+}
+
+.LabelTitleSchool{
+	-fx-font-size: 37px;
+}

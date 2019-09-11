@@ -121,17 +121,26 @@
 					<content>
 						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="posteTab" editable="true" layoutX="390.0" layoutY="14.0" prefHeight="534.0" prefWidth="887.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
-                          <columns>
-                            <TableColumn fx:id="id2" prefWidth="164.0" text="Id" />
-                            <TableColumn fx:id="libele_post" minWidth="0.0" prefWidth="112.0" text="Libele" />
-                              <TableColumn fx:id="departement" prefWidth="251.0" text="Department" />
-                              <TableColumn fx:id="modifier" prefWidth="75.0" text="Modified" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
+                        <SplitPane dividerPositions="0.93717277486911" layoutX="389.0" layoutY="14.0" orientation="VERTICAL" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="389.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="14.0">
+                           <items>
+                              <TableView fx:id="posteTab" editable="true" prefHeight="534.0" prefWidth="887.0" tableMenuButtonVisible="true">
+                                <columns>
+                                  <TableColumn fx:id="id2" prefWidth="164.0" text="Id" />
+                                  <TableColumn fx:id="libele_post" minWidth="0.0" prefWidth="112.0" text="Libele" />
+                                    <TableColumn fx:id="departement" prefWidth="251.0" text="Department" />
+                                    <TableColumn fx:id="modifier" prefWidth="75.0" text="Modified" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                              <Button mnemonicParsing="false" onAction="#loadPosteDetail" prefHeight="33.0" prefWidth="623.0" text="Refresh data on table">
+                                 <graphic>
+                                    <MaterialDesignIconView glyphName="CACHED" size="25" />
+                                 </graphic>
+                              </Button>
+                           </items>
+                        </SplitPane>
                         <GridPane layoutX="14.0" layoutY="9.0" prefHeight="108.0" prefWidth="351.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -171,31 +180,36 @@
                               </Button>
                           </buttons>
                         </ButtonBar>
-                        <Button layoutX="389.0" layoutY="570.0" mnemonicParsing="false" onAction="#loadPosteDetail" prefHeight="33.0" prefWidth="623.0" text="Refresh data on table" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="389.0" AnchorPane.rightAnchor="265.0">
-                           <graphic>
-                              <MaterialDesignIconView glyphName="CACHED" size="25" />
-                           </graphic>
-                        </Button>
-                     </children></AnchorPane>
+                     </children>
+                  </AnchorPane>
 					</content>
 				</Tab>
 				<Tab text="   Department manager   ">
 					<content>
 						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="departementTab" editable="true" layoutX="391.0" layoutY="14.0" prefHeight="535.0" prefWidth="886.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="391.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
-                          <columns>
-                            <TableColumn fx:id="id3c" prefWidth="75.0" text="Id" />
-                            <TableColumn fx:id="nom_departemen" prefWidth="75.0" text="Name" />
-                              <TableColumn fx:id="chef_departemen" prefWidth="75.0" text="Chief" />
-                              <TableColumn fx:id="total_post" prefWidth="75.0" text="Total post" />
-                              <TableColumn fx:id="modified" prefWidth="75.0" text="Modified" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                        <GridPane layoutX="2.0" layoutY="5.0" prefHeight="107.0" prefWidth="377.0">
+                        <SplitPane dividerPositions="0.5" layoutX="391.0" layoutY="14.0" orientation="VERTICAL" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="391.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="14.0">
+                           <items>
+                              <TableView fx:id="departementTab" editable="true" prefHeight="535.0" prefWidth="886.0" tableMenuButtonVisible="true">
+                                <columns>
+                                  <TableColumn fx:id="id3c" prefWidth="75.0" text="Id" />
+                                  <TableColumn fx:id="nom_departemen" prefWidth="75.0" text="Name" />
+                                    <TableColumn fx:id="chef_departemen" prefWidth="75.0" text="Chief" />
+                                    <TableColumn fx:id="total_post" prefWidth="75.0" text="Total post" />
+                                    <TableColumn fx:id="modified" prefWidth="75.0" text="Modified" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                              <Button mnemonicParsing="false" onAction="#loadDepartementDetail" prefHeight="33.0" prefWidth="620.0" text="Refresh data on table">
+                                 <graphic>
+                                    <MaterialDesignIconView glyphName="CACHED" size="25" />
+                                 </graphic>
+                              </Button>
+                           </items>
+                        </SplitPane>
+                        <GridPane layoutX="2.0" layoutY="5.0" prefHeight="107.0" prefWidth="377.0" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="5.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -234,11 +248,6 @@
                               <Button mnemonicParsing="false" onAction="#clearFieldDepartement" prefHeight="34.0" prefWidth="80.0" text="Clear field" />
                           </buttons>
                         </ButtonBar>
-                        <Button layoutX="392.0" layoutY="563.0" mnemonicParsing="false" onAction="#loadDepartementDetail" prefHeight="33.0" prefWidth="620.0" text="Refresh data on table" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="392.0" AnchorPane.rightAnchor="265.0">
-                           <graphic>
-                              <MaterialDesignIconView glyphName="CACHED" size="25" />
-                           </graphic>
-                        </Button>
                      </children></AnchorPane>
 					</content>
 				</Tab>

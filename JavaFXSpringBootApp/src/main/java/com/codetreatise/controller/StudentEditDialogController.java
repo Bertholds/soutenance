@@ -1,7 +1,6 @@
 package com.codetreatise.controller;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Random;
@@ -77,7 +76,7 @@ public class StudentEditDialogController implements Initializable {
 
 	@Autowired
 	private StudentController studentController;
-	
+
 	@Autowired
 	private EtudiantServiceImpl etudiantServiceImpl;
 
@@ -112,7 +111,6 @@ public class StudentEditDialogController implements Initializable {
 		// random.nextInt(900)+100);
 		return chaine;
 	}
-	
 
 	@FXML
 	public Etudiant handleCreateStudentClick(ActionEvent event) {
@@ -122,6 +120,7 @@ public class StudentEditDialogController implements Initializable {
 				Etudiant etudiant = studentRepository.findOne(getId());
 				classroom = classeRepository.findByNom(getClasseRoom());
 				etudiant.setClasse(classroom);
+				etudiant.setclasseNom(classroom.getNom());
 				etudiant.setMatricule(getMatricule());
 				etudiant.setNaissance(getNaissance());
 				etudiant.setNom(getNom());
@@ -129,12 +128,12 @@ public class StudentEditDialogController implements Initializable {
 				etudiant.setPrenom(getPrenom());
 				etudiant.setSexe(getSexe());
 				etudiant.setTelephone(getPhone());
-				newEtudiant =  etudiantServiceImpl.update(etudiant);
+				newEtudiant = etudiantServiceImpl.update(etudiant);
 				updateAlert(newEtudiant);
 				clearFields();
 				studentController.loadStudentDetailWhenCreate();
 				studentController.setIsEditButtonClick(false);
-			    return newEtudiant;
+				return newEtudiant;
 			} else {
 				classroom = classeRepository.findByNom(getClasseRoom());
 				Etudiant etudiant = new Etudiant();
@@ -144,15 +143,16 @@ public class StudentEditDialogController implements Initializable {
 				etudiant.setSexe(getSexe());
 				etudiant.setParente(getParent());
 				etudiant.setClasse(classroom);
+				etudiant.setclasseNom(classroom.getNom());
 				etudiant.setTelephone(getPhone());
 				etudiant.setPrenom(getPrenom());
-			    newEtudiant = studentRepository.save(etudiant);
+				newEtudiant = studentRepository.save(etudiant);
 				saveAlert(newEtudiant);
 				clearFields();
 				return newEtudiant;
 			}
 		}
-		 return newEtudiant;
+		return newEtudiant;
 	}
 
 	@FXML
@@ -171,11 +171,11 @@ public class StudentEditDialogController implements Initializable {
 	void handleClearFieldClick(ActionEvent event) {
 		clearFields();
 	}
-	
+
 	private Long getId() {
 		return Long.parseLong(id.getText());
 	}
-	
+
 	private String getNom() {
 		return nom.getText();
 	}
@@ -208,24 +208,8 @@ public class StudentEditDialogController implements Initializable {
 		return (gender.equals("Male")) ? "his" : "her";
 	}
 
-	private LocalDate getNaissance() {
-		return naissance.getValue();
-	}
-
-	public LocalDate fromString(String string) {
-		if (string != null && !string.isEmpty()) {
-			return LocalDate.parse(string, formatter);
-		} else {
-			return null;
-		}
-	}
-
-	public String toString(LocalDate date) {
-		if (date != null) {
-			return formatter.format(date);
-		} else {
-			return "";
-		}
+	private String getNaissance() {
+		return naissance.getEditor().getText();
 	}
 
 	private boolean isInputValid() {
@@ -253,7 +237,7 @@ public class StudentEditDialogController implements Initializable {
 			errorMessage += "No valid relationship!\n";
 		}
 
-		if (getNaissance() == null) {
+		if (getNaissance() == null || getNaissance().length() == 0) {
 			errorMessage += "No valid birthday!\n";
 		}
 
@@ -286,14 +270,14 @@ public class StudentEditDialogController implements Initializable {
 			classe.setValue(etudiant.getClasse().getNom());
 			phone.setText(etudiant.getTelephone());
 			parent.setText(etudiant.getParente());
-			naissance.setValue(etudiant.getNaissance());
+			naissance.getEditor().setText(etudiant.getNaissance());
 			if (etudiant.getSexe().equals("Masculin"))
 				radioM.setSelected(true);
 			else
 				radioF.setSelected(true);
 			matricule.setText(etudiant.getMatricule());
 
-		} 
+		}
 		return etudiant;
 	}
 
@@ -318,14 +302,14 @@ public class StudentEditDialogController implements Initializable {
 				+ " has been created and \n" + getSexeTitle(etudiant.getSexe()) + " id is " + etudiant.getId() + ".");
 		alert.showAndWait();
 	}
-	
+
 	private void updateAlert(Etudiant etudiant) {
 
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Student updated successfully.");
 		alert.setHeaderText(null);
-		alert.setContentText("The Student " + etudiant.getNom() + " " + etudiant.getPrenom()
-				+ " has been update and \n" + getSexeTitle(etudiant.getSexe()) + " id is " + etudiant.getId() + ".");
+		alert.setContentText("The Student " + etudiant.getNom() + " " + etudiant.getPrenom() + " has been update and \n"
+				+ getSexeTitle(etudiant.getSexe()) + " id is " + etudiant.getId() + ".");
 		alert.showAndWait();
 	}
 }

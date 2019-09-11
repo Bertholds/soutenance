@@ -1,7 +1,6 @@
 package com.codetreatise.bean;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "etudiant")
@@ -29,15 +29,22 @@ public class Etudiant implements Serializable {
 	private String nom;
 	private String prenom;
 	private String sexe;
-	private LocalDate naissance;
+	private String naissance;
 	private String telephone;
 	private String parente;
 	@ManyToOne
 	@JoinColumn(name = "id_classe")
 	private Classe classe;
+	
+	@Transient
+	private String classeNom;
 
 	public Etudiant() {
 		super();
+	}
+	
+	public void setclasseNom(String nomDeClasse) {
+		classeNom = nomDeClasse;
 	}
 
 	public Long getId() {
@@ -76,12 +83,12 @@ public class Etudiant implements Serializable {
 		this.sexe = sexe;
 	}
 
-	public LocalDate getNaissance() {
+	public String getNaissance() {
 		return naissance;
 	}
 
-	public void setNaissance(LocalDate localDate) {
-		this.naissance = localDate;
+	public void setNaissance(String date) {
+		this.naissance = date;
 	}
 
 	public String getTelephone() {

@@ -37,53 +37,16 @@ public class Inscription implements Serializable {
 	@OneToOne
 	private Etudiant etudiant;
 
-	private Long id_etudiant;
-	private String nom;
-	private String prenom;
-	private String classe;
-
+	public Inscription() {
+		super();
+	}
+	
 	public double getTotal() {
 		return total;
 	}
 	
 	public void setTotal(double total) {
 		this.total = total;
-	}
-	
-	public Long getId_etudiant() {
-		return id_etudiant;
-	}
-
-	public void setId_etudiant(Long id_etudiant) {
-		this.id_etudiant = id_etudiant;
-	}
-
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public String getPrenom() {
-		return prenom;
-	}
-
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
-	
-	public String getClasse() {
-		return classe;
-	}
-
-	public void setClasse(String classe) {
-		this.classe = classe;
-	}
-
-	public Inscription() {
-		super();
 	}
 
 	public double getTranche1() {

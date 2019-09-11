@@ -63,12 +63,12 @@
                         <FontAwesomeIconView glyphName="CALENDAR_CHECK_ALT" size="50" />
                      </graphic>
                   </Button>
-                  <Button fx:id="btnSettings" contentDisplay="TOP" mnemonicParsing="false" prefHeight="200.0" prefWidth="242.0" stylesheets="@../css/fullpackstyling.css" text="Settings" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                  <Button fx:id="btnSettings" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSettingClick" prefHeight="200.0" prefWidth="242.0" stylesheets="@../css/fullpackstyling.css" text="Settings" GridPane.columnIndex="3" GridPane.rowIndex="3">
                      <graphic>
                         <FontAwesomeIconView glyphName="SLIDERS" size="50" />
                      </graphic>
                   </Button>
-                  <Button fx:id="btnUpdate" contentDisplay="TOP" mnemonicParsing="false" prefHeight="200.0" prefWidth="242.0" stylesheets="@../css/fullpackstyling.css" text="Courier" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#handleCourierClick" prefHeight="200.0" prefWidth="242.0" stylesheets="@../css/fullpackstyling.css" text="Courier" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <graphic>
                         <MaterialIconView glyphName="EMAIL" size="50" />
                      </graphic>
@@ -83,7 +83,7 @@
                         <MaterialIconView glyphName="PEOPLE" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="200.0" prefWidth="242.0" text="User" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#handleUserClick" prefHeight="200.0" prefWidth="242.0" text="User" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
                      <graphic>
                         <MaterialIconView glyphName="ACCOUNT_CIRCLE" size="50" />
                      </graphic>
@@ -93,17 +93,17 @@
                         <MaterialIconView glyphName="MONETIZATION_ON" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="200.0" prefWidth="242.0" text="Pointing" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#handlePointingClick" prefHeight="200.0" prefWidth="242.0" text="Pointing" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <graphic>
                         <MaterialIconView glyphName="ACCESS_TIME" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="200.0" prefWidth="242.0" text="Absence permission" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#handlePermissionClick" prefHeight="200.0" prefWidth="242.0" text="Absence permission" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <graphic>
                         <MaterialIconView glyphName="DESCRIPTION" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="200.0" prefWidth="242.0" text="Hour of student absence" GridPane.rowIndex="2">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#handleStudentAbscenceClick" prefHeight="200.0" prefWidth="242.0" text="Hour of student absence" GridPane.rowIndex="2">
                      <graphic>
                         <MaterialDesignIconView glyphName="CALENDAR_CLOCK" size="50" />
                      </graphic>

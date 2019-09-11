@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import com.codetreatise.bean.Classe;
 import com.codetreatise.config.StageManager;
 import com.codetreatise.repository.ClasseRepository;
+import com.codetreatise.service.MethodUtilitaire;
 import com.codetreatise.view.FxmlView;
 
 import javafx.beans.value.ChangeListener;
@@ -23,8 +24,6 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -103,14 +102,8 @@ public class ClasseController implements Initializable {
 		if (selectedIndex >= 0) {
 			classeTable.getItems().remove(selectedIndex);
 		} else {
-			// Nothing selected.
-			Alert alert = new Alert(AlertType.WARNING);
-			// alert.initOwner( );
-			alert.setTitle("No Selection");
-			alert.setHeaderText("No class Selected");
-			alert.setContentText("Please select a person in the table.");
-
-			alert.showAndWait();
+			MethodUtilitaire.deleteNoPersonSelectedAlert("No Selection", "No class Selected",
+					"Please select a person in the table.");
 		}
 	}
 
@@ -125,14 +118,8 @@ public class ClasseController implements Initializable {
 		}
 
 		else {
-			// Nothing selected.
-			Alert alert = new Alert(AlertType.WARNING);
-			// alert.initOwner( mainApp.getPrimaryStage() );
-			alert.setTitle("No Selection");
-			alert.setHeaderText("No Class Selected");
-			alert.setContentText("Please select a person in the table.");
-
-			alert.showAndWait();
+			MethodUtilitaire.deleteNoPersonSelectedAlert("No Selection", "No class Selected",
+					"Please select a person in the table.");
 		}
 	}
 
@@ -244,7 +231,7 @@ public class ClasseController implements Initializable {
 			// Person is null, remove all the text.
 			nom.setText("");
 			chef.setText("");
-			delegue1.setText("");  
+			delegue1.setText("");
 			delegue2.setText("");
 			id.setText("");
 			sous_chef.setText("");

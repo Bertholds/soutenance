@@ -124,6 +124,94 @@ public enum FxmlView {
 		public String getFxmlFile() {
 			return "/fxml/Subjet.fxml";
 		}
+	},
+	POINTING {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("pointing.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/Pointing.fxml";
+		}
+	},
+	MATIERE {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("matiere.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/Matiere.fxml";
+		}
+	},
+	MATIEREEDITDIALOG {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("matiereEditDialog.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/MatiereEditDialog.fxml";
+		}
+	},
+	SETTING {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("setting.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/Setting.fxml";
+		}
+	},
+	PERMISSION {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("permission.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/Permission.fxml";
+		}
+	},
+	ABSCENCE {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("abscence.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/AbscenceStudent.fxml";
+		}
+	},
+	COURIER {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("courier.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/Courier.fxml";
+		}
+	},
+	USER {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("user.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/User.fxml";
+		}
 	};
 
 	public abstract String getTitle();

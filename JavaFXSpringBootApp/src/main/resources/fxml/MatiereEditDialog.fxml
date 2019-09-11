@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.icons525.Icons525View?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="488.0" maxWidth="473.0" prefHeight="447.0" prefWidth="455.0" styleClass="background" stylesheets="@../styles/formulaire.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.MatiereEditDialogController">
+   <children>
+      <GridPane layoutX="4.0" layoutY="51.0" maxHeight="341.0" maxWidth="466.0" prefHeight="333.0" prefWidth="356.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.0" minWidth="10.0" prefWidth="115.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="379.0" minWidth="10.0" prefWidth="241.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="51.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="139.0" minHeight="10.0" prefHeight="111.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="143.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="94.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Class" GridPane.rowIndex="2" />
+            <Label text="Coefficient" GridPane.rowIndex="3" />
+            <Label text="Supervisor" GridPane.rowIndex="4" />
+            <Label text="Semester" GridPane.rowIndex="5" />
+            <Label text="Id" />
+            <TextField fx:id="nom" maxWidth="600.0" prefHeight="32.0" prefWidth="326.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Nom" GridPane.rowIndex="1" />
+            <TextField fx:id="id" disable="true" opacity="0.28" prefHeight="36.0" prefWidth="241.0" GridPane.columnIndex="1" />
+            <ComboBox fx:id="supervisor" prefHeight="34.0" prefWidth="241.0" promptText="Select supervisor" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <VBox GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <MenuButton fx:id="classe" mnemonicParsing="false" prefHeight="31.0" prefWidth="244.0" text="Select one or more class" />
+                  <HBox>
+                     <children>
+                        <ListView fx:id="listClasse" prefHeight="81.0" prefWidth="176.0" />
+                        <Button mnemonicParsing="false" onAction="#handleRemoveLevelClick" prefHeight="81.0" prefWidth="65.0" text="Remove" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Spinner fx:id="semester" prefHeight="34.0" prefWidth="241.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Spinner fx:id="coef" prefHeight="35.0" prefWidth="241.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+      <ButtonBar layoutX="68.0" layoutY="401.0" prefHeight="32.0" prefWidth="331.0" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="56.0">
+        <buttons>
+          <Button defaultButton="true" mnemonicParsing="false" onAction="#handleCreateSubjectClick" text="Ok">
+               <graphic>
+                  <Icons525View glyphName="CIRCLESELECT" size="15" />
+               </graphic></Button>
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#handleCancelClick" text="Cancel">
+               <graphic>
+                  <Icons525View glyphName="CIRCLEDELETE" size="15" />
+               </graphic></Button>
+            <Button mnemonicParsing="false" onAction="#handleClearFieldClick" prefHeight="29.0" prefWidth="102.0" text="Clear field">
+               <graphic>
+                  <OctIconView glyphName="LIST_UNORDERED" size="15" />
+               </graphic></Button>
+        </buttons>
+      </ButtonBar>
+      <Label layoutX="96.0" styleClass="label-headerDialogAdd" text="Add or update subject" />
+   </children>
+</AnchorPane>

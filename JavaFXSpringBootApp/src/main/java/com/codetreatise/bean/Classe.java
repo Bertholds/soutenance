@@ -1,6 +1,7 @@
 package com.codetreatise.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -24,7 +26,7 @@ public class Classe implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_classe;
-	private String nom;
+	private String name;
 	private String niveau;
 	private String titulaire;
 	private String chef;
@@ -37,6 +39,13 @@ public class Classe implements Serializable {
 	@OneToMany(mappedBy = "classe", fetch = FetchType.EAGER)
 	Collection<Etudiant> etudiant;
 
+	@ManyToMany(mappedBy = "classes")
+	private Collection<Matiere> matieres = new ArrayList<Matiere>();
+
+	public Classe() {
+		super();
+	}
+	
 	public Long getTotal() {
 		return total;
 	}
@@ -44,17 +53,21 @@ public class Classe implements Serializable {
 	public void setTotal(Long total) {
 		this.total = total;
 	}
+	
+	public Collection<Matiere> getMatieres() {
+		return matieres;
+	}
 
-	public Classe() {
-		super();
+	public void setMatieres(Collection<Matiere> matieres) {
+		this.matieres = matieres;
 	}
 
 	public String getNom() {
-		return nom;
+		return name;
 	}
 
 	public void setNom(String nom) {
-		this.nom = nom;
+		this.name = nom;
 	}
 
 	public String getNiveau() {

@@ -52,22 +52,53 @@ public class ModuleController implements Initializable {
 	}
 
 	@FXML
-	void handleClassClick(ActionEvent event) {
+	public void handleClassClick(ActionEvent event) {
 		stageManager.switchSceneShowPreviousStage(FxmlView.CLASSE);
 	}
 
 	@FXML
-	void handleStaffClick(ActionEvent event) {
-        stageManager.switchSceneShowPreviousStage(FxmlView.STAFF);
+	public void handleStaffClick(ActionEvent event) {
+		stageManager.switchSceneShowPreviousStage(FxmlView.STAFF);
 	}
 
 	@FXML
-	void handleSchoolFeesClick(ActionEvent event) {
-         stageManager.switchSceneShowPreviousStage(FxmlView.INSCRIPTION);
+	public void handleSchoolFeesClick(ActionEvent event) {
+		stageManager.switchSceneShowPreviousStage(FxmlView.INSCRIPTION);
+	}
+
+	@FXML
+	public void handleSubjectClick(ActionEvent event) {
+		stageManager.switchSceneShowPreviousStage(FxmlView.SUBJECT);
+	}
+
+	@FXML
+	public void handlePointingClick(ActionEvent event) {
+		stageManager.switchSceneShowPreviousStage(FxmlView.POINTING);
+	}
+
+	@FXML
+	private void handleSettingClick(ActionEvent event) {
+		stageManager.switchSceneShowPreviousStage(FxmlView.SETTING);
 	}
 	
 	@FXML
-	void handleSubjectClick(ActionEvent event) {
-         stageManager.switchSceneShowPreviousStage(FxmlView.SUBJECT);
+	private void handleStudentAbscenceClick(ActionEvent event) {
+		stageManager.switchSceneShowPreviousStage(FxmlView.ABSCENCE);
 	}
+	
+	@FXML
+	private void handlePermissionClick(ActionEvent event) {
+		stageManager.switchSceneShowPreviousStage(FxmlView.PERMISSION);
+	}
+	
+	@FXML
+	private void handleCourierClick(ActionEvent event) {
+		stageManager.switchSceneShowPreviousStage(FxmlView.COURIER);
+	}
+	
+	@FXML
+	private void handleUserClick(ActionEvent event) {
+		stageManager.switchSceneShowPreviousStage(FxmlView.USER);
+	}
+
 }

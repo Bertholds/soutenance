@@ -1,6 +1,8 @@
 package com.codetreatise.controller;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -18,6 +20,8 @@ import com.codetreatise.service.MethodUtilitaire;
 import com.codetreatise.service.impl.InscriptionServiceImpl;
 import com.codetreatise.view.FxmlView;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -40,6 +44,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -47,6 +52,16 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 @Controller
 public class InscriptionController implements Initializable {
@@ -61,7 +76,7 @@ public class InscriptionController implements Initializable {
 	private TableColumn<Inscription, Long> id_inscription;
 
 	@FXML
-	private TableColumn<Inscription, Long> id_students;
+	private TableColumn<Inscription, String> id_students;
 
 	@FXML
 	private TableColumn<Inscription, String> nom;
@@ -170,6 +185,9 @@ public class InscriptionController implements Initializable {
 	@Autowired
 	private InscriptionServiceImpl inscriptionServiceImpl;
 
+	@Autowired
+	private MethodUtilitaire methodUtilitaire;
+
 	// Value factory.
 	SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10000, 0);
 	private ObservableList<Inscription> inscriptionList = FXCollections.observableArrayList();
@@ -183,7 +201,8 @@ public class InscriptionController implements Initializable {
 
 	@FXML
 	void handleCloseClick(ActionEvent event) {
-		if (MethodUtilitaire.confirmationDialog(null,"Close a current windows", "Close windows", "do you want to close this windows ?")) {
+		if (MethodUtilitaire.confirmationDialog(null, "Close a current windows", "Close windows",
+				"do you want to close this windows ?")) {
 			System.out.println(",,,,,,,,,,,,,,");
 			new EventHandler<ActionEvent>() {
 
@@ -200,13 +219,13 @@ public class InscriptionController implements Initializable {
 	}
 
 	@FXML
-	void handleEditClick(ActionEvent event) {
+	void handleEditClick(ActionEvent event) throws IOException, Exception {
 		Inscription inscription = inscriptionTab.getSelectionModel().getSelectedItem();
 		if (inscription != null) {
 			if (isEditClick == false) {
 				this.isEditClick = true;
 				id.setText(inscription.getId_inscription().toString());
-				id_student.getEditor().setText(inscription.getId_etudiant().toString());
+				id_student.getEditor().setText(inscription.getEtudiant().getId().toString());
 				tranche1.setText(String.valueOf(inscription.getTranche1()));
 				tranche2.setText(String.valueOf(inscription.getTranche2()));
 				tranche3.setText(String.valueOf(inscription.getTranche3()));
@@ -219,13 +238,13 @@ public class InscriptionController implements Initializable {
 
 				if (MethodUtilitaire.confirmationDialog(inscription, "Confirm to edit a register", "Edit a register",
 						"do you want to edit register number " + inscription.getId_inscription()
-								+ " concerning a student " + inscription.getNom() + " " + inscription.getPrenom()
+								+ " concerning a student " + inscription.getEtudiant().getNom() + " " + inscription.getEtudiant().getPrenom()
 								+ " ?")) {
 					inscription.setEtudiant(getEtudiant());
-					inscription.setId_etudiant(getEtudiant().getId());
-					inscription.setNom(getEtudiant().getNom());
-					inscription.setPrenom(getEtudiant().getPrenom());
-					inscription.setClasse(getEtudiant().getClasse().getNom());
+//					inscription.setId_etudiant(getEtudiant().getId());
+//					inscription.setNom(getEtudiant().getNom());
+//					inscription.setPrenom(getEtudiant().getPrenom());
+//					inscription.setClasse(getEtudiant().getClasse().getNom());
 					inscription.setTranche1(getT1());
 					inscription.setTranche2(getT2());
 					inscription.setTranche3(getT3());
@@ -262,6 +281,10 @@ public class InscriptionController implements Initializable {
 					setTotalTranche();
 					setTotalMontant();
 					barcharOperation();
+					methodUtilitaire.LogFile(
+							"Operation de modification de l'inscription", "id: " + inscription.getId_inscription() + " "
+									+ inscription.getEtudiant().getNom() + " " + inscription.getEtudiant().getPrenom(),
+							MethodUtilitaire.deserializationUser());
 				} else {
 					isEditClick = false;
 					edit.setText("Edit");
@@ -281,7 +304,8 @@ public class InscriptionController implements Initializable {
 				}
 			}
 		} else {
-			MethodUtilitaire.deleteNoPersonSelectedAlert("No Selection", "No Register Selected", "Please select a Register in the table.");
+			MethodUtilitaire.deleteNoPersonSelectedAlert("No Selection", "No Register Selected",
+					"Please select a Register in the table.");
 		}
 	}
 
@@ -303,10 +327,10 @@ public class InscriptionController implements Initializable {
 					"do you want to create this register ? ")) {
 				try {
 					inscription.setEtudiant(getEtudiant());
-					inscription.setId_etudiant(getEtudiant().getId());
-					inscription.setNom(getEtudiant().getNom());
-					inscription.setPrenom(getEtudiant().getPrenom());
-					inscription.setClasse(getEtudiant().getClasse().getNom());
+//					inscription.setId_etudiant(getEtudiant().getId());
+//					inscription.setNom(getEtudiant().getNom());
+//					inscription.setPrenom(getEtudiant().getPrenom());
+//					inscription.setClasse(getEtudiant().getClasse().getNom());
 					inscription.setTranche1(getT1());
 					inscription.setTranche2(getT2());
 					inscription.setTranche3(getT3());
@@ -363,8 +387,9 @@ public class InscriptionController implements Initializable {
 		int selectedIndex = inscriptionTab.getSelectionModel().getSelectedIndex();
 		Inscription inscription = inscriptionTab.getSelectionModel().getSelectedItem();
 		if (selectedIndex >= 0) {
-			if (MethodUtilitaire.confirmationDialog(null, "Delete a register", "Delete a register ? ", "Delele register number " + inscription.getId_inscription()
-					+ " concerning " + inscription.getNom() + " " + inscription.getPrenom())==true) {
+			if (MethodUtilitaire.confirmationDialog(null, "Delete a register", "Delete a register ? ",
+					"Delele register number " + inscription.getId_inscription() + " concerning " + inscription.getEtudiant().getNom()
+							+ " " + inscription.getEtudiant().getPrenom()) == true) {
 				inscriptionTab.getItems().remove(selectedIndex);
 				inscriptionRepository.delete(inscription.getId_inscription());
 				loadDataOntable();
@@ -373,13 +398,36 @@ public class InscriptionController implements Initializable {
 				barcharOperation();
 			}
 		} else {
-			MethodUtilitaire.deleteNoPersonSelectedAlert("Any selection", "no register selected", "Please select a register in the table.");
+			MethodUtilitaire.deleteNoPersonSelectedAlert("Any selection", "no register selected",
+					"Please select a register in the table.");
 		}
 	}
 
 	@FXML
 	void handleRefreshClick(ActionEvent event) {
 		loadDataOntable();
+	}
+
+	@FXML
+	void handlePrintListClick(ActionEvent event)   {
+		try {
+			System.setProperty("java.awt.headless", "false");
+			JasperDesign jasperDesign = JRXmlLoader.load("C:\\wamp\\listInscrit.jrxml");
+			String sql = "SELECT i.id_inscription, i.tranche1, i.tranche2, i.tranche3, i.tranche4, e.nom, e.prenom, c.name, i.total\r\n" + 
+					"FROM etudiant e, inscription i, classe c where e.id=i.etudiant_id and e.id_classe=c.id_classe and c.name='"+recherche.getText()+"'";
+			JRDesignQuery designQuery = new JRDesignQuery();
+			designQuery.setText(sql);
+			jasperDesign.setQuery(designQuery);
+			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+			JasperPrint print = JasperFillManager.fillReport(jasperReport, null, MethodUtilitaire.dbConnect());
+			JasperViewer jrviewer = new JasperViewer(print, false);
+			//JasperViewer.viewReport(print);
+			jrviewer.setVisible(true);
+			jrviewer.toFront();
+		} catch (SQLException | JRException | ClassNotFoundException e) {
+			e.printStackTrace();
+			MethodUtilitaire.errorMessageAlert("Failed to print", "Failed to print !", e.getMessage());
+		}
 	}
 
 	@SuppressWarnings("unlikely-arg-type")
@@ -395,13 +443,13 @@ public class InscriptionController implements Initializable {
 					}
 					String newValueFilter = newValue.toLowerCase();
 
-					if (inscription.getClasse().toLowerCase().contains(newValueFilter)) {
+					if (inscription.getEtudiant().getClasse().getNom().toLowerCase().contains(newValueFilter)) {
 						return true;
-					} else if (inscription.getNom().toLowerCase().contains(newValueFilter)) {
+					} else if (inscription.getEtudiant().getNom().toLowerCase().contains(newValueFilter)) {
 						return true;
-					} else if (inscription.getPrenom().toLowerCase().contains(newValueFilter)) {
+					} else if (inscription.getEtudiant().getPrenom().toLowerCase().contains(newValueFilter)) {
 						return true;
-					} else if (inscription.getId_etudiant().equals(newValueFilter)) {
+					} else if (inscription.getEtudiant().getId().toString().contains(newValueFilter)) {
 						return true;
 					}
 					return false;
@@ -467,10 +515,34 @@ public class InscriptionController implements Initializable {
 
 	private void setColumProperties() {
 		id_inscription.setCellValueFactory(new PropertyValueFactory<>("id_inscription"));
-		id_students.setCellValueFactory(new PropertyValueFactory<>("id_etudiant"));
-		nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
-		prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
-		classe.setCellValueFactory(new PropertyValueFactory<>("classe"));
+		id_students.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Inscription,String>, ObservableValue<String>>() {
+			
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Inscription, String> param) {
+				return new SimpleStringProperty(param.getValue().getEtudiant().getId().toString());
+			}
+		});
+		nom.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Inscription,String>, ObservableValue<String>>() {
+			
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Inscription, String> param) {
+				return new SimpleStringProperty(param.getValue().getEtudiant().getNom());
+			}
+		});
+		prenom.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Inscription,String>, ObservableValue<String>>() {
+			
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Inscription, String> param) {
+				return new SimpleStringProperty(param.getValue().getEtudiant().getPrenom());
+			}
+		});
+		classe.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Inscription,String>, ObservableValue<String>>() {
+			
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Inscription, String> param) {
+				return new SimpleStringProperty(param.getValue().getEtudiant().getClasse().getNom());
+			}
+		});
 		tranche1c.setCellValueFactory(new PropertyValueFactory<>("tranche1"));
 		tranche2c.setCellValueFactory(new PropertyValueFactory<>("tranche2"));
 		tranche3c.setCellValueFactory(new PropertyValueFactory<>("tranche3"));

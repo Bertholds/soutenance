@@ -56,6 +56,7 @@
                       <TableColumn fx:id="id_students" prefWidth="75.0" text="Id student" />
                         <TableColumn fx:id="nom" prefWidth="75.0" text="Name" />
                         <TableColumn fx:id="prenom" prefWidth="75.0" text="Surname" />
+                        <TableColumn fx:id="classeC" prefWidth="75.0" text="Classe" />
                         <TableColumn fx:id="niveau" prefWidth="75.0" text="niveau" />
                         <TableColumn fx:id="montant" prefWidth="75.0" text="Montant" />
                         <TableColumn fx:id="date" prefWidth="75.0" text="Date" />

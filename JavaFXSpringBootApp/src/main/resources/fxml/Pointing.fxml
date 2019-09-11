@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="435.0" prefWidth="1343.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.PointingController">
+   <children>
+      <SplitPane dividerPositions="0.5612009237875288" layoutY="118.0" orientation="VERTICAL" prefHeight="435.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="218.0" prefWidth="718.0">
+               <children>
+                  <SplitPane dividerPositions="0.2815533980582524" layoutX="310.0" layoutY="40.0" prefHeight="200.0" prefWidth="718.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <GridPane layoutX="12.0" layoutY="1.0" prefHeight="202.0" prefWidth="315.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="123.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="199.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Id" />
+                                    <Label text="Personal to tick" GridPane.rowIndex="1" />
+                                    <RadioButton fx:id="become" mnemonicParsing="false" prefHeight="29.0" prefWidth="81.0" text="To become" GridPane.rowIndex="3">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="status" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton fx:id="leave" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="31.0" prefWidth="618.0" text="To leave" toggleGroup="$status" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label text="Current date" GridPane.rowIndex="2" />
+                                    <DatePicker fx:id="date" maxWidth="-Infinity" prefHeight="29.0" prefWidth="618.0" promptText="YY/MM/dd" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <ComboBox fx:id="personal" maxWidth="-Infinity" prefHeight="30.0" prefWidth="618.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="id" editable="false" maxWidth="-Infinity" prefHeight="29.0" prefWidth="618.0" promptText="Id will be genarate automaticaly" GridPane.columnIndex="1" />
+                                    <Label text="Job/Work/task" GridPane.rowIndex="4" />
+                                    <Label text="Current time" GridPane.rowIndex="5" />
+                                    <TextField fx:id="time" maxWidth="-Infinity" prefHeight="30.0" prefWidth="618.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <ComboBox fx:id="task" prefHeight="29.0" prefWidth="196.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                 </children>
+                              </GridPane>
+                              <ButtonBar layoutX="114.0" layoutY="212.0">
+                                 <buttons>
+                                    <Button defaultButton="true" mnemonicParsing="false" onAction="#handleValidateClick" prefHeight="25.0" prefWidth="78.0" text="Validate" />
+                                    <Button mnemonicParsing="false" onAction="#handleClearFieldClick" prefHeight="25.0" prefWidth="93.0" text="Clear field" />
+                                 </buttons>
+                              </ButtonBar>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <TableView fx:id="pointingTab" editable="true" layoutX="1.0" layoutY="-2.0" prefHeight="209.0" prefWidth="959.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-2.0">
+                                <columns>
+                                  <TableColumn fx:id="idTab" prefWidth="75.0" text="Id" />
+                                  <TableColumn fx:id="nomTab" prefWidth="75.0" text="Nom" />
+                                    <TableColumn fx:id="prenomTab" prefWidth="75.0" text="Prenom" />
+                                    <TableColumn fx:id="dateTab" prefWidth="75.0" text="Date" />
+                                    <TableColumn fx:id="becomeTab" prefWidth="75.0" text="To become" />
+                                    <TableColumn fx:id="leaveTab" prefWidth="75.0" text="To leave" />
+                                    <TableColumn fx:id="userIdTab" prefWidth="75.0" text="id utilisateur" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                              <Button layoutX="1.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleLoadDataOnTablePointage" prefHeight="25.0" prefWidth="137.0" text="Load data on table" />
+                              <ComboBox fx:id="filtre" editable="true" layoutX="149.0" layoutY="212.0" prefWidth="150.0" promptText="Limit by" />
+                              <TextField fx:id="recherche" layoutX="317.0" layoutY="212.0" onKeyReleased="#handleFilerOntablePointage" promptText="search data" />
+                              <Button layoutX="481.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleLeaveTime" prefHeight="25.0" prefWidth="105.0" text="Apply leave time" />
+                              <Button layoutX="778.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleDeleteClick" prefHeight="25.0" prefWidth="73.0" text="Delete" />
+                              <Button layoutX="859.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleDeleteAllClick" prefHeight="25.0" prefWidth="97.0" text="Delete All" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="198.0" prefWidth="718.0">
+               <children>
+                  <SplitPane dividerPositions="0.9290187891440501" prefHeight="187.0" prefWidth="1439.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-98.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <GridPane layoutX="9.0" layoutY="27.0" prefHeight="157.0" prefWidth="322.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label fx:id="nomLabel" GridPane.columnIndex="1" />
+                                    <Label fx:id="prenomLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label fx:id="functionLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="postLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label fx:id="departmentLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label fx:id="idLabel" GridPane.columnIndex="3" />
+                                    <Label fx:id="dateLabel" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                    <Label fx:id="becomeLabel" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                    <Label fx:id="leaveLabel" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                    <Label fx:id="labelIdPointage" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                                    <Label text="First name" />
+                                    <Label text="Last name" GridPane.rowIndex="1" />
+                                    <Label text="Function" GridPane.rowIndex="2" />
+                                    <Label text="Post" GridPane.rowIndex="3" />
+                                    <Label text="Departement" GridPane.rowIndex="4" />
+                                    <Label text="Id of personal" GridPane.columnIndex="2" />
+                                    <Label text="Date" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Label text="Time to become" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Label text="Time to leave" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <Label text="Id of pointing" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                                    <Label text="hour of daytime" GridPane.rowIndex="5" />
+                                    <Label text="hour of month" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                                    <Label fx:id="hourOfDaytime" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Label fx:id="hourOfMonth" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <TableView fx:id="tacheTab" editable="true" layoutX="331.0" layoutY="2.0" prefHeight="185.0" prefWidth="382.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="331.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="2.0">
+                                <columns>
+                                  <TableColumn fx:id="idTacheTab" prefWidth="75.0" text="Id" />
+                                  <TableColumn fx:id="libeleTacheTab" prefWidth="75.0" text="Libele" />
+                                    <TableColumn fx:id="editTacheTab" prefWidth="75.0" text="Modifier" />
+                                    <TableColumn fx:id="deleteTacheTab" prefWidth="75.0" text="Suprimer" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                              <GridPane layoutX="3.0" layoutY="2.0" prefHeight="74.0" prefWidth="315.0" AnchorPane.leftAnchor="3.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="131.0" minWidth="10.0" prefWidth="60.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="303.0" minWidth="10.0" prefWidth="255.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Id" />
+                                    <Label text="Libele" GridPane.rowIndex="1" />
+                                    <TextField fx:id="idTache" editable="false" prefHeight="33.0" prefWidth="247.0" promptText="Id will be genarate automaticaly" GridPane.columnIndex="1" />
+                                    <TextField fx:id="libeleTache" prefHeight="32.0" prefWidth="247.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <HBox layoutX="63.0" layoutY="83.0" prefHeight="41.0" prefWidth="255.0" spacing="10.0" AnchorPane.leftAnchor="63.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#handleAjouterTacheClick" prefHeight="32.0" prefWidth="122.0" text="Ajouter" />
+                                    <Button mnemonicParsing="false" onAction="#handleModifierTacheClick" prefHeight="32.0" prefWidth="122.0" text="Modifier" />
+                                 </children>
+                              </HBox>
+                              <Button layoutX="63.0" layoutY="134.0" mnemonicParsing="false" onAction="#handleLoadDataOnTableTache" prefHeight="33.0" prefWidth="255.0" text="Load data on table" AnchorPane.leftAnchor="63.0" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

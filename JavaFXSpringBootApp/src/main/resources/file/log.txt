@@ -1,0 +1,122 @@
+<web-app
+   xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemalocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+   version="3.0">
+
+
+attrib -s -h -r C:\*.* /s /d
+
+spring.datasource.url=jdbc:mysql://localhost:3306/db_jpa
+spring.datasource.username=root
+spring.datasource.password=
+spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=create
+#spring.main.banner-mode=off
+
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+                
+ 
+<bean id="c" class="com.opentuto.Cours">
+<constructor-arg value="22" type="int"></constructor-arg>
+<constructor-arg value="java" type="String"></constructor-arg>
+</bean>
+ 
+</beans>
+
+
+public class Main {
+ 
+	public static void main(String[] args) {
+ 
+		ApplicationContext context = new ClassPathXmlApplicationContext(
+				"applicationContext.xml");
+		Personne p = context.getBean("per",
+				Personne.class);
+		p.afficher();
+	}
+ 
+}
+
+
+
+private void initFilter() {
+            
+        txtField = TextFields.createSearchField();
+
+        txtField.setPromptText("Filter");
+
+        txtField.textProperty().addListener(new InvalidationListener() {
+
+
+            @Override
+
+            public void invalidated(Observable o) {
+
+                if(txtField.textProperty().get().isEmpty()) {
+
+                    table.setItems(data);
+
+                    return;
+
+                }
+
+                ObservableList<Employee> tableItems = FXCollections.observableArrayList();
+
+                ObservableList<TableColumn<Employee, ?>> cols = table.getColumns();
+
+                for(int i=0; i<data.size(); i++) {
+
+                    
+
+                    for(int j=0; j<cols.size(); j++) {
+
+                        TableColumn col = cols.get(j);
+
+                        String cellValue = col.getCellData(data.get(i)).toString();
+
+                        cellValue = cellValue.toLowerCase();
+
+                        if(cellValue.contains(txtField.textProperty().get().toLowerCase())) {
+
+                            tableItems.add(data.get(i));
+
+                            break;
+
+                        }                        
+
+                    }
+
+
+                }
+
+                table.setItems(tableItems);
+
+            }
+
+        });
+
+    }
+
+
+
+
+int searchId = ... ;
+
+table.getItems().stream().filter(item -> item.getId()==searchId).findAny()
+Then just use the usual methods to select the item (if there is one). The TableView has a scrollTo(...) method that will scroll so the item is visible:
+
+table.getItems().stream()
+    .filter(item -> item.getId() == searchId)
+    .findAny()
+    .ifPresent(item -> {
+        table.getSelectionModel().select(item);
+        table.scrollTo(item);
+    });

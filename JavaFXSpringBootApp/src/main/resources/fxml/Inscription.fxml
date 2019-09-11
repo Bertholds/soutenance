@@ -115,7 +115,7 @@
                       <NumberAxis fx:id="yAxis" side="LEFT" />
                     </yAxis>
                   </BarChart>
-                  <Button layoutX="20.0" layoutY="338.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="134.0" text="Imprimer cette liste" AnchorPane.bottomAnchor="279.0" AnchorPane.leftAnchor="20.0" />
+                  <Button layoutX="20.0" layoutY="338.0" mnemonicParsing="false" onAction="#handlePrintListClick" prefHeight="31.0" prefWidth="134.0" text="Imprimer cette liste" AnchorPane.bottomAnchor="279.0" AnchorPane.leftAnchor="20.0" />
                   <Button layoutX="160.0" layoutY="338.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="173.0" text="Imprimer le recu" AnchorPane.bottomAnchor="279.0" />
                   <TextField fx:id="recherche" layoutX="342.0" layoutY="338.0" onKeyReleased="#filteredTable" prefHeight="31.0" prefWidth="210.0" promptText="Search" AnchorPane.bottomAnchor="279.0" />
                   <FontAwesomeIconView glyphName="SEARCH" layoutX="526.0" layoutY="360.0" size="19" AnchorPane.bottomAnchor="285.2857151031494" />

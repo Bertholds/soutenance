@@ -95,8 +95,8 @@ public class StaffController implements Initializable {
 	private Label fonction;
 
 	@FXML
-	private TableView<Poste>posteTab;
-	
+	private TableView<Poste> posteTab;
+
 	@FXML
 	private TableColumn<Poste, Long> id2;
 
@@ -105,7 +105,7 @@ public class StaffController implements Initializable {
 
 	@FXML
 	private TableColumn<Poste, Departement> departement;
-	
+
 	@FXML
 	private TableColumn<Poste, Boolean> modifier;
 
@@ -162,10 +162,10 @@ public class StaffController implements Initializable {
 
 	@Autowired
 	private PosteRepository posteRepository;
-	
+
 	@Autowired
 	private DepartementServiceImpl departementServiceImpl;
-	
+
 	@Autowired
 	private PosteServiceImpl posteServiceImpl;
 
@@ -214,7 +214,7 @@ public class StaffController implements Initializable {
 			List<Poste> postes = personel.getPostes();
 			String str = "";
 			for (int i = 0; i < postes.size(); i++) {
-				
+
 				str += postes.get(i).toString() + " -- ";
 			}
 			List<Departement> departements = personel.getDepartements();
@@ -280,7 +280,7 @@ public class StaffController implements Initializable {
 			clearFieldPoste();
 			loadPosteDetail();
 		}
-		
+
 	}
 
 	@FXML
@@ -346,7 +346,7 @@ public class StaffController implements Initializable {
 		alert.setContentText("Department number " + departement.getId_departement() + " has been update successful!");
 		alert.showAndWait();
 	}
-	
+
 	private void updatePoste(Poste poste) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Updating post");
@@ -357,43 +357,47 @@ public class StaffController implements Initializable {
 
 	@FXML
 	private void handleEditDepartmentClick(ActionEvent event) {
-		Departement newDepartement = null;
-		Departement departement = departementTab.getSelectionModel().getSelectedItem();
-		try {
-			departement.setLibele(getNomDepartement());
-			departement.setChef(getChefDepartement());
-			departement.setTotalPoste(departement.getPostes().size());
-			newDepartement = departementServiceImpl.update(departement);
-			 updateDepartement(newDepartement);
-			 clearFieldDepartement();
-			 loadDepartementDetail();
-		} catch (Exception e) {
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("Updating department failed");
-			alert.setHeaderText("failed to update department");
-			alert.setContentText("Any row selected! please select department only");
-			alert.showAndWait();
+		if (isInputValidDepartement()) {
+			Departement newDepartement = null;
+			Departement departement = departementTab.getSelectionModel().getSelectedItem();
+			try {
+				departement.setLibele(getNomDepartement());
+				departement.setChef(getChefDepartement());
+				departement.setTotalPoste(departement.getPostes().size());
+				newDepartement = departementServiceImpl.update(departement);
+				updateDepartement(newDepartement);
+				clearFieldDepartement();
+				loadDepartementDetail();
+			} catch (Exception e) {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("Updating department failed");
+				alert.setHeaderText("failed to update department");
+				alert.setContentText("Any row selected! please select department only");
+				alert.showAndWait();
+			}
 		}
 	}
 
 	@FXML
 	private void handleEditPostClick(ActionEvent event) {
-		Poste newPoste = null;
-		Poste poste = posteTab.getSelectionModel().getSelectedItem();
-		try {
-			poste.setLibele(getLibelePoste());
-			poste.setDepartement(getDepartement());
-			newPoste = posteServiceImpl.update(poste);
-			 updatePoste(newPoste);
-			 clearFieldPoste();
-			 loadPosteDetail();
-		} catch (Exception e) {
-			e.printStackTrace();
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("Updating post failed");
-			alert.setHeaderText("failed to update post");
-			alert.setContentText("Any row selected! please select department firstly");
-			alert.showAndWait();
+		if (isInputValidPoste()) {
+			Poste newPoste = null;
+			Poste poste = posteTab.getSelectionModel().getSelectedItem();
+			try {
+				poste.setLibele(getLibelePoste());
+				poste.setDepartement(getDepartement());
+				newPoste = posteServiceImpl.update(poste);
+				updatePoste(newPoste);
+				clearFieldPoste();
+				loadPosteDetail();
+			} catch (Exception e) {
+				e.printStackTrace();
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("Updating post failed");
+				alert.setHeaderText("failed to update post");
+				alert.setContentText("Any row selected! please select department firstly");
+				alert.showAndWait();
+			}
 		}
 	}
 
@@ -447,10 +451,10 @@ public class StaffController implements Initializable {
 		ArrayList<Departement> list = departementRepository.loadAllDepartement();
 		filtrage.clear();
 		filtrage.add("All staff");
-		 filtrage.addAll(list); 
+		filtrage.addAll(list);
 		// setFiltreDepartement();
 		filtre.setItems(filtrage);
-	} 
+	}
 
 	private void setFiltreDepartement() {
 		ArrayList<Departement> list = departementRepository.loadAllDepartement();
@@ -471,7 +475,7 @@ public class StaffController implements Initializable {
 		total_post.setCellValueFactory(new PropertyValueFactory<>("totalPoste"));
 		modified.setCellFactory(cellFactory);
 	}
-	
+
 	private void setColumPosteProperties() {
 		libele_post.setCellValueFactory(new PropertyValueFactory<>("libele"));
 		departement.setCellValueFactory(new PropertyValueFactory<>("departement"));
@@ -506,12 +510,12 @@ public class StaffController implements Initializable {
 			departementTab.setItems(filtrageDepartementForTable);
 		}
 	}
-	
+
 	@FXML
 	private void loadPosteDetail() {
 		filtragePoste.clear();
 		filtragePoste.addAll(posteRepository.findAll());
-			posteTab.setItems(filtragePoste);
+		posteTab.setItems(filtragePoste);
 	}
 
 	public void loadStaffDetailWhenCreate() {
@@ -528,21 +532,21 @@ public class StaffController implements Initializable {
 	private String getChefDepartement() {
 		return chef_departement.getText();
 	}
-	
+
 	private String getLibelePoste() {
 		return libele_poste.getText();
 	}
-	
+
 	private Object setValueDepartement(Poste poste) {
-           return poste.getDepartement(); 
+		return poste.getDepartement();
 	}
-	
+
 	private String getValueDepartement() {
 		return (String) service.getSelectionModel().getSelectedItem();
 	}
-	
+
 	private Departement getDepartement() {
-		String d =  (String) service.getValue();
+		String d = (String) service.getValue();
 		Departement d1 = departementRepository.findByLibele(d);
 		return d1;
 	}
@@ -571,7 +575,7 @@ public class StaffController implements Initializable {
 			return false;
 		}
 	}
-	
+
 	private boolean isInputValidPoste() {
 		String errorMessage = "";
 
@@ -605,22 +609,23 @@ public class StaffController implements Initializable {
 				+ departement.getLibele() + " has been create successful!");
 		alert.showAndWait();
 	}
-	
+
 	private void alertCreatePoste(Poste poste) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Poste has been create successful");
 		alert.setHeaderText("Creation of Poste successful");
-		alert.setContentText("Poste number " + poste.getId_poste() + " whith name "
-				+ poste.getLibele() + " has been create successful!");
+		alert.setContentText("Poste number " + poste.getId_poste() + " whith name " + poste.getLibele()
+				+ " has been create successful!");
 		alert.showAndWait();
 	}
+
 	@FXML
-	private void clearFieldPoste(){
+	private void clearFieldPoste() {
 		id_poste.clear();
 		libele_poste.clear();
 		service.setValue(null);
 	}
-	
+
 	@FXML
 	private void clearFieldDepartement() {
 		id_departement.clear();
@@ -628,45 +633,39 @@ public class StaffController implements Initializable {
 		chef_departement.clear();
 	}
 
-	Callback<TableColumn<Departement, Boolean>, TableCell<Departement, Boolean>> cellFactory = 
-			new Callback<TableColumn<Departement, Boolean>, TableCell<Departement, Boolean>>()
-	{
+	Callback<TableColumn<Departement, Boolean>, TableCell<Departement, Boolean>> cellFactory = new Callback<TableColumn<Departement, Boolean>, TableCell<Departement, Boolean>>() {
 		@Override
-		public TableCell<Departement, Boolean> call( final TableColumn<Departement, Boolean> param)
-		{
-			final TableCell<Departement, Boolean> cell = new TableCell<Departement, Boolean>()
-			{
+		public TableCell<Departement, Boolean> call(final TableColumn<Departement, Boolean> param) {
+			final TableCell<Departement, Boolean> cell = new TableCell<Departement, Boolean>() {
 				Image imgEdit = new Image(getClass().getResourceAsStream("/images/edit.png"));
 				final Button btnEdit = new Button();
-				
+
 				@Override
-				public void updateItem(Boolean check, boolean empty)
-				{
+				public void updateItem(Boolean check, boolean empty) {
 					super.updateItem(check, empty);
-					if(empty)
-					{
+					if (empty) {
 						setGraphic(null);
 						setText(null);
-					}
-					else{
-						btnEdit.setOnAction(e ->{
+					} else {
+						btnEdit.setOnAction(e -> {
 							Departement departement = getTableView().getItems().get(getIndex());
 							updateUser(departement);
 						});
-						
+
 						btnEdit.setStyle("-fx-background-color: transparent;");
 						ImageView iv = new ImageView();
-				        iv.setImage(imgEdit);
-				        iv.setPreserveRatio(true);
-				        iv.setSmooth(true);
-				        iv.setCache(true);
+						iv.setImage(imgEdit);
+						iv.setPreserveRatio(true);
+						iv.setSmooth(true);
+						iv.setCache(true);
 						btnEdit.setGraphic(iv);
-						
+
 						setGraphic(btnEdit);
 						setAlignment(Pos.CENTER);
 						setText(null);
 					}
 				}
+
 				private void updateUser(Departement departement) {
 					nom_departement.setText(departement.getLibele());
 					chef_departement.setText(departement.getChef());
@@ -676,46 +675,40 @@ public class StaffController implements Initializable {
 			return cell;
 		}
 	};
-	
-	Callback<TableColumn<Poste, Boolean>, TableCell<Poste, Boolean>> cellFactory2 = 
-			new Callback<TableColumn<Poste, Boolean>, TableCell<Poste, Boolean>>()
-	{
+
+	Callback<TableColumn<Poste, Boolean>, TableCell<Poste, Boolean>> cellFactory2 = new Callback<TableColumn<Poste, Boolean>, TableCell<Poste, Boolean>>() {
 		@Override
-		public TableCell<Poste, Boolean> call( final TableColumn<Poste, Boolean> param)
-		{
-			final TableCell<Poste, Boolean> cell = new TableCell<Poste, Boolean>()
-			{
+		public TableCell<Poste, Boolean> call(final TableColumn<Poste, Boolean> param) {
+			final TableCell<Poste, Boolean> cell = new TableCell<Poste, Boolean>() {
 				Image imgEdit = new Image(getClass().getResourceAsStream("/images/edit.png"));
 				final Button btnEdit = new Button();
-				
+
 				@Override
-				public void updateItem(Boolean check, boolean empty)
-				{
+				public void updateItem(Boolean check, boolean empty) {
 					super.updateItem(check, empty);
-					if(empty)
-					{
+					if (empty) {
 						setGraphic(null);
 						setText(null);
-					}
-					else{
-						btnEdit.setOnAction(e ->{
+					} else {
+						btnEdit.setOnAction(e -> {
 							Poste poste = getTableView().getItems().get(getIndex());
 							updateUser(poste);
 						});
-						
+
 						btnEdit.setStyle("-fx-background-color: transparent;");
 						ImageView iv = new ImageView();
-				        iv.setImage(imgEdit);
-				        iv.setPreserveRatio(true);
-				        iv.setSmooth(true);
-				        iv.setCache(true);
+						iv.setImage(imgEdit);
+						iv.setPreserveRatio(true);
+						iv.setSmooth(true);
+						iv.setCache(true);
 						btnEdit.setGraphic(iv);
-						
+
 						setGraphic(btnEdit);
 						setAlignment(Pos.CENTER);
 						setText(null);
 					}
 				}
+
 				private void updateUser(Poste poste) {
 					libele_poste.setText(poste.getLibele());
 					service.setValue(setValueDepartement(poste));

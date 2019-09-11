@@ -10,12 +10,12 @@ import org.springframework.stereotype.Controller;
 import com.codetreatise.bean.Classe;
 import com.codetreatise.bean.Personel;
 import com.codetreatise.repository.ClasseRepository;
+import com.codetreatise.service.MethodUtilitaire;
 import com.codetreatise.service.impl.ClasseServiceImpl;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -67,20 +67,12 @@ public class ClasseEditDialogController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		ArrayList<Personel> list = classeRepository.loadLeader();
 		classeList.clear();
-		for(int i=0; i<list.size(); i++) {
+		for (int i = 0; i < list.size(); i++) {
 			Personel personel = list.get(i);
 			classeList.add(personel.toString());
-			 leader.setItems(classeList);
+			leader.setItems(classeList);
 		}
 	}
-
-	EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-		public void handle(ActionEvent e) {
-
-			// show the dialog
-			// d.show();
-		}
-	};
 
 	@FXML
 	public Classe handleCreateSClassClick(ActionEvent event) {
@@ -96,8 +88,10 @@ public class ClasseEditDialogController implements Initializable {
 				classe.setDelegue2(getDelegue2());
 				classe.setTitulaire(getLeader());
 				classe.setNom(getNom());
+				//classe.setMatieres();
 				newClasse = classeServiceImpl.update(classe);
-				updateAlert(newClasse);
+				MethodUtilitaire.saveAlert(newClasse, "Class updated successfully.", "The Class " + newClasse.getNom() + " of "
+						+ newClasse.getNiveau() + " has been updated  whith leader \n" + newClasse.getTitulaire() + ".");
 				clearFields();
 				classeController.loadClasseDetailWhenCreateUpdate();
 				classeController.SetIsEditButtonClick(false);
@@ -163,7 +157,7 @@ public class ClasseEditDialogController implements Initializable {
 	}
 
 	private String getLeader() {
-		return  leader.getSelectionModel().getSelectedItem().toString();
+		return leader.getSelectionModel().getSelectedItem().toString();
 	}
 
 	private boolean isInputValid() {
@@ -198,15 +192,7 @@ public class ClasseEditDialogController implements Initializable {
 		if (errorMessage.length() == 0) {
 			return true;
 		} else {
-			// Show the error message.
-			Alert alert = new Alert(AlertType.ERROR);
-			// alert.initOwner( dialogStage );
-			alert.setTitle("Invalid Fields");
-			alert.setHeaderText("Please correct invalid fields");
-			alert.setContentText(errorMessage);
-
-			alert.showAndWait();
-
+			MethodUtilitaire.errorMessageAlert("Invalid Fields", "Please correct invalid fields", errorMessage);
 			return false;
 		}
 	}
@@ -243,16 +229,6 @@ public class ClasseEditDialogController implements Initializable {
 
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Class saved successfully.");
-		alert.setHeaderText(null);
-		alert.setContentText("The Class " + classe.getNom() + " of " + classe.getNiveau()
-				+ " has been created and whith leader \n" + classe.getTitulaire() + ".");
-		alert.showAndWait();
-	}
-
-	private void updateAlert(Classe classe) {
-
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Class updated successfully.");
 		alert.setHeaderText(null);
 		alert.setContentText("The Class " + classe.getNom() + " of " + classe.getNiveau()
 				+ " has been created and whith leader \n" + classe.getTitulaire() + ".");

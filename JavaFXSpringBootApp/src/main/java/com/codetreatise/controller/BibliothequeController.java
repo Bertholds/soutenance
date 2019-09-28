@@ -224,7 +224,7 @@ public class BibliothequeController implements Initializable {
           System.out.println(list.size());
          // h
     	//listDocumentSolliciter.getItems().a
-    }
+    } 
     
     @FXML
     private void handleEtudiantEmprintantReleased(MouseEvent event) {

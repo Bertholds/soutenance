@@ -231,7 +231,7 @@ public class BibliothequeController implements Initializable {
 
     }
 	
-	// Event Listener on Button.onAction
+	// Event Listener on Button.onAction 
 	@FXML
 	public void handleDeleteClick(ActionEvent event) {
 		Document selectedDocument = livreTab.getSelectionModel().getSelectedItem();

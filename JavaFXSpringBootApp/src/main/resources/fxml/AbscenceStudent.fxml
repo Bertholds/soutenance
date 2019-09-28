@@ -55,7 +55,7 @@
                         <Button mnemonicParsing="false" onAction="#handleClearFieldClick" prefHeight="11.0" prefWidth="101.0" text="Clear field" GridPane.rowIndex="4" />
                         <Button mnemonicParsing="false" onAction="#handleValidateClick" prefHeight="0.0" prefWidth="165.0" text="Validate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <TextField fx:id="idAbscence" editable="false" prefHeight="28.0" prefWidth="165.0" promptText="Id will be generated automatically" GridPane.columnIndex="1" />
-                        <DatePicker fx:id="date" prefHeight="28.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <DatePicker fx:id="date" prefHeight="28.0" prefWidth="165.0" promptText="yyyy-MM-dd" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Spinner fx:id="etudiants" editable="true" prefHeight="28.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="Quantite" GridPane.rowIndex="3" />
                         <TextField fx:id="quantite" prefHeight="28.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -83,8 +83,8 @@
                         <TextField fx:id="recherche" onKeyReleased="#handleFilterTab1" prefHeight="25.0" prefWidth="158.0" promptText="search" />
                         <Button mnemonicParsing="false" onAction="#handleJustificationClick" prefHeight="25.0" prefWidth="111.0" text="Justifier" />
                         <Button mnemonicParsing="false" onAction="#handlePrintClick" prefHeight="25.0" prefWidth="91.0" text="Print" />
-                        <DatePicker fx:id="dateDepart" prefHeight="25.0" prefWidth="134.0" promptText="Date depart" />
-                        <DatePicker fx:id="dateLimit" prefHeight="25.0" prefWidth="129.0" promptText="Date Limit" />
+                        <DatePicker fx:id="dateDepart" prefHeight="25.0" prefWidth="134.0" promptText="Date depart yyyy-MM-dd" />
+                        <DatePicker fx:id="dateLimit" prefHeight="25.0" prefWidth="129.0" promptText="Date Limit yyyy-MM-dd" />
                      </children>
                   </HBox>
                </children>

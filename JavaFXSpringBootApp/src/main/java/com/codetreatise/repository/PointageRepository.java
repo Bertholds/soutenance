@@ -15,5 +15,5 @@ import com.codetreatise.bean.Pointage;
 @Transactional
 public interface PointageRepository extends JpaRepository<Pointage, Long> {
     @Query("select p.heureTravail from Pointage p where p.personel.id=(:id) and p.date like(:date)")
-	public List<String> loadAllHeurTravailFilterByMonthForOnePerson(@Param("id")Long id, @Param("date")String date);
+	public List<Float> loadAllHeurTravailFilterByMonthForOnePerson(@Param("id")Long id, @Param("date")String date);
 }

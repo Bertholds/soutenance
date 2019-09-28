@@ -75,6 +75,7 @@ public class MatiereController implements Initializable {
 	private MatiereEditDialogController dialog;
 
 	private ObservableList<Matiere> matiereList = FXCollections.observableArrayList();
+	ObservableList<Matiere> ol = FXCollections.observableArrayList();
 	private ObservableList<String> filtrage = FXCollections.observableArrayList();
 	
 	public boolean isEditButtonClick() {
@@ -119,8 +120,8 @@ public class MatiereController implements Initializable {
 		if (matiere != null) {
 			nom.setText(matiere.getNom());
 			id.setText(matiere.getId_matiere().toString());
-			niveau.setText(matiere.getNiveau());
-			coefficient.setText(String.valueOf(matiere.getCoefficient()));
+			niveau.setText(matiere.getClasse());
+			coefficient.setText(matiere.getCoefficient());
 			supervisor.setText(matiere.getSupervisor());
 			semester.setText(String.valueOf(matiere.getSemestre()));
 		} else {
@@ -165,9 +166,10 @@ public class MatiereController implements Initializable {
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleDeletesubject(ActionEvent event) {
-		int selectedIndex = subjectTable.getSelectionModel().getSelectedIndex();
-		if (selectedIndex >= 0) {
-			subjectTable.getItems().remove(selectedIndex);
+		Matiere selectedMatiere = subjectTable.getSelectionModel().getSelectedItem();
+		if (selectedMatiere != null) {
+			subjectTable.getItems().remove(selectedMatiere);
+			matiereRepository.delete(selectedMatiere);
 		} else {
 			MethodUtilitaire.deleteNoPersonSelectedAlert("No Selection", "No class Selected",
 					"Please select a person in the table.");
@@ -176,13 +178,16 @@ public class MatiereController implements Initializable {
 	
 	public void loadMatiereDetail() {
 		matiereList.clear();
-		if (getFiltre() == "All subject") {
+		if (getFiltre() == "All class") {
 			matiereList.addAll(matiereRepository.findAll());
 			subjectTable.setItems(matiereList);
 		} else {
-			matiereList.addAll(matiereRepository.findNiveau("%"+getFiltre()+"%"));
+			for(Matiere m: ol) {
+				if(m.getClasse().contains(getFiltre()))
+				matiereList.add(m);
+			}
+			subjectTable.setItems(matiereList);
 		}
-		subjectTable.setItems(matiereList);
 	}
 
 	private String getFiltre() {
@@ -205,15 +210,17 @@ public class MatiereController implements Initializable {
 	}
 	
 	private void setFiltre() {
-		ArrayList<String> list2 = classeRepository.loadAllNiveau();
+		ol.addAll(matiereRepository.findAll());
+		ArrayList<String> list2 = classeRepository.loadAllClasse();
 		filtrage.clear();
 		filtrage.addAll(list2);
-		filtrage.add("All subject");
+		filtrage.add("All class");
 		filtre.setItems(filtrage);
+		filtre.getSelectionModel().selectLast();
 	}
 
 	private void setColumProperties() {
 		subjectNameColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
-		subjectLevelColumn.setCellValueFactory(new PropertyValueFactory<>("niveau"));
+		subjectLevelColumn.setCellValueFactory(new PropertyValueFactory<>("classe"));
 	}
 }

@@ -6,20 +6,20 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import com.codetreatise.bean.AbscenceStudent;
+import com.codetreatise.bean.Utilisateur;
 import com.codetreatise.service.GlobalService;
 
 @Repository
 @Transactional
-public class AbscenceStudentServiceImpl implements GlobalService<AbscenceStudent> {
+public class UserServiceImpl implements GlobalService<Utilisateur> {
 
 	@PersistenceContext
 	private EntityManager em;
 	
 	@Override
-	public AbscenceStudent update(AbscenceStudent abscenceStudent) {
-		AbscenceStudent newAbscenceStudent = em.merge(abscenceStudent);
-		return newAbscenceStudent;
+	public Utilisateur update(Utilisateur utilisateur) {
+		Utilisateur newUtilisateur = em.merge(utilisateur);
+		return newUtilisateur;
 	}
 
 }

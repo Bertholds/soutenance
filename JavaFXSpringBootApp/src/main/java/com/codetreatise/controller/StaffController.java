@@ -17,6 +17,7 @@ import com.codetreatise.config.StageManager;
 import com.codetreatise.repository.DepartementRepository;
 import com.codetreatise.repository.PosteRepository;
 import com.codetreatise.repository.StaffRepository;
+import com.codetreatise.service.MethodUtilitaire;
 import com.codetreatise.service.impl.DepartementServiceImpl;
 import com.codetreatise.service.impl.PosteServiceImpl;
 import com.codetreatise.view.FxmlView;
@@ -290,52 +291,34 @@ public class StaffController implements Initializable {
 
 	@FXML
 	void handleDeleteDepartmentClick(ActionEvent event) {
-		int selectedIndex = departementTab.getSelectionModel().getSelectedIndex();
-		if (selectedIndex >= 0) {
+		Departement selectedIndex = departementTab.getSelectionModel().getSelectedItem();
+		if (selectedIndex != null) {
 			departementTab.getItems().remove(selectedIndex);
+			departementRepository.delete(selectedIndex);
 		} else {
-			// Nothing selected.
-			Alert alert = new Alert(AlertType.WARNING);
-			// alert.initOwner( );
-			alert.setTitle("No Selection");
-			alert.setHeaderText("No department Selected");
-			alert.setContentText("Please select a department in the table.");
-
-			alert.showAndWait();
+			MethodUtilitaire.deleteNoPersonSelectedAlert("No Selection", "No department Selected", "Please select a department in the table.");
 		}
 	}
 
 	@FXML
 	void handleDeletePostClick(ActionEvent event) {
-		int selectedIndex = posteTab.getSelectionModel().getSelectedIndex();
-		if (selectedIndex >= 0) {
+		Poste selectedIndex = posteTab.getSelectionModel().getSelectedItem();
+		if (selectedIndex != null) {
 			posteTab.getItems().remove(selectedIndex);
+			posteRepository.delete(selectedIndex);
 		} else {
-			// Nothing selected.
-			Alert alert = new Alert(AlertType.WARNING);
-			// alert.initOwner( );
-			alert.setTitle("No Selection");
-			alert.setHeaderText("No post Selected");
-			alert.setContentText("Please select a post in the table.");
-
-			alert.showAndWait();
+			MethodUtilitaire.deleteNoPersonSelectedAlert("No Selection", "No post Selected", "Please select a post in the table.");
 		}
 	}
 
 	@FXML
 	void handleDeleteStaffClick(ActionEvent event) {
-		int selectedIndex = staffTable.getSelectionModel().getSelectedIndex();
-		if (selectedIndex >= 0) {
+		Personel selectedIndex = staffTable.getSelectionModel().getSelectedItem();
+		if (selectedIndex != null) {
 			staffTable.getItems().remove(selectedIndex);
+			staffRepository.delete(selectedIndex);
 		} else {
-			// Nothing selected.
-			Alert alert = new Alert(AlertType.WARNING);
-			// alert.initOwner( );
-			alert.setTitle("No Selection");
-			alert.setHeaderText("No staff Selected");
-			alert.setContentText("Please select a staff in the table.");
-
-			alert.showAndWait();
+			MethodUtilitaire.deleteNoPersonSelectedAlert("No Selection", "No staff Selected", "Please select a staff in the table.");
 		}
 	}
 

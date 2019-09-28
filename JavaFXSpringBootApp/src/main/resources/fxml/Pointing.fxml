@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="435.0" prefWidth="1343.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.PointingController">
+<AnchorPane prefHeight="667.0" prefWidth="1343.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.PointingController">
    <children>
-      <SplitPane dividerPositions="0.5612009237875288" layoutY="118.0" orientation="VERTICAL" prefHeight="435.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.7142857142857143" layoutY="118.0" orientation="VERTICAL" prefHeight="435.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="218.0" prefWidth="718.0">
                <children>
@@ -83,12 +83,18 @@
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                               </TableView>
-                              <Button layoutX="1.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleLoadDataOnTablePointage" prefHeight="25.0" prefWidth="137.0" text="Load data on table" />
-                              <ComboBox fx:id="filtre" editable="true" layoutX="149.0" layoutY="212.0" prefWidth="150.0" promptText="Limit by" />
-                              <TextField fx:id="recherche" layoutX="317.0" layoutY="212.0" onKeyReleased="#handleFilerOntablePointage" promptText="search data" />
-                              <Button layoutX="481.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleLeaveTime" prefHeight="25.0" prefWidth="105.0" text="Apply leave time" />
-                              <Button layoutX="778.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleDeleteClick" prefHeight="25.0" prefWidth="73.0" text="Delete" />
-                              <Button layoutX="859.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleDeleteAllClick" prefHeight="25.0" prefWidth="97.0" text="Delete All" />
+                              <HBox layoutX="1.0" layoutY="212.0" spacing="6.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#handleLoadDataOnTablePointage" prefHeight="25.0" prefWidth="137.0" text="Load data on table" />
+                                    <ComboBox fx:id="filtre" editable="true" prefHeight="25.0" prefWidth="121.0" promptText="Limit by" />
+                                    <TextField fx:id="recherche" onKeyReleased="#handleFilerOntablePointage" promptText="search data" />
+                                    <Button mnemonicParsing="false" onAction="#handleLeaveTime" prefHeight="25.0" prefWidth="105.0" text="Apply leave time" />
+                                    <Button mnemonicParsing="false" onAction="#handlePrintClick" prefHeight="25.0" prefWidth="83.0" text="Print" />
+                                    <ComboBox fx:id="filtreMois" prefWidth="150.0" />
+                                    <Button mnemonicParsing="false" onAction="#handleDeleteClick" prefHeight="25.0" prefWidth="73.0" text="Delete" />
+                                    <Button mnemonicParsing="false" onAction="#handleDeleteAllClick" prefHeight="25.0" prefWidth="97.0" text="Delete All" />
+                                 </children>
+                              </HBox>
                            </children>
                         </AnchorPane>
                     </items>
@@ -101,7 +107,7 @@
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <GridPane layoutX="9.0" layoutY="27.0" prefHeight="157.0" prefWidth="322.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
+                              <GridPane layoutX="9.0" layoutY="-1.0" prefHeight="185.0" prefWidth="1323.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
                                 <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

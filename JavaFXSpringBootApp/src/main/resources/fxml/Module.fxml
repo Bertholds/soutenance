@@ -118,7 +118,7 @@
                         <OctIconView glyphName="BOOK" size="47" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="200.0" prefWidth="242.0" text="Library" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#handleLibrairyClick" prefHeight="200.0" prefWidth="242.0" text="Library" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <graphic>
                         <EmojiOneView glyphName="BOOKS" size="50" />
                      </graphic>

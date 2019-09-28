@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="638.0" prefWidth="1358.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.BibliothequeController">
+   <children>
+      <TabPane layoutX="120.0" layoutY="41.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="     Bibliotheque     ">
+               <content>
+                  <SplitPane dividerPositions="0.645320197044335" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <TableView fx:id="livreTab" editable="true" layoutX="306.0" prefHeight="358.0" prefWidth="753.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="306.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columns>
+                                  <TableColumn fx:id="idDocumentC" prefWidth="75.0" text="Id" />
+                                  <TableColumn fx:id="titreC" prefWidth="75.0" text="Titre" />
+                                    <TableColumn fx:id="auteurC" prefWidth="75.0" text="Auteur" />
+                                    <TableColumn fx:id="isbnC" prefWidth="75.0" text="ISBN" />
+                                    <TableColumn fx:id="idCategorieC" prefWidth="75.0" text="Categorie Id" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                              <GridPane layoutX="1.0" layoutY="2.0" prefHeight="223.0" prefWidth="292.0" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="2.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="68.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="112.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Id">
+                                       <padding>
+                                          <Insets left="3.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label text="Titre" GridPane.rowIndex="1">
+                                       <padding>
+                                          <Insets left="3.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label text="Auteur" GridPane.rowIndex="2">
+                                       <padding>
+                                          <Insets left="3.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label text="ISBN" GridPane.rowIndex="3">
+                                       <padding>
+                                          <Insets left="3.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label text="Categorie" GridPane.rowIndex="4">
+                                       <padding>
+                                          <Insets left="3.0" />
+                                       </padding>
+                                    </Label>
+                                    <TextField fx:id="idDocument" editable="false" prefHeight="26.0" prefWidth="207.0" GridPane.columnIndex="1" />
+                                    <TextField fx:id="titre" prefHeight="26.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="auteur" prefHeight="28.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="isbn" prefHeight="27.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="categorie" prefHeight="29.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                 </children>
+                              </GridPane>
+                              <HBox layoutX="85.0" layoutY="253.0" />
+                              <GridPane hgap="12.0" layoutX="2.0" layoutY="240.0" prefHeight="124.0" prefWidth="299.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="2.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.0" minWidth="10.0" prefWidth="173.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="117.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="23.0" prefWidth="167.0" spacing="5.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#handleDeleteClick" prefHeight="25.0" prefWidth="59.0" text="Delete" />
+                                          <Button mnemonicParsing="false" onAction="#handleEditDocumentClick" text="Edit" />
+                                        <Button mnemonicParsing="false" onAction="#handleClearClick" prefHeight="25.0" prefWidth="52.0" text="Reset" />
+                                       </children>
+                                    </HBox>
+                                    <Button mnemonicParsing="false" onAction="#handleRefreshClick" prefHeight="25.0" prefWidth="173.0" text="Refresh data on table" GridPane.rowIndex="1" />
+                                    <TextField fx:id="recherche1" onKeyReleased="#handleFilterPressed1" prefHeight="25.0" prefWidth="175.0" promptText="Search" GridPane.rowIndex="2" />
+                                    <Button mnemonicParsing="false" onAction="#handleSaveClick" prefHeight="25.0" prefWidth="113.0" text="Save" GridPane.columnIndex="1" />
+                                    <ComboBox fx:id="filtre2" prefHeight="25.0" prefWidth="113.0" promptText="filter by " GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Button mnemonicParsing="false" onAction="#handlePrintClick" prefHeight="25.0" prefWidth="113.0" text="Print" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <ListView fx:id="listCategorie" layoutX="6.0" layoutY="29.0" prefHeight="143.0" prefWidth="162.0" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="29.0" />
+                              <Text layoutX="1.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" categories" textAlignment="CENTER" wrappingWidth="58.529296875" />
+                              <TextField fx:id="libele" layoutX="5.0" layoutY="183.0" prefHeight="25.0" prefWidth="111.0" promptText="Libele" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
+                              <Button layoutX="62.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleAddClick" prefHeight="25.0" prefWidth="56.0" text="Add" AnchorPane.bottomAnchor="187.0" />
+                              <TableView fx:id="livreEmprinterTab" editable="true" layoutX="182.0" layoutY="30.0" prefHeight="178.0" prefWidth="402.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="30.0">
+                                <columns>
+                                  <TableColumn fx:id="idDocumentCE" prefWidth="75.0" text="Id Document" />
+                                  <TableColumn fx:id="titreCE" prefWidth="75.0" text="Titre" />
+                                    <TableColumn fx:id="auteurCE" prefWidth="75.0" text="Auteur" />
+                                    <TableColumn fx:id="isbnCE" prefWidth="75.0" text="ISBN" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                              <Text layoutX="279.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des livres emprintés" textAlignment="CENTER" wrappingWidth="278.13671875" />
+                              <ListView fx:id="listDocumentSolliciter" layoutX="595.0" layoutY="29.0" onMouseReleased="#handleLivreSolliciterReleased" prefHeight="178.0" prefWidth="174.0" AnchorPane.bottomAnchor="6.0" AnchorPane.topAnchor="29.0" />
+                              <ListView fx:id="listEtudiantEmprintant" layoutX="781.0" layoutY="29.0" onMouseReleased="#handleEtudiantEmprintantReleased" prefHeight="178.0" prefWidth="255.0" AnchorPane.bottomAnchor="6.0" AnchorPane.topAnchor="29.0" />
+                              <TableView fx:id="studentTab" editable="true" layoutX="1091.0" layoutY="28.0" prefHeight="146.0" prefWidth="302.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="39.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="28.0">
+                                <columns>
+                                  <TableColumn fx:id="idCE" prefWidth="75.0" text="Id" />
+                                  <TableColumn fx:id="nomCE" prefWidth="75.0" text="Nom" />
+                                    <TableColumn fx:id="classeCE" prefWidth="75.0" text="Classe" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                              <Text layoutX="593.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des livres les plus sollicités" textAlignment="CENTER" wrappingWidth="175.13671875" />
+                              <Text layoutX="789.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des etudiants emprintant le plus de livre" textAlignment="CENTER" />
+                              <Text layoutX="1120.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reference des etudiants" textAlignment="CENTER" wrappingWidth="207.708984375" />
+                              <Button layoutX="1050.0" layoutY="183.0" mnemonicParsing="false" onAction="#handleLoadStudentClick" prefHeight="25.0" prefWidth="57.0" text="Load" AnchorPane.bottomAnchor="5.0" />
+                              <ComboBox fx:id="filtreClasse" layoutX="1114.0" layoutY="183.0" prefHeight="25.0" prefWidth="96.0" promptText="filter by" AnchorPane.bottomAnchor="5.0" />
+                              <TextField fx:id="recherche2" layoutX="1222.0" layoutY="183.0" onKeyReleased="#handleFilterPressed2" prefHeight="25.0" prefWidth="131.0" promptText="Search" AnchorPane.bottomAnchor="5.0" />
+                              <Button layoutX="182.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleRefreshLivreEmprinterClick" prefHeight="25.0" prefWidth="97.0" text="Refresh" />
+                              <Button layoutX="124.0" layoutY="2.0" mnemonicParsing="false" onAction="#handeDeleteCategoryClick" prefHeight="25.0" prefWidth="44.0" text="Del" />
+                              <Button layoutX="124.0" layoutY="184.0" mnemonicParsing="false" onAction="#handleEditCategoryClick" text="Edit" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </content>
+            </Tab>
+          <Tab text="     Gestionnaire des emprint     ">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="emprintTabP" editable="true" layoutX="1.0" layoutY="1.0" prefHeight="562.0" prefWidth="1358.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                          <columns>
+                            <TableColumn fx:id="idEmprintTC" prefWidth="75.0" text="Id emprint" />
+                            <TableColumn fx:id="dateTC" prefWidth="75.0" text="Date" />
+                              <TableColumn fx:id="statusTC" prefWidth="75.0" text="Status" />
+                              <TableColumn fx:id="idDocumentTC" prefWidth="75.0" text="Id document" />
+                              <TableColumn fx:id="titreTC" prefWidth="75.0" text="Titre" />
+                              <TableColumn fx:id="auteurTC" prefWidth="75.0" text="Auteur" />
+                              <TableColumn fx:id="idEtudiantTC" prefWidth="75.0" text="Id etudiant" />
+                              <TableColumn fx:id="nomTC" prefWidth="75.0" text="Nom" />
+                              <TableColumn fx:id="prenomTC" prefWidth="75.0" text="Prenom" />
+                              <TableColumn fx:id="classeTC" prefWidth="75.0" text="Classe" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <Button layoutY="583.0" mnemonicParsing="false" onAction="#handleRefreshTabClick" prefHeight="25.0" prefWidth="164.0" text="Refresh data on table" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" />
+                        <ComboBox fx:id="filter" layoutX="173.0" layoutY="583.0" prefHeight="25.0" prefWidth="151.0" promptText="filter by categorie" AnchorPane.bottomAnchor="1.0" />
+                        <Spinner fx:id="etudiantId" editable="true" layoutX="580.0" layoutY="583.0" prefHeight="25.0" prefWidth="121.0" AnchorPane.bottomAnchor="1.0" />
+                        <Spinner fx:id="documentId" editable="true" layoutX="710.0" layoutY="583.0" prefHeight="25.0" prefWidth="121.0" AnchorPane.bottomAnchor="1.0" />
+                        <Button layoutX="1010.0" layoutY="583.0" mnemonicParsing="false" onAction="#handleEmprinterClick" prefHeight="25.0" prefWidth="79.0" text="Empreinter" AnchorPane.bottomAnchor="1.0" />
+                        <Button layoutX="1096.0" layoutY="583.0" mnemonicParsing="false" onAction="#handleRemettreClick" prefHeight="25.0" prefWidth="84.0" text="Remettre" AnchorPane.bottomAnchor="1.0" />
+                        <TextField fx:id="recherche3" layoutX="1209.0" layoutY="583.0" onKeyReleased="#handleFilterPressed3" prefHeight="25.0" prefWidth="144.0" promptText="Search" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="5.0" />
+                        <Text layoutX="582.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Etudiant id" textAlignment="CENTER" wrappingWidth="120.123046875" />
+                        <Text layoutX="711.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Document id" textAlignment="CENTER" wrappingWidth="120.5078125" />
+                        <DatePicker fx:id="date" layoutX="842.0" layoutY="583.0" prefHeight="25.0" prefWidth="147.0" />
+                        <Button layoutX="481.0" layoutY="582.0" mnemonicParsing="false" onAction="#handleDeleteEmprintClick" prefHeight="25.0" prefWidth="89.0" text="Delete" AnchorPane.bottomAnchor="2.0" />
+                        <ComboBox fx:id="filter10" layoutX="332.0" layoutY="582.0" onAction="#handle10dernierClick" prefHeight="25.0" prefWidth="140.0" promptText="Voir les ..." />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

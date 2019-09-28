@@ -100,5 +100,10 @@ public class ModuleController implements Initializable {
 	private void handleUserClick(ActionEvent event) {
 		stageManager.switchSceneShowPreviousStage(FxmlView.USER);
 	}
+	
+	@FXML
+	private void handleLibrairyClick(ActionEvent event) {
+		stageManager.switchSceneShowPreviousStage(FxmlView.Bibliotheque);
+	}
 
 }

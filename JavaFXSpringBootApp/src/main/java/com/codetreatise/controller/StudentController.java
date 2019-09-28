@@ -13,6 +13,7 @@ import com.codetreatise.bean.Etudiant;
 import com.codetreatise.config.StageManager;
 import com.codetreatise.repository.ClasseRepository;
 import com.codetreatise.repository.StudentRepository;
+import com.codetreatise.service.MethodUtilitaire;
 import com.codetreatise.view.FxmlView;
 
 import javafx.beans.value.ChangeListener;
@@ -130,14 +131,7 @@ public class StudentController implements Initializable {
 		}
 
 		else {
-			// Nothing selected.
-			Alert alert = new Alert(AlertType.WARNING);
-			// alert.initOwner( mainApp.getPrimaryStage() );
-			alert.setTitle("No Selection");
-			alert.setHeaderText("No Person Selected");
-			alert.setContentText("Please select a person in the table.");
-
-			alert.showAndWait();
+			MethodUtilitaire.deleteNoPersonSelectedAlert("No Selection", "No Person Selected", "Please select a person in the table.");
 		}
 	}
 

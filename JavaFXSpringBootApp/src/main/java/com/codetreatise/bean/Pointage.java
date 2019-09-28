@@ -21,7 +21,7 @@ public class Pointage implements Serializable {
 	private String date;
 	private String heurArriver;
 	private String heurDepart;
-	private String  heureTravail;
+	private float  heureTravail;
 	@OneToOne
 	private Tache tache;
 	@OneToOne
@@ -33,11 +33,11 @@ public class Pointage implements Serializable {
 		super();
 	}
 	
-	public String getHeureTravail() {
+	public float getHeureTravail() {
 		return heureTravail;
 	}
 
-	public void setHeureTravail(String heureTravail) {
+	public void setHeureTravail(float heureTravail) {
 		this.heureTravail = heureTravail;
 	}
 

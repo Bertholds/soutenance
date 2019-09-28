@@ -2,19 +2,21 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="656.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.PermissionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="656.0" prefWidth="1224.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.PermissionController">
    <children>
       <SplitPane dividerPositions="0.5504587155963303" layoutX="144.0" layoutY="263.0" orientation="VERTICAL" prefHeight="656.0" prefWidth="740.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -25,7 +27,6 @@
                                   <TableColumn fx:id="idAbscenceC" prefWidth="75.0" text="Id abscence" />
                                   <TableColumn fx:id="dateC" prefWidth="75.0" text="Date" />
                                     <TableColumn fx:id="motifC" prefWidth="75.0" text="Motif" />
-                                    <TableColumn fx:id="idTransmitterC" prefWidth="75.0" text="Id transmitter" />
                                     <TableColumn fx:id="nomC" prefWidth="75.0" text="Nom" />
                                     <TableColumn fx:id="prenomC" prefWidth="75.0" text="Prenom" />
                                 </columns>
@@ -51,30 +52,40 @@
                                 </rowConstraints>
                                  <children>
                                     <Label prefHeight="5.0" prefWidth="63.0" text="Id abscence" />
-                                    <TextField fx:id="idAbscence" prefHeight="28.0" prefWidth="168.0" GridPane.rowIndex="1" />
+                                    <TextField fx:id="idAbscence" editable="false" prefHeight="28.0" prefWidth="168.0" promptText="will be genarate automatically" GridPane.rowIndex="1" />
                                     <Label text="Date" GridPane.rowIndex="2" />
                                     <Label text="Motif" GridPane.rowIndex="4" />
-                                    <TextField fx:id="date" prefHeight="30.0" prefWidth="168.0" GridPane.rowIndex="3" />
                                     <TextField fx:id="motif" prefHeight="32.0" prefWidth="168.0" GridPane.rowIndex="5" />
                                     <TextField fx:id="idTransmitter" prefHeight="30.0" prefWidth="168.0" GridPane.rowIndex="7" />
                                     <Label text="Id transmitter" GridPane.rowIndex="6" />
                                     <Label text="Duree" GridPane.rowIndex="8" />
                                     <TextField fx:id="duree" GridPane.rowIndex="9" />
+                        <DatePicker fx:id="date" promptText="yyyy-MM-dd" GridPane.rowIndex="3" />
                                  </children>
                               </GridPane>
                    <Button layoutX="1.0" layoutY="256.0" mnemonicParsing="false" onAction="#handleClearField" prefHeight="17.0" prefWidth="70.0" text="Clear field" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" />
                               <Button layoutX="78.0" layoutY="256.0" mnemonicParsing="false" onAction="#handleValidateClick" prefHeight="25.0" prefWidth="91.0" text="Validate" AnchorPane.bottomAnchor="1.0" />
-                  <RadioButton fx:id="isStudent" layoutY="293.0" mnemonicParsing="false" text="Is student" AnchorPane.bottomAnchor="47.0" />
-                              <RadioButton fx:id="isEmployee" layoutX="85.0" layoutY="293.0" mnemonicParsing="false" text="Is employee" AnchorPane.bottomAnchor="47.0" />
-                  <HBox layoutX="196.0" layoutY="256.0" spacing="11.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="196.0" AnchorPane.rightAnchor="1.0">
+                  <RadioButton fx:id="isStudent" layoutY="293.0" mnemonicParsing="false" text="Is student" AnchorPane.bottomAnchor="47.0">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="status" />
+                     </toggleGroup></RadioButton>
+                              <RadioButton fx:id="isEmployee" layoutX="85.0" layoutY="293.0" mnemonicParsing="false" text="Is employee" toggleGroup="$status" AnchorPane.bottomAnchor="47.0" />
+                  <HBox layoutX="196.0" layoutY="256.0" prefHeight="25.0" prefWidth="864.0" spacing="11.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="196.0" AnchorPane.rightAnchor="162.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#handleRefreshOnPermission" prefHeight="25.0" prefWidth="136.0" text="Refresh data on table" />
-                                    <ComboBox fx:id="filterPermission" editable="true" prefHeight="25.0" prefWidth="81.0" promptText="Filter by" />
-                                    <TextField onKeyReleased="#handleFilteredOnTablePermission" prefHeight="25.0" prefWidth="136.0" promptText="search" />
-                                    <Button mnemonicParsing="false" onAction="#handleModifyClick" prefHeight="25.0" prefWidth="70.0" text="Modify" />
-                                    <Button mnemonicParsing="false" onAction="#handleDeleteClick" prefHeight="25.0" prefWidth="72.0" text="Delete" />
+                                    <Button mnemonicParsing="false" onAction="#handleRefreshOnPermission" prefHeight="3.0" prefWidth="170.0" text="Refresh data on table" />
+                                    <ComboBox fx:id="filterPermission" editable="true" prefHeight="25.0" prefWidth="143.0" promptText="Filter by" />
+                                    <TextField fx:id="recherchePermissionTab" onKeyReleased="#handleFilteredOnTablePermission" prefHeight="25.0" prefWidth="182.0" promptText="search" />
+                                    <Button mnemonicParsing="false" onAction="#handleModifyClick" prefHeight="25.0" prefWidth="111.0" text="Modify" />
+                                    <Button mnemonicParsing="false" onAction="#handleDeleteClick" prefHeight="25.0" prefWidth="100.0" text="Delete" />
+                        <Button mnemonicParsing="false" onAction="#handlePrintClick" prefHeight="25.0" prefWidth="100.0" text="Print" />
                                  </children>
-                              </HBox>   
+                              </HBox>
+                  <RadioButton fx:id="group" layoutX="1072.0" layoutY="335.0" mnemonicParsing="false" text="Group" visible="false">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="mode" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="individuel" layoutX="1137.0" layoutY="335.0" mnemonicParsing="false" text="Individuel" toggleGroup="$mode" visible="false" />   
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
@@ -106,15 +117,15 @@
                                     <Label text="Duree " GridPane.columnIndex="4" />
                                     <Label text="Total permission" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                                     <Label text="Total duree" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                                    <Label fx:id="idAbscenceLabel" text="Label" GridPane.columnIndex="1" />
-                                    <Label fx:id="dateLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Label fx:id="motifLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <Label fx:id="idTransmitterLabel" text="Label" GridPane.columnIndex="3" />
-                                    <Label fx:id="nomLabel" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                    <Label fx:id="prenomLabel" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                                    <Label fx:id="dureeLabel" text="Label" GridPane.columnIndex="5" />
-                                    <Label fx:id="totalPermissionLabel" text="Label" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                                    <Label fx:id="totalDureeLabel" text="Label" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                                    <Label fx:id="idAbscenceLabel" GridPane.columnIndex="1" />
+                                    <Label fx:id="dateLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label fx:id="motifLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="idTransmitterLabel" GridPane.columnIndex="3" />
+                                    <Label fx:id="nomLabel" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                    <Label fx:id="prenomLabel" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                    <Label fx:id="dureeLabel" GridPane.columnIndex="5" />
+                                    <Label fx:id="totalPermissionLabel" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                                    <Label fx:id="totalDureeLabel" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                                  </children>
                               </GridPane>
                            </children>
@@ -137,7 +148,7 @@
                                           </TableView>
                                           <ComboBox fx:id="filterDepartment" editable="true" layoutX="256.0" layoutY="2.0" prefHeight="25.0" prefWidth="109.0" promptText="filter by" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0" />
                                                       <Button layoutX="254.0" layoutY="34.0" mnemonicParsing="false" onAction="#handleRefreshOnTabStaff" prefHeight="25.0" prefWidth="109.0" text="Refresh" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="34.0" />
-                                                      <TextField layoutX="255.0" layoutY="70.0" onKeyReleased="#handleFilteredOnTableStaff" prefHeight="25.0" prefWidth="109.0" promptText="search" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="70.0" />
+                                                      <TextField fx:id="rechercheStaffTab" layoutX="255.0" layoutY="70.0" onKeyReleased="#handleFilteredOnTableStaff" prefHeight="25.0" prefWidth="109.0" promptText="search" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="70.0" />
                                        </children>
                                     </AnchorPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -154,7 +165,7 @@
                               </TableView>
                                           <ComboBox fx:id="filterClasse" editable="true" layoutX="-2.0" layoutY="1.0" prefHeight="25.0" prefWidth="109.0" promptText="filter by" AnchorPane.bottomAnchor="112.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="2.0" />
                                                       <Button layoutX="2.0" layoutY="33.0" mnemonicParsing="false" onAction="#handleRefreshOnTabStudent" prefHeight="25.0" prefWidth="109.0" text="Refresh" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="33.0" />
-                                                      <TextField layoutX="3.0" layoutY="70.0" onKeyReleased="#handleFilteredOnTableStudent" prefHeight="25.0" prefWidth="109.0" promptText="search" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="70.0" />
+                                                      <TextField fx:id="rechercheStudentTab" layoutX="3.0" layoutY="70.0" onKeyReleased="#handleFilteredOnTableStudent" prefHeight="25.0" prefWidth="109.0" promptText="search" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="70.0" />
                                        </children>
                                     </AnchorPane>
                                 </items>

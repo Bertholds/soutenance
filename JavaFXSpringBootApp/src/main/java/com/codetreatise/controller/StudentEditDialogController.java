@@ -291,6 +291,7 @@ public class StudentEditDialogController implements Initializable {
 		phone.clear();
 		classe.getSelectionModel().clearSelection();
 		parent.clear();
+		studentController.setIsEditButtonClick(false);
 	}
 
 	private void saveAlert(Etudiant etudiant) {

@@ -2,7 +2,9 @@ package com.codetreatise.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -10,8 +12,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
@@ -61,6 +65,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Callback;
 import javafx.util.Duration;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 @Controller
 public class PointingController implements Initializable {
@@ -82,6 +95,8 @@ public class PointingController implements Initializable {
 	private TextField recherche;
 	@FXML
 	private ComboBox<String> task;
+	@FXML
+	private ComboBox<String> filtreMois;
 	@FXML
 	private ComboBox<Object> filtre;
 	@FXML
@@ -151,6 +166,7 @@ public class PointingController implements Initializable {
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	ObservableList<String> personelList = FXCollections.observableArrayList();
 	ObservableList<String> tacheList = FXCollections.observableArrayList();
+	private ObservableList<String> monthNames = FXCollections.observableArrayList();
 	ObservableList<Tache> tacheListTab = FXCollections.observableArrayList();
 	ObservableList<Pointage> pointageListTab = FXCollections.observableArrayList();
 	ObservableList<Object> setFiltre = FXCollections.observableArrayList("No limit", 5, 10, 15, 20, 25, 30, 50, 70);
@@ -291,15 +307,14 @@ public class PointingController implements Initializable {
 
 	@FXML
 	private void handleDeleteClick(ActionEvent event) {
-		System.out.println("click avant liste");
 		ObservableList<Pointage> selectedItems = pointingTab.getSelectionModel().getSelectedItems();
-		 ArrayList<Pointage> selectedIDs = new ArrayList<Pointage>();
-	        for (Pointage row : selectedItems) {
-	           selectedIDs.add(row);
-	        }
-		if (selectedIDs.size()!= 0) {
+		ArrayList<Pointage> selectedIDs = new ArrayList<Pointage>();
+		for (Pointage row : selectedItems) {
+			selectedIDs.add(row);
+		}
+		if (selectedIDs.size() != 0) {
 			pointingTab.getItems().removeAll(selectedIDs);
-			for(Pointage p: selectedIDs) {
+			for (Pointage p : selectedIDs) {
 				pointageRepository.delete(p);
 			}
 		} else {
@@ -307,11 +322,11 @@ public class PointingController implements Initializable {
 					"Please select a pointing in the table.");
 		}
 	}
-	
+
 	@FXML
 	private void handleDeleteAllClick(ActionEvent event) {
-		 pointingTab.getSelectionModel().selectAll();
-		 List<Pointage> pointage = pointingTab.getSelectionModel().getSelectedItems();
+		pointingTab.getSelectionModel().selectAll();
+		List<Pointage> pointage = pointingTab.getSelectionModel().getSelectedItems();
 		if (pointage.size() != 0) {
 			pointingTab.getItems().removeAll(pointage);
 			pointageRepository.deleteAll();
@@ -320,6 +335,40 @@ public class PointingController implements Initializable {
 			MethodUtilitaire.deleteNoPersonSelectedAlert("Empty table", "The table is empty",
 					"No items to delete in table.");
 		}
+	}
+
+	@FXML
+	private void handlePrintClick(ActionEvent event) {
+		int i = filtreMois.getSelectionModel().getSelectedIndex();
+		if(i==-1) {
+			MethodUtilitaire.deleteNoPersonSelectedAlert(null, "Le mois est incorrect", "Veuillez selectioner un mois de l'annee puis reesayé");
+		}
+		else {
+			String[] tableauDeMois = {"-01-", "-02-", "-03-", "-04-", "-05-", "-06-", "-07-", "-08-", "-09-", "-10-","-11-", "-12-"};
+			try {
+				System.setProperty("java.awt.headless", "false");
+				JasperDesign jasperDesign = JRXmlLoader.load("C:\\wamp\\listPointage.jrxml");
+				String sql = "select max(p.id_pointage) as id_pointage, sum(p.heure_travail) as heure_travail, n.nom, n.prenom, n.fonction\r\n" + 
+						"from pointage p \r\n" + 
+						"join personnel n on p.personel_id=n.id\r\n" + 
+						"where p.date like '"+"%" + tableauDeMois[i] + "%"+ "'\r\n" + 
+						"group by `personel_id`\r\n" + 
+						"order by`id_pointage`";
+				JRDesignQuery designQuery = new JRDesignQuery();
+				designQuery.setText(sql);
+				jasperDesign.setQuery(designQuery);
+				JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+				JasperPrint print = JasperFillManager.fillReport(jasperReport, null, MethodUtilitaire.dbConnect());
+				JasperViewer jrviewer = new JasperViewer(print, false);
+				// JasperViewer.viewReport(print);
+				jrviewer.setVisible(true);
+				jrviewer.toFront();
+			} catch (SQLException | JRException | ClassNotFoundException e) {
+				e.printStackTrace();
+				MethodUtilitaire.errorMessageAlert("Failed to print", "Failed to print !", e.getMessage());
+			}
+		}
+		
 	}
 
 	private void setDataOnCurrentTime() {
@@ -363,6 +412,14 @@ public class PointingController implements Initializable {
 		personal.setItems(personelList);
 	}
 
+	private void setfiltreMois() {
+		filtreMois.setPromptText("Chose month");
+		monthNames.clear();
+		String[] month = DateFormatSymbols.getInstance(Locale.ENGLISH).getMonths();
+		monthNames.addAll(Arrays.asList(month));
+		filtreMois.setItems(monthNames);
+	}
+
 	private void setTask() {
 		tacheList.clear();
 		List<Tache> list = tacheRepository.findAll();
@@ -380,6 +437,7 @@ public class PointingController implements Initializable {
 		filtre.getSelectionModel().selectFirst();
 		setPersonal();
 		setTask();
+		setfiltreMois();
 		setDataOnCurrentTime();
 		setCurrentDay();
 		setColumTacheProperties();
@@ -457,7 +515,7 @@ public class PointingController implements Initializable {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Pointage, String> param) {
 						return new SimpleStringProperty(
-								param.getValue().getUtilisateur().getIdutilisateur().toString());
+								param.getValue().getUtilisateur().getId().toString());
 					}
 				});
 		nomTab.setCellValueFactory(
@@ -492,7 +550,7 @@ public class PointingController implements Initializable {
 		pointingTab.setItems(pointageListTab);
 	}
 
-	private String getHourOfDaytime(Pointage pointage) {
+	private float getHourOfDaytime(Pointage pointage) {
 		String arriver = pointage.getHeurArriver();
 		String depart = pointage.getHeurDepart();
 		LocalTime TimeBecome = LocalTime.parse(arriver);
@@ -500,39 +558,49 @@ public class PointingController implements Initializable {
 		LocalTime val = TimeLeave.minusHours(TimeBecome.getHour());
 		val = val.minusMinutes(TimeBecome.getMinute());
 		val = val.minusSeconds(TimeBecome.getSecond());
-		return formatter.format(val);
+		int h = val.getHour();
+		int min = val.getMinute();
+		String time = h + "." + min;
+		return Float.parseFloat(time);
 	}
 
-	private String getHourOfMonth(Pointage pointage) {
-		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss");
+	private float getHourOfMonth(Pointage pointage) {
+		// DateFormat dateFormatter = new SimpleDateFormat("yyyy-MMM-dd");
 		String date = pointage.getDate();
 		String val = "0";
-		LocalTime totalTime = null;
+		 float heur = 0;
 		LocalDate localDate = null;
 		DateTimeFormatter f = new DateTimeFormatterBuilder().parseCaseInsensitive()
-				.append(DateTimeFormatter.ofPattern("yyyy-MMM-dd")).toFormatter();
+				.append(DateTimeFormatter.ofPattern("dd-MM-yyyy")).toFormatter();
 		try {
-			localDate = LocalDate.parse(date, f);
-			System.out.println(localDate); // 2019-12-22
+			localDate = LocalDate.parse(date.subSequence(0, 10), f);
+			System.out.println(localDate.toString()); // 2019-12-22
 		} catch (DateTimeParseException e) {
 			e.printStackTrace();
 			// Exception handling message/mechanism/logging as per company standard
 		}
 		int month = localDate.getMonthValue();
 		int year = localDate.getYear();
-		if (month < 10)
+		if (month < 10) {
 			val = val.concat(String.valueOf(month)) + "-" + year;
-		else
-			val = String.valueOf(year) + "-" + year;
-		List<String> heurTravail = pointageRepository
-				.loadAllHeurTravailFilterByMonthForOnePerson(pointage.getPersonel().getId(), val);
-		for (String heur : heurTravail) {
-			LocalTime time = LocalTime.parse(heur, formatter);
-			totalTime = totalTime.plusHours(time.getHour());
-			totalTime = totalTime.plusMinutes(time.getMinute());
-			totalTime = totalTime.plusSeconds(time.getSecond());
+			System.out.println(val);
+		} else {
+			val = String.valueOf(month) + "-" + year;
+			System.out.println(val);
 		}
-		return formatter.format(totalTime);
+
+		List<Float> heurTravail = pointageRepository
+				.loadAllHeurTravailFilterByMonthForOnePerson(pointage.getPersonel().getId(), "%" + val + "%");
+		System.out.println(heurTravail.size());
+		for (Float ht : heurTravail) {
+             heur = heur + ht.floatValue(); 
+			
+//			totalTime = totalTime.plusHours(time.getHour());
+//			totalTime = totalTime.plusMinutes(time.getMinute());
+//			totalTime = totalTime.plusSeconds(time.getSecond());
+		}
+
+		return heur;
 	}
 
 	private void clearFieldTache() {
@@ -605,8 +673,8 @@ public class PointingController implements Initializable {
 			becomeLabel.setText(pointage.getHeurArriver());
 			leaveLabel.setText(pointage.getHeurDepart());
 			labelIdPointage.setText(pointage.getId_pointage().toString());
-			hourOfDaytime.setText(pointage.getHeureTravail());
-			hourOfMonth.setText(getHourOfMonth(pointage));
+			hourOfDaytime.setText(String.valueOf(pointage.getHeureTravail()));
+			hourOfMonth.setText(String.valueOf(getHourOfMonth(pointage)));
 
 		} else
 
@@ -621,6 +689,8 @@ public class PointingController implements Initializable {
 			becomeLabel.setText(null);
 			leaveLabel.setText(null);
 			hourOfDaytime.setText(null);
+			labelIdPointage.setText(null);
+			hourOfMonth.setText(null);
 
 		}
 	}

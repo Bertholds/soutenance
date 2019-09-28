@@ -2,7 +2,6 @@ package com.codetreatise.bean;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,28 +10,59 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "utilisateur")
-public class Utilisateur implements Serializable {
+//@PrimaryKeyJoinColumn(name="id")
+public class Utilisateur  implements Serializable {
 
 	private static final long serialVersionUID = 2987735683344857145L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", updatable = false, nullable = false)
-	private Long idutilisateur;
+	private Long id;
+	
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public String getNom() {
+		return nom;
+	}
+
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+
+	private String nom;
+
+	private String prenom;
 
 	private String pass;
 
 	private String login;
 
-	private String pseudo;
+	private String acces;
 
 	public Utilisateur() {
 		super();
 	}
 
-	public Long getIdutilisateur() {
-		return idutilisateur;
-	}
 
 	public String getPass() {
 		return pass;
@@ -50,12 +80,17 @@ public class Utilisateur implements Serializable {
 		this.login = login;
 	}
 
-	public String getPseudo() {
-		return pseudo;
+	public String getAcces() {
+		return acces;
 	}
 
-	public void setPseudo(String pseudo) {
-		this.pseudo = pseudo;
+	public void setAcces(String acces) {
+		this.acces = acces;
 	}
 
+
+	@Override
+	public String toString() {
+		return getNom() + " " + getPrenom();
+	}
 }

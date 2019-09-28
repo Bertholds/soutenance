@@ -25,4 +25,7 @@ public interface StaffRepository extends JpaRepository<Personel, Long> {
 	@Query("select p from Personel p where p.departements =(:departement) ")
 	public List<Personel> findOther(@Param("departement")Departement departement);
 	
+	@Query("select p from Personel p order by p.nom ")
+	public List<Personel> findAllOderByName();
+	
 }

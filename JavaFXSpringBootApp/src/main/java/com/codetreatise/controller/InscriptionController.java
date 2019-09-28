@@ -363,10 +363,7 @@ public class InscriptionController implements Initializable {
 					setTotalMontant();
 					barcharOperation();
 				} catch (Exception e) {
-					Alert alert = new Alert(AlertType.WARNING);
-					alert.setTitle("Student is not exist");
-					alert.setContentText("This student is not exist!!");
-					alert.showAndWait();
+					MethodUtilitaire.deleteNoPersonSelectedAlert("Student is not exist", "Student is not exist", "This student is not exist!!");
 				}
 			} else {
 				new EventHandler<ActionEvent>() {

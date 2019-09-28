@@ -212,6 +212,17 @@ public enum FxmlView {
 		public String getFxmlFile() {
 			return "/fxml/User.fxml";
 		}
+	},
+	Bibliotheque {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("library.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/Bibliotheque.fxml";
+		}
 	};
 
 	public abstract String getTitle();

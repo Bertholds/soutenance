@@ -39,8 +39,8 @@ public class Classe implements Serializable {
 	@OneToMany(mappedBy = "classe", fetch = FetchType.EAGER)
 	Collection<Etudiant> etudiant;
 
-	@ManyToMany(mappedBy = "classes")
-	private Collection<Matiere> matieres = new ArrayList<Matiere>();
+//	@ManyToMany(mappedBy = "classes")
+//	private Collection<Matiere> matieres = new ArrayList<Matiere>();
 
 	public Classe() {
 		super();
@@ -54,13 +54,13 @@ public class Classe implements Serializable {
 		this.total = total;
 	}
 	
-	public Collection<Matiere> getMatieres() {
-		return matieres;
-	}
-
-	public void setMatieres(Collection<Matiere> matieres) {
-		this.matieres = matieres;
-	}
+//	public Collection<Matiere> getMatieres() {
+//		return matieres;
+//	}
+//
+//	public void setMatieres(Collection<Matiere> matieres) {
+//		this.matieres = matieres;
+//	}
 
 	public String getNom() {
 		return name;

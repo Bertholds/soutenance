@@ -1,18 +1,14 @@
 package com.codetreatise.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="matiere")
@@ -23,25 +19,27 @@ public class Matiere implements Serializable {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id_matiere;
 	private String nom;
-	private String niveau;
-	private int coefficient;
+	private String classe;
+	@Transient
+	private Map<String, Integer> maemoire;
+	private String coefficient;
 	private int semestre;
 	private String supervisor;
-	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(name = "matiere_classe", joinColumns = @JoinColumn(name = "id_matiere"), inverseJoinColumns = @JoinColumn(name = "id_classe"))
-	private List<Classe> classes = new ArrayList<Classe>();
+//	@ManyToMany(fetch=FetchType.EAGER)
+//	@JoinTable(name = "matiere_classe", joinColumns = @JoinColumn(name = "id_matiere"), inverseJoinColumns = @JoinColumn(name = "id_classe"))
+//	private List<Classe> classes = new ArrayList<Classe>();
 
 	public Matiere() {
 		super();
 	}
 	
-	public List<Classe> getClasses() {
-		return classes;
-	}
-
-	public void setClasses(List<Classe> classes) {
-		this.classes = classes;
-	}
+//	public List<Classe> getClasses() {
+//		return classes;
+//	}
+//
+//	public void setClasses(List<Classe> classes) {
+//		this.classes = classes;
+//	}
 
 	public String getNom() {
 		return nom;
@@ -51,19 +49,19 @@ public class Matiere implements Serializable {
 		this.nom = nom;
 	}
 
-	public String getNiveau() {
-		return niveau;
+	public String getClasse() {
+		return classe;
 	}
 
-	public void setNiveau(String niveau) {
-		this.niveau = niveau;
+	public void setClasse(String classe) {
+		this.classe = classe;
 	}
 
-	public int getCoefficient() {
+	public String getCoefficient() {
 		return coefficient;
 	}
 
-	public void setCoefficient(int coefficient) {
+	public void setCoefficient(String coefficient) {
 		this.coefficient = coefficient;
 	}
 
@@ -85,6 +83,14 @@ public class Matiere implements Serializable {
 
 	public Long getId_matiere() {
 		return id_matiere;
+	}
+
+	public Map<String, Integer> getMaemoire() {
+		return maemoire;
+	}
+
+	public void setMaemoire(Map<String, Integer> maemoire) {
+		this.maemoire = maemoire;
 	}
 
 }

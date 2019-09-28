@@ -370,8 +370,8 @@ dateLimit.setConverter(new StringConverter<LocalDate>() {
 		try {
 			String d1 = dateDepart.getEditor().getText();
 			String d2 = dateLimit.getEditor().getText();
-            System.out.println(d1.toString());
-            System.out.println(d2);
+			if((d1==null || d1.length()==0) || (d2==null || d2.length()==0))
+				throw new Exception("Please enter valid date before to print");
 			try {
 				System.setProperty("java.awt.headless", "false");
 				JasperDesign jasperDesign = JRXmlLoader.load("C:\\wamp\\listAbscence.jrxml");
@@ -442,7 +442,7 @@ dateLimit.setConverter(new StringConverter<LocalDate>() {
 
 	private void setColumPropertiesTab1() {
 		idAbscenceC.setCellValueFactory(new PropertyValueFactory<>("id_abscence"));
-		dateC.setCellValueFactory(new PropertyValueFactory<>("date"));
+		dateC.setCellValueFactory(new PropertyValueFactory<>("dates"));
 		quantiteC.setCellValueFactory(new PropertyValueFactory<>("quantite"));
 		justifierC.setCellValueFactory(new PropertyValueFactory<>("justifier"));
 		idEtudiantC.setCellValueFactory(

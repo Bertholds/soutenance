@@ -1,5 +1,6 @@
 package com.codetreatise.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +13,14 @@ import org.springframework.stereotype.Controller;
 import com.codetreatise.bean.Departement;
 import com.codetreatise.bean.Personel;
 import com.codetreatise.bean.Poste;
+import com.codetreatise.bean.Utilisateur;
 import com.codetreatise.repository.DepartementRepository;
 import com.codetreatise.repository.PosteRepository;
 import com.codetreatise.repository.StaffRepository;
+import com.codetreatise.repository.UserRepository;
 import com.codetreatise.service.MethodUtilitaire;
 import com.codetreatise.service.impl.StaffServiceImpl;
+import com.codetreatise.service.impl.UserServiceImpl;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -91,9 +95,17 @@ public class StaffEditDialogController implements Initializable {
 
 	@Autowired
 	private DepartementRepository departementRepository;
+	
+	@Autowired
+	private MethodUtilitaire methodUtilitaire;
 
 	@Autowired
 	private StaffServiceImpl staffServiceImpl;
+	
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private UserServiceImpl userServiceImpl;
 
 	// private ObservableList<Object> posteList =
 	// FXCollections.observableArrayList();
@@ -199,7 +211,7 @@ public class StaffEditDialogController implements Initializable {
 	}
 
 	@FXML
-	public Personel handleCreateStaffClick(ActionEvent event) {
+	public Personel handleCreateStaffClick(ActionEvent event) throws IOException, Exception {
 
 		Personel newPersonel = null;
 		if (isInputValid()) {
@@ -218,6 +230,13 @@ public class StaffEditDialogController implements Initializable {
 				updateAlert(newPersonel);
 				clearFields();
 				staffController.setIsEditButtonClick(false);
+				methodUtilitaire.LogFile("Modification des données d'un personnel", newPersonel.getId()+"-"+newPersonel.getNom()+" "+newPersonel.getPrenom(), MethodUtilitaire.deserializationUser());
+				Utilisateur utilisateur = userRepository.findOne(personel.getId()); 
+				if(utilisateur !=null) {
+					utilisateur.setNom(newPersonel.getNom());
+					utilisateur.setPrenom(newPersonel.getPrenom());
+					 userServiceImpl.update(utilisateur);
+				}
 				return newPersonel;
 			} else {
 				Personel personel = new Personel();
@@ -234,6 +253,7 @@ public class StaffEditDialogController implements Initializable {
 				saveAlert(newPersonel);
 				staffController.loadStaffDetailWhenCreate();
 				clearFields();
+				methodUtilitaire.LogFile("Enregistrement d'un nouveau personnel", newPersonel.getId()+"-"+newPersonel.getNom()+" "+newPersonel.getPrenom(), MethodUtilitaire.deserializationUser());
 				return newPersonel;
 			}
 		}

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.codetreatise.bean.Document;
 import com.codetreatise.bean.Emprint;
 import java.lang.String;
 
@@ -22,6 +23,10 @@ public interface EmprintRepository extends JpaRepository<Emprint, Long> {
 	@Query("select e from Emprint e where e.status='Disponible' order by e.id_emprint desc ")
 	public List<Emprint> findByStatus2();
 	
-	@Query("select count(e.document) from Emprint e group by e.document")
-	public List<Integer> findLivreSolliciter();
+	@Query("select e from Emprint e where e.document= (:document)")
+	public List<Emprint> findByDocumentId(@Param("document")Document document);
+	
+	@Query("select e from Emprint e order by e.id_emprint desc ")
+	public List<Emprint> getAll();
+
 }

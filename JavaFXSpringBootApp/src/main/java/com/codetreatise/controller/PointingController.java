@@ -395,7 +395,7 @@ public class PointingController implements Initializable {
 
 	private void setCurrentDay() {
 		Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-			DateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+			DateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 			String dat = format.format(new Date());
 			date.getEditor().setText(dat);
 		}), new KeyFrame(Duration.seconds(1)));

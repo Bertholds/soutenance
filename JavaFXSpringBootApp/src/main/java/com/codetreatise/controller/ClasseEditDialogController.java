@@ -29,7 +29,7 @@ import javafx.stage.Stage;
 public class ClasseEditDialogController implements Initializable {
 
 	@FXML
-	private TextField level;
+	private ComboBox<String>  level;
 
 	@FXML
 	private TextField chef;
@@ -62,9 +62,11 @@ public class ClasseEditDialogController implements Initializable {
 	private ClasseServiceImpl classeServiceImpl;
 
 	private ObservableList<Object> classeList = FXCollections.observableArrayList();
+	private ObservableList<String> levelList = FXCollections.observableArrayList("Niveau 1", "Niveau 2", "Niveau 3");
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		level.setItems(levelList);
 		ArrayList<Personel> list = classeRepository.loadLeader();
 		classeList.clear();
 		for (int i = 0; i < list.size(); i++) {
@@ -137,7 +139,7 @@ public class ClasseEditDialogController implements Initializable {
 	}
 
 	private String getNiveau() {
-		return level.getText();
+		return level.getSelectionModel().getSelectedItem();
 	}
 
 	private String getChef() {
@@ -201,7 +203,7 @@ public class ClasseEditDialogController implements Initializable {
 		if (selectedClasse != null) {
 			id.setText(selectedClasse.getId_classe().toString());
 			nom.setText(selectedClasse.getNom());
-			level.setText(selectedClasse.getNiveau());
+			level.getSelectionModel().select(selectedClasse.getNiveau());
 			chef.setText(selectedClasse.getChef());
 			adjoint.setText(selectedClasse.getSous_chef());
 			delegue1.setText(selectedClasse.getDelegue1());
@@ -217,7 +219,7 @@ public class ClasseEditDialogController implements Initializable {
 	private void clearFields() {
 		id.setText(null);
 		nom.clear();
-		level.clear();
+		level.getSelectionModel().clearSelection();
 		chef.clear();
 		adjoint.clear();
 		delegue1.clear();

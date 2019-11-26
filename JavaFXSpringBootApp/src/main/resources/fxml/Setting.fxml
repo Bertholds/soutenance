@@ -1,52 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.codetreatise.controller.SettingController">
+<AnchorPane prefHeight="480.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.SettingController">
    <children>
       <TabPane layoutX="55.0" layoutY="63.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="Subject">
+          <Tab text="Menu">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <GridPane layoutX="218.0" layoutY="42.0" prefHeight="151.0" prefWidth="200.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
-                        <GridPane fx:id="grid" layoutX="27.0" layoutY="53.0" prefHeight="280.0" prefWidth="200.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
+                        <ListView fx:id="listMenus" layoutY="37.0" prefHeight="370.0" prefWidth="150.0" />
+                        <Text layoutX="15.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menus disponible" />
+                        <ListView fx:id="listAdmin" layoutX="199.0" layoutY="39.0" prefHeight="366.0" prefWidth="156.0" />
+                        <Button layoutX="154.0" layoutY="111.0" mnemonicParsing="false" onAction="#handleAddAdminClick" text="==&gt;" />
+                        <Button layoutX="154.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleRemoveAdminClick" text="&lt;==" />
+                        <ListView fx:id="listSuperAdmin" layoutX="400.0" layoutY="41.0" prefHeight="366.0" prefWidth="156.0" />
+                        <Button layoutX="357.0" layoutY="111.0" mnemonicParsing="false" onAction="#handleAddSuperAdminClick" text="==&gt;" />
+                        <Button layoutX="357.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleRemoveSuperAdminClick" text="&lt;==" />
+                        <ListView fx:id="listBibliotheque" layoutX="601.0" layoutY="41.0" prefHeight="79.0" prefWidth="156.0" />
+                        <Button layoutX="558.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleAddBibliothequeClick" prefHeight="15.0" prefWidth="41.0" text="==&gt;" />
+                        <Button layoutX="558.0" layoutY="339.0" mnemonicParsing="false" onAction="#handleAddEnseignantClick" text="==&gt;" />
+                        <Text layoutX="241.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrateur" />
+                        <Text layoutX="424.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Super administrateur" />
+                        <ListView fx:id="listEnseignant" layoutX="601.0" layoutY="335.0" prefHeight="69.0" prefWidth="156.0" />
+                        <Button layoutX="558.0" layoutY="377.0" mnemonicParsing="false" onAction="#handleRemoveEnseignantClick" text="&lt;==" />
+                        <Button layoutX="558.0" layoutY="146.0" mnemonicParsing="false" onAction="#handleAddInfirmerieClick" text="==&gt;" />
+                        <ListView fx:id="listInfirmerie" layoutX="601.0" layoutY="139.0" prefHeight="79.0" prefWidth="156.0" />
+                        <Text layoutX="649.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bibliothèque" />
+                        <Button layoutX="558.0" layoutY="81.0" mnemonicParsing="false" onAction="#handleRemoveBibliothequeClick" prefHeight="15.0" prefWidth="41.0" text="&lt;==" />
+                        <Text layoutX="648.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Infirmerie" />
+                        <Button layoutX="558.0" layoutY="184.0" mnemonicParsing="false" onAction="#handleRemoveInfirmerieClick" text="&lt;==" />
+                        <Text layoutX="648.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enseignant" />
+                        <ListView fx:id="listPointeur" layoutX="601.0" layoutY="240.0" prefHeight="72.0" prefWidth="156.0" />
+                        <Text layoutX="656.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pointeur" />
+                        <Button layoutX="558.0" layoutY="246.0" mnemonicParsing="false" onAction="#handleAddPointeurClick" text="==&gt;" />
+                        <Button layoutX="558.0" layoutY="280.0" mnemonicParsing="false" onAction="#handleRemovePointeurClick" text="&lt;==" />
+                        <ListView fx:id="listDiscipline" layoutX="809.0" layoutY="39.0" prefHeight="177.0" prefWidth="156.0" />
+                        <Button layoutX="763.0" layoutY="69.0" mnemonicParsing="false" onAction="#handleAddDisciplineClick" prefHeight="15.0" prefWidth="41.0" text="==&gt;" />
+                        <Button layoutX="763.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleRemoveCreanceClick" text="&lt;==" />
+                        <ListView fx:id="listCreance" layoutX="809.0" layoutY="241.0" prefHeight="168.0" prefWidth="156.0" />
+                        <Button layoutX="763.0" layoutY="168.0" mnemonicParsing="false" onAction="#handleRemoveDisciplineClick" text="&lt;==" />
+                        <Button layoutX="763.0" layoutY="267.0" mnemonicParsing="false" onAction="#handleAddCreanceClick" text="==&gt;" />
+                        <Text layoutX="868.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discipline" />
+                        <Text layoutX="868.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creance" />
+                        <Button layoutX="2.0" layoutY="425.0" mnemonicParsing="false" onAction="#handleSaveClick" prefHeight="25.0" prefWidth="965.0" text="Click here to save configuration" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Untitled Tab 2">
+          <Tab text="Affichage Et Thème">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                     <children>
+                        <Pane fx:id="stylePane" layoutX="254.0" layoutY="28.0" prefHeight="138.0" prefWidth="452.0" style="-fx-background-color: GRAY;">
+                           <children>
+                              <Label fx:id="previousStyle" layoutX="59.0" layoutY="43.0" prefHeight="53.0" prefWidth="357.0" text="CHOSE YOUR STYLE">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Button fx:id="btnBlueStyle" layoutX="254.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleBleuStyleClick" onMouseEntered="#mouseBlueStyleEntered" onMouseExited="#mouseBlueStyleExited" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: DODGERBLUE; -fx-text-fill: white;" text="Blue style">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                        <Button fx:id="btnDarkStyle" layoutX="423.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleDarkStyleClick" onMouseEntered="#mouseDarkStyleEntered" onMouseExited="#mouseDarkStyleExited" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: #1d1d1d; -fx-text-fill: white;" text="Dark style">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                        <Button fx:id="btnWhiteStyle" layoutX="589.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleWhiteStyleClick" onMouseEntered="#mouseWhiteStyleEntered" onMouseExited="#mouseWhiteStyleExited" prefHeight="25.0" prefWidth="117.0" text="White style">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                        <TextField fx:id="schoolName" layoutX="247.0" layoutY="346.0" prefHeight="41.0" prefWidth="466.0" />
+                        <Text layoutX="312.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change name of system management" underline="true">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Text>
+                        <Button layoutX="385.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleValidateClick" prefHeight="25.0" prefWidth="174.0" text="Validate" />
+                     </children></AnchorPane>
             </content>
           </Tab>
+            <Tab text="Securité">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" onMouseEntered="#MouseAnchorpaneSecuriteEntered" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Separator layoutX="16.0" layoutY="74.0" prefHeight="4.0" prefWidth="548.0" />
+                        <Separator layoutX="570.0" layoutY="61.0" orientation="VERTICAL" prefHeight="388.0" prefWidth="6.0" />
+                        <Separator layoutX="582.0" layoutY="77.0" prefHeight="0.0" prefWidth="379.0" />
+                        <Text layoutX="391.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Proteger les notes et moyennes des etudiants" textAlignment="CENTER" wrappingWidth="358.69857025146484">
+                           <font>
+                              <Font size="17.0" />
+                           </font></Text>
+                        <ListView fx:id="listMatiere" layoutX="8.0" layoutY="105.0" prefHeight="306.0" prefWidth="317.0" />
+                        <ListView fx:id="listMotDePasseMatiere" layoutX="368.0" layoutY="105.0" prefHeight="305.0" prefWidth="196.0" />
+                        <Text layoutX="131.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Matieres" />
+                        <Text layoutX="436.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe" />
+                        <Button layoutX="8.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleSaveConfigurationMatiereClick" prefHeight="25.0" prefWidth="317.0" text="Save configuration" />
+                        <ListView fx:id="listClasses" layoutX="582.0" layoutY="105.0" prefHeight="303.0" prefWidth="200.0" />
+                        <ListView fx:id="listMotDePaaseSalle" layoutX="804.0" layoutY="104.0" prefHeight="304.0" prefWidth="146.0" />
+                        <Text layoutX="646.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salle de classe" />
+                        <Text layoutX="844.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe" />
+                        <Button layoutX="582.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleSaveConfigurationClasseClick" prefHeight="25.0" prefWidth="200.0" text="Save configuration" />
+                        <Button layoutX="795.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleMenuSensibleClick" text="Proteger les menus sensible" />
+                        <Button layoutX="368.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleGenerateKeyMatiere" prefHeight="25.0" prefWidth="197.0" text="Auto-generation des clés " />
+                        <Button layoutX="803.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleGenerateKeyClasse" prefHeight="25.0" prefWidth="151.0" text="Auto-generation de clés " />
+                        <Text fill="#9a1706" layoutX="7.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chaque ligne relative a une matiere ou une classe a son mot de passe équivalent sur la meme ligne dans la section mot de passe" wrappingWidth="286.13671875" />
+                        <Slider fx:id="tailleMotDePasse" layoutX="807.0" layoutY="36.0" majorTickUnit="5.0" onMouseEntered="#mouseSliderMoDePasseEntered" showTickLabels="true" showTickMarks="true" value="7.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Slider>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
    </children>

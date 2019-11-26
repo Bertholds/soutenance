@@ -1,5 +1,6 @@
 package com.codetreatise.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -170,6 +171,9 @@ public class StaffController implements Initializable {
 	@Autowired
 	private PosteServiceImpl posteServiceImpl;
 
+	@Autowired
+	private MethodUtilitaire methodUtilitaire;
+	
 	private ObservableList<Personel> staffList = FXCollections.observableArrayList();
 	private ObservableList<Object> filtrage = FXCollections.observableArrayList();
 	private ObservableList<Object> filtrageDepartement = FXCollections.observableArrayList();
@@ -312,11 +316,13 @@ public class StaffController implements Initializable {
 	}
 
 	@FXML
-	void handleDeleteStaffClick(ActionEvent event) {
+	void handleDeleteStaffClick(ActionEvent event) throws IOException, Exception {
 		Personel selectedIndex = staffTable.getSelectionModel().getSelectedItem();
 		if (selectedIndex != null) {
 			staffTable.getItems().remove(selectedIndex);
 			staffRepository.delete(selectedIndex);
+			methodUtilitaire.LogFile("Soppression d'un Personnel", selectedIndex.getId()+"-"+selectedIndex.getNom()+" "+selectedIndex.getPrenom(), MethodUtilitaire.deserializationUser());
+
 		} else {
 			MethodUtilitaire.deleteNoPersonSelectedAlert("No Selection", "No staff Selected", "Please select a staff in the table.");
 		}

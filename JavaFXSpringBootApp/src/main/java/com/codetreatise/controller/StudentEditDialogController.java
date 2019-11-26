@@ -1,5 +1,6 @@
 package com.codetreatise.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import com.codetreatise.bean.Classe;
 import com.codetreatise.bean.Etudiant;
 import com.codetreatise.repository.ClasseRepository;
 import com.codetreatise.repository.StudentRepository;
+import com.codetreatise.service.MethodUtilitaire;
 import com.codetreatise.service.impl.EtudiantServiceImpl;
 
 import javafx.collections.FXCollections;
@@ -79,6 +81,9 @@ public class StudentEditDialogController implements Initializable {
 
 	@Autowired
 	private EtudiantServiceImpl etudiantServiceImpl;
+	
+	@Autowired
+	private MethodUtilitaire methodUtilitaire;
 
 	private String patern = "dd/MM/YY";
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern(patern);
@@ -113,7 +118,7 @@ public class StudentEditDialogController implements Initializable {
 	}
 
 	@FXML
-	public Etudiant handleCreateStudentClick(ActionEvent event) {
+	public Etudiant handleCreateStudentClick(ActionEvent event) throws IOException, Exception {
 		Etudiant newEtudiant = null;
 		if (isInputValid()) {
 			if (studentController.isEditButtonClick()) {
@@ -133,6 +138,7 @@ public class StudentEditDialogController implements Initializable {
 				clearFields();
 				studentController.loadStudentDetailWhenCreate();
 				studentController.setIsEditButtonClick(false);
+				methodUtilitaire.LogFile("Modification des données d'un etudint", newEtudiant.getId()+"-"+newEtudiant.getNom()+" "+newEtudiant.getPrenom(), MethodUtilitaire.deserializationUser());
 				return newEtudiant;
 			} else {
 				classroom = classeRepository.findByNom(getClasseRoom());
@@ -149,6 +155,7 @@ public class StudentEditDialogController implements Initializable {
 				newEtudiant = studentRepository.save(etudiant);
 				saveAlert(newEtudiant);
 				clearFields();
+				methodUtilitaire.LogFile("Enregistrement d'un etudint", newEtudiant.getId()+"-"+newEtudiant.getNom()+" "+newEtudiant.getPrenom(), MethodUtilitaire.deserializationUser());
 				return newEtudiant;
 			}
 		}

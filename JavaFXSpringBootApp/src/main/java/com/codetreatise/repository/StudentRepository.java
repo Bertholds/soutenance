@@ -35,6 +35,9 @@ public interface StudentRepository extends JpaRepository<Etudiant, Long> {
 	@Query("select e from Etudiant e where e.classe.name=(:nom)")
 	public List<Etudiant> findByClasse(@Param("nom")String nom);
 	
+	@Query("select max(e.id) from Etudiant e ")
+    Long findMaxIdDocument();
+	
 	//SELECT count(`id`), niveau from etudiant e\n" + 
 	//"INNER JOIN classe c ON e.id_classe = c.id_classe Group by niveau;
 	

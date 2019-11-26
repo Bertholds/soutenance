@@ -2,8 +2,10 @@ package com.codetreatise.controller;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
@@ -84,6 +86,9 @@ public class PreinscriptionController implements Initializable {
 
 	@FXML
 	private MenuItem edit;
+	
+	@FXML
+    private MenuItem cancel;
 
 	@FXML
 	private Button btnRegister;
@@ -272,6 +277,16 @@ public class PreinscriptionController implements Initializable {
 	}
 
 	@FXML
+	private void handleCancelClick(ActionEvent event) {
+		id.setDisable(false);
+		id_student.setDisable(false);
+		btnRegister.setDisable(false);
+		id.setText(null);
+		id_student.getEditor().setText("0");
+		montantPreinscription.setText(null);
+	}
+	
+	@FXML
 	void handleRefreshClick(ActionEvent event) {
 		loadDataOntable();
 	}
@@ -383,22 +398,18 @@ public class PreinscriptionController implements Initializable {
 
 	private void pieChartOperation() throws SQLException {
 		data = FXCollections.observableArrayList();
-		List<Object> list = preinscriptionServiceImpl.groupByNiveau();
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
-//			String niveau = list.get(i).getClasse().getNiveau();
-//			double qte = list.get(i).getId();
-//			data.add(new PieChart.Data(niveau, qte));
-			System.out.println(list.size());
-		}
-		PieChart.Data slice1 = new PieChart.Data("Niveau 1", 213);
-		PieChart.Data slice2 = new PieChart.Data("Niveau 2", 67);
-		PieChart.Data slice3 = new PieChart.Data("Niveau 3", 36);
+		List<Map<String, Integer>> list = new ArrayList<Map<String,Integer>>();
+			data.add(new PieChart.Data("Niveau 1", preinscriptionRepository.getTotalPreinscritNiveau1()));
+			data.add(new PieChart.Data("Niveau 2", preinscriptionRepository.getTotalPreinscritNiveau2()));
+			data.add(new PieChart.Data("Niveau 3", preinscriptionRepository.getTotalPreinscritNiveau3()));
+//		PieChart.Data slice1 = new PieChart.Data("Niveau 1", 213);
+//		PieChart.Data slice2 = new PieChart.Data("Niveau 2", 67);
+//		PieChart.Data slice3 = new PieChart.Data("Niveau 3", 36);
 
-		pieChart.getData().add(slice1);
-		pieChart.getData().add(slice2);
-		pieChart.getData().add(slice3);
-		// pieChart.setData(data);
+//		pieChart.getData().add(slice1);
+//		pieChart.getData().add(slice2);
+//		pieChart.getData().add(slice3);
+		pieChart.setData(data);
 	}
 
 	private String getStudentId() {

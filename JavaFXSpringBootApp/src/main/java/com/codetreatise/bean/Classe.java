@@ -39,8 +39,8 @@ public class Classe implements Serializable {
 	@OneToMany(mappedBy = "classe", fetch = FetchType.EAGER)
 	Collection<Etudiant> etudiant;
 
-//	@ManyToMany(mappedBy = "classes")
-//	private Collection<Matiere> matieres = new ArrayList<Matiere>();
+	@OneToMany()
+	private Collection<Matiere> matieres;
 
 	public Classe() {
 		super();

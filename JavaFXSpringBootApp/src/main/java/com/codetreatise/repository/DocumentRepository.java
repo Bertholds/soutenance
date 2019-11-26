@@ -15,4 +15,7 @@ public interface DocumentRepository extends JpaRepository<Document, Long> {
 	
 	@Query("select d from Document d where d.status='Non disponible'")
     List<Document> findByStatus();
+	
+	@Query("select max(d.id_document) from Document d ")
+    Long findMaxIdDocument();
 }

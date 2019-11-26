@@ -15,4 +15,13 @@ public interface PreInscriptionRepository extends JpaRepository<Preinscription, 
 	
 	@Query("select count(p.id_preinscription) from Preinscription p")
 	public int getTotalPreinscrit();
+	
+	@Query("select count(p.id_preinscription) from Preinscription p where p.etudiant.classe.niveau='niveau 1'")
+	public int getTotalPreinscritNiveau1();
+	
+	@Query("select count(p.id_preinscription) from Preinscription p where p.etudiant.classe.niveau='niveau 2'")
+	public int getTotalPreinscritNiveau2();
+	
+	@Query("select count(p.id_preinscription) from Preinscription p where p.etudiant.classe.niveau='niveau 3'")
+	public int getTotalPreinscritNiveau3();
 }

@@ -11,6 +11,15 @@ import com.codetreatise.bean.Note;
 @Repository
 public interface NoteRepository extends JpaRepository<Note, Long> {
 	
-	@Query("select n from Note n where n.matiere.nom=(:nom)")
-      public java.util.List<Note> findByClasse(@Param("nom")String nom);
+	@Query("select n from Note n where n.matiere.nom=(:nom) and n.classe.name=(:classe)")
+      public java.util.List<Note> findByClasseAndMatiere(@Param("nom")String nom, @Param("classe")String classe);
+
+	@Query("select count(n.id_note) from Note n where n.matiere.nom=(:nom) and n.classe.name=(:classe)")
+	public int getTotalEtudiant(@Param("nom")String nom, @Param("classe")String classe);
+	
+	@Query("select count(n.id_note) from Note n where n.note>=10 and n.matiere.nom=(:nom) and n.classe.name=(:classe)")
+	public int getSucces(@Param("nom")String nom, @Param("classe")String classe);
+	
+	@Query("select count(n.id_note) from Note n where n.note<=10 and n.matiere.nom=(:nom) and n.classe.name=(:classe)")
+	public int getEchec(@Param("nom")String nom, @Param("classe")String classe);
 }

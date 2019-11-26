@@ -37,6 +37,7 @@
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#handleRemoveClick" text="Delete" />
                         <MenuItem fx:id="edit" mnemonicParsing="false" onAction="#handleEditClick" text="Edit" />
+                        <MenuItem fx:id="cancel" mnemonicParsing="false" onAction="#handleCancelClick" text="Cancel" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
@@ -79,7 +80,7 @@
                         <Label text="Id of student" GridPane.rowIndex="1" />
                         <Label text="Montant preinscription" GridPane.rowIndex="2" />
                         <Label text="Id" />
-                        <TextField fx:id="id" disable="true" prefHeight="40.0" prefWidth="181.0" promptText="Id will be generate automaticaly" text="Id will be generate automaticaly" GridPane.columnIndex="1" />
+                        <TextField fx:id="id" editable="false" prefHeight="40.0" prefWidth="181.0" promptText="Id will be generate automaticaly" text="Id will be generate automaticaly" GridPane.columnIndex="1" />
                         <Spinner fx:id="id_student" editable="true" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="181.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="montantPreinscription" prefHeight="49.0" prefWidth="181.0" promptText="Enter first  slice" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>

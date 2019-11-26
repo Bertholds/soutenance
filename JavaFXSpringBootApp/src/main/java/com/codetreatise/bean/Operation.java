@@ -2,6 +2,7 @@ package com.codetreatise.bean;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ public class Operation implements Serializable {
 	private Long id_operation;
 	private String name;
 	private String cible;
-	private Time heure;
+	private Date date;
 	private String address;
 	@OneToOne()
 	private Utilisateur utilisateur;
@@ -46,12 +47,12 @@ public class Operation implements Serializable {
 		this.cible = cible;
 	}
 
-	public Time getHeure() {
-		return heure;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setHeure(Time heure) {
-		this.heure = heure;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public String getAddress() {

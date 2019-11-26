@@ -14,11 +14,22 @@ import javax.persistence.Table;
 public class Utilisateur  implements Serializable {
 
 	private static final long serialVersionUID = 2987735683344857145L;
+	
+	private Long id;
+	
+	private String nom;
+
+	private String prenom;
+
+	private String pass;
+
+	private String login;
+
+	private String acces;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+		
 	public Long getId() {
 		return id;
 	}
@@ -47,17 +58,6 @@ public class Utilisateur  implements Serializable {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
-
-
-	private String nom;
-
-	private String prenom;
-
-	private String pass;
-
-	private String login;
-
-	private String acces;
 
 	public Utilisateur() {
 		super();

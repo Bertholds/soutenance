@@ -2,9 +2,11 @@
 
 <?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.icons525.Icons525View?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -19,17 +21,26 @@
    <children>
       <Pane layoutX="5.0" layoutY="22.0" prefHeight="195.0" prefWidth="938.0" styleClass="backgroundNextModul" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="7.0">
          <children>
-            <Label layoutX="130.0" layoutY="44.0" styleClass="LabelTitleSchool" text="INSTITUT AFRICAIN D'INFORMATIQUE" textFill="WHITE">
-               <font>
-                  <Font size="48.0" />
-               </font>
-            </Label>
             <Label layoutX="136.0" layoutY="105.0" style="-fx-font-size: 16;" text="School Mangement " textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
             <FontAwesomeIconView fill="WHITE" glyphName="GG" layoutX="48.0" layoutY="107.0" size="60" />
+            <Button layoutX="801.0" layoutY="61.0" mnemonicParsing="false" onAction="#handleLogOutClick" prefHeight="47.0" prefWidth="47.0">
+               <graphic>
+                  <Icons525View glyphName="SHUT_DOWN" size="35" wrappingWidth="33.0" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="powerOff" />
+                  <String fx:value="powerOff" />
+               </styleClass>
+            </Button>
+            <Label fx:id="schoolName" layoutX="136.0" layoutY="29.0" prefHeight="49.0" prefWidth="642.0" styleClass="LabelTitleSchool" text="COLLEGE POZAM" textFill="WHITE">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <AnchorPane layoutX="-2.0" layoutY="185.0" prefHeight="427.0" prefWidth="943.0" styleClass="backgroundModul" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="185.0">
@@ -48,82 +59,82 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="btnDashboard" contentDisplay="TOP" mnemonicParsing="false" prefHeight="200.0" prefWidth="242.0" stylesheets="@../css/fullpackstyling.css" text="Dashboard">
+                  <Button fx:id="btnDashboard" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleDashbordClick" prefHeight="200.0" prefWidth="242.0" text="Dashboard">
                      <graphic>
                         <FontAwesomeIconView glyphName="HOME" size="50" />
                      </graphic>
                   </Button>
-                  <Button fx:id="btnStudents" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleStudentClick" prefHeight="200.0" prefWidth="242.0" stylesheets="@../css/fullpackstyling.css" text="Students" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+                  <Button fx:id="btnStudents" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleStudentClick" prefHeight="200.0" prefWidth="242.0" text="Students" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
                      <graphic>
                         <FontAwesomeIconView glyphName="GROUP" size="50" />
                      </graphic>
                   </Button>
-                  <Button fx:id="btn_Timetable" contentDisplay="TOP" mnemonicParsing="false" prefHeight="200.0" prefWidth="242.0" stylesheets="@../css/fullpackstyling.css" text="Schedule" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS">
+                  <Button fx:id="btn_Timetable" contentDisplay="TOP" mnemonicParsing="false" prefHeight="200.0" prefWidth="242.0" text="Schedule" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS">
                      <graphic>
                         <FontAwesomeIconView glyphName="CALENDAR_CHECK_ALT" size="50" />
                      </graphic>
                   </Button>
-                  <Button fx:id="btnSettings" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSettingClick" prefHeight="200.0" prefWidth="242.0" stylesheets="@../css/fullpackstyling.css" text="Settings" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                  <Button fx:id="btnSettings" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSettingClick" prefHeight="200.0" prefWidth="242.0" text="Settings" GridPane.columnIndex="3" GridPane.rowIndex="3">
                      <graphic>
                         <FontAwesomeIconView glyphName="SLIDERS" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#handleCourierClick" prefHeight="200.0" prefWidth="242.0" stylesheets="@../css/fullpackstyling.css" text="Courier" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <Button fx:id="btnCourier" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleCourierClick" prefHeight="200.0" prefWidth="242.0" text="Courier" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <graphic>
                         <MaterialIconView glyphName="EMAIL" size="50" />
                      </graphic>
                   </Button>
-                  <Button fx:id="btnClasses" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleClassClick" prefHeight="200.0" prefWidth="242.0" stylesheets="@../css/fullpackstyling.css" text="Classroom" GridPane.rowIndex="3">
+                  <Button fx:id="btnClasses" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleClassClick" prefHeight="200.0" prefWidth="242.0" text="Classroom" GridPane.rowIndex="3">
                      <graphic>
                         <FontAwesomeIconView glyphName="UNIVERSITY" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#handleStaffClick" prefHeight="200.0" prefWidth="242.0" text="Staff" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS">
+                  <Button fx:id="btnStaff" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleStaffClick" prefHeight="200.0" prefWidth="242.0" text="Staff" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS">
                      <graphic>
                         <MaterialIconView glyphName="PEOPLE" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#handleUserClick" prefHeight="200.0" prefWidth="242.0" text="User" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+                  <Button fx:id="btnUser" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleUserClick" prefHeight="200.0" prefWidth="242.0" text="User" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
                      <graphic>
                         <MaterialIconView glyphName="ACCOUNT_CIRCLE" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSchoolFeesClick" prefHeight="200.0" prefWidth="242.0" text="School fees" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Button fx:id="btnSchoolFess" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSchoolFeesClick" prefHeight="200.0" prefWidth="242.0" text="School fees" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <graphic>
                         <MaterialIconView glyphName="MONETIZATION_ON" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#handlePointingClick" prefHeight="200.0" prefWidth="242.0" text="Pointing" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Button fx:id="btnPointing" contentDisplay="TOP" mnemonicParsing="false" onAction="#handlePointingClick" prefHeight="200.0" prefWidth="242.0" text="Pointing" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <graphic>
                         <MaterialIconView glyphName="ACCESS_TIME" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#handlePermissionClick" prefHeight="200.0" prefWidth="242.0" text="Absence permission" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                  <Button fx:id="btnPermission" contentDisplay="TOP" mnemonicParsing="false" onAction="#handlePermissionClick" prefHeight="200.0" prefWidth="242.0" text="Absence permission" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <graphic>
                         <MaterialIconView glyphName="DESCRIPTION" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#handleStudentAbscenceClick" prefHeight="200.0" prefWidth="242.0" text="Hour of student absence" GridPane.rowIndex="2">
+                  <Button fx:id="btnStudentAbscence" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleStudentAbscenceClick" prefHeight="200.0" prefWidth="242.0" text="Hour of student absence" GridPane.rowIndex="2">
                      <graphic>
                         <MaterialDesignIconView glyphName="CALENDAR_CLOCK" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="200.0" prefWidth="242.0" text="Infirmary" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Button fx:id="btnInfirmary" contentDisplay="TOP" mnemonicParsing="false" prefHeight="200.0" prefWidth="242.0" text="Infirmary" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <graphic>
                         <MaterialDesignIconView glyphName="PLUS_NETWORK" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSubjectClick" prefHeight="200.0" prefWidth="242.0" text="Subject" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <Button fx:id="btnSubject" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSubjectClick" prefHeight="200.0" prefWidth="242.0" text="Subject" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <graphic>
                         <OctIconView glyphName="BOOK" size="47" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#handleLibrairyClick" prefHeight="200.0" prefWidth="242.0" text="Library" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <Button fx:id="btnLibrary" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleLibrairyClick" prefHeight="200.0" prefWidth="242.0" text="Library" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <graphic>
                         <EmojiOneView glyphName="BOOKS" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="200.0" prefWidth="242.0" text="Backup/Reset" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                  <Button fx:id="btnRest" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBackupClic" prefHeight="200.0" prefWidth="242.0" text="Backup/Reset" GridPane.columnIndex="2" GridPane.rowIndex="3">
                      <graphic>
                         <FontAwesomeIconView glyphName="EXCHANGE" size="50" />
                      </graphic>

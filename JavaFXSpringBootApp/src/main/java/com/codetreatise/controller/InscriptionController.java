@@ -326,7 +326,8 @@ public class InscriptionController implements Initializable {
 			if (MethodUtilitaire.confirmationDialog(inscription, "Create a new register", "Create a new register ?",
 					"do you want to create this register ? ")) {
 				try {
-					inscription.setEtudiant(getEtudiant());
+					Etudiant etudiant = getEtudiant();
+					inscription.setEtudiant(etudiant);
 //					inscription.setId_etudiant(getEtudiant().getId());
 //					inscription.setNom(getEtudiant().getNom());
 //					inscription.setPrenom(getEtudiant().getPrenom());
@@ -362,6 +363,7 @@ public class InscriptionController implements Initializable {
 					setTotalTranche();
 					setTotalMontant();
 					barcharOperation();
+					methodUtilitaire.LogFile("Inscription d'un etudiant ", etudiant.getId()+"-"+etudiant.getNaissance()+" "+etudiant.getPrenom(), MethodUtilitaire.deserializationUser());
 				} catch (Exception e) {
 					MethodUtilitaire.deleteNoPersonSelectedAlert("Student is not exist", "Student is not exist", "This student is not exist!!");
 				}
@@ -380,7 +382,7 @@ public class InscriptionController implements Initializable {
 	}
 
 	@FXML
-	void handleRemoveClick(ActionEvent event) {
+	void handleRemoveClick(ActionEvent event) throws  Exception {
 		int selectedIndex = inscriptionTab.getSelectionModel().getSelectedIndex();
 		Inscription inscription = inscriptionTab.getSelectionModel().getSelectedItem();
 		if (selectedIndex >= 0) {
@@ -393,6 +395,7 @@ public class InscriptionController implements Initializable {
 				setTotalTranche();
 				setTotalMontant();
 				barcharOperation();
+				methodUtilitaire.LogFile("Suppression d'un inscrit", inscription.getEtudiant().getId()+"-"+inscription.getEtudiant().getNom()+" "+inscription.getEtudiant().getPrenom(), MethodUtilitaire.deserializationUser());
 			}
 		} else {
 			MethodUtilitaire.deleteNoPersonSelectedAlert("Any selection", "no register selected",

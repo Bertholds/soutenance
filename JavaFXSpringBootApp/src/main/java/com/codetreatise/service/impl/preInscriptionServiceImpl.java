@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,11 +22,6 @@ public class preInscriptionServiceImpl implements GlobalService<Preinscription> 
 	public Preinscription update(Preinscription preinscription) {
 		Preinscription newpreinscription = em.merge(preinscription);
 		return newpreinscription;
-	}
-
-	public List<Object> groupByNiveau() {
-		
-		return em.createQuery("select count(e.id), e.classe.niveau from Etudiant e group by e.classe.niveau").getResultList();
 	}
 
 }

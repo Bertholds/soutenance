@@ -64,9 +64,8 @@
                         <Label text="Leader" />
                      </children>
                   </VBox>
-                  <TextField fx:id="level" prefHeight="40.0" prefWidth="337.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="chef" prefHeight="42.0" prefWidth="336.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="delegue2" prefHeight="40.0" prefWidth="335.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField fx:id="chef" prefHeight="42.0" prefWidth="336.0" promptText="Chef" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="delegue2" prefHeight="40.0" prefWidth="335.0" promptText="Delegue 2" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <VBox GridPane.rowIndex="1">
                      <children>
                         <Label text="Nom" />
@@ -74,7 +73,7 @@
                   </VBox>
                   <HBox alignment="CENTER" prefHeight="48.0" prefWidth="326.0" style="-fx-border-color: gray;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="nom" maxWidth="600.0" prefHeight="37.0" prefWidth="323.0" />
+                        <TextField fx:id="nom" maxWidth="600.0" prefHeight="44.0" prefWidth="323.0" promptText="Name" />
                      </children>
                   </HBox>
                   <ComboBox fx:id="leader" prefHeight="40.0" prefWidth="336.0" promptText="Leader" GridPane.columnIndex="1" GridPane.rowIndex="7" />
@@ -84,8 +83,9 @@
                      </children>
                   </VBox>
                   <TextField fx:id="id" disable="true" opacity="0.28" prefHeight="40.0" prefWidth="332.0" GridPane.columnIndex="1" />
-                  <TextField fx:id="adjoint" prefHeight="38.0" prefWidth="326.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField fx:id="delegue1" prefHeight="40.0" prefWidth="326.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="adjoint" prefHeight="38.0" prefWidth="326.0" promptText="Chef adjoint" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="delegue1" prefHeight="40.0" prefWidth="326.0" promptText="Delegue 1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <ComboBox fx:id="level" prefHeight="42.0" prefWidth="326.0" promptText="Niveau" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>

@@ -1,14 +1,16 @@
 package com.codetreatise.controller;
 
-import java.net.Inet4Address;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
@@ -29,6 +31,9 @@ import com.codetreatise.service.MethodUtilitaire;
 import com.codetreatise.service.impl.CategorieServiceImpl;
 import com.codetreatise.service.impl.DocumentServiceImpl;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -44,6 +49,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
@@ -51,7 +57,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import javafx.util.StringConverter;
 
 @Controller
@@ -108,22 +116,22 @@ public class BibliothequeController implements Initializable {
 
 	@FXML
 	private TableView<Document> livreEmprinterTab;
-	
+
 	@FXML
 	private TableColumn<Document, Long> idDocumentCE;
-	
+
 	@FXML
 	private TableColumn<Document, String> titreCE;
-	
+
 	@FXML
 	private TableColumn<Document, String> auteurCE;
-	
+
 	@FXML
 	private TableColumn<Document, String> isbnCE;
 
 	@FXML
 	private ListView<String> listDocumentSolliciter;
-
+	
 	@FXML
 	private ListView<String> listEtudiantEmprintant;
 
@@ -192,6 +200,7 @@ public class BibliothequeController implements Initializable {
 
 	int x = 1;
 	List<Categorie> list;
+	List<Long> idDocumentTrier = new ArrayList<Long>();
 
 	@Autowired
 	CategorieRepository categorieRepository;
@@ -214,24 +223,42 @@ public class BibliothequeController implements Initializable {
 	ObservableList<String> categoryFiltreList = FXCollections.observableArrayList();
 	ObservableList<String> voir10DernierList = FXCollections.observableArrayList();
 	ObservableList<Document> documentList = FXCollections.observableArrayList();
+	ObservableList<Document> documentEmprinterList = FXCollections.observableArrayList();
 	ObservableList<Emprint> emprintList = FXCollections.observableArrayList();
 	SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10000, 0);
 	SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10000, 0);
 
-    @FXML
-    private void handleLivreSolliciterReleased(MouseEvent event) {
-          List<Integer> list = emprintRepository.findLivreSolliciter();
-          System.out.println(list.size());
-         // h
-    	//listDocumentSolliciter.getItems().a
-    } 
-    
-    @FXML
-    private void handleEtudiantEmprintantReleased(MouseEvent event) {
-
-    }
+	@FXML
+	private void handleLivreSolliciterReleased(MouseEvent event) {
+		listDocumentSolliciter.getItems().clear();
+		 idDocumentTrier.clear();
+		List<Emprint> listEmprint = emprintRepository.findByStatus();
+		Map<Long, Long> map = trieListInteger(listEmprint);
+;
+		for (int i = 0; i < map.size(); i++) {
+			Document document = documentRepository.findOne(idDocumentTrier.get(i));
+			System.out.println(document.getTitre() + " l'id est egal a " + idDocumentTrier.get(i));
+			listDocumentSolliciter.getItems().add(i,
+					i + 1 + "-" + " " + document.getTitre() + "(" + map.get(idDocumentTrier.get(i)) + ")");
+		}
+	}
 	
-	// Event Listener on Button.onAction 
+	@FXML
+	private void handleEtudiantEmprintantReleased(MouseEvent event) {
+		System.out.println("cliquer...................");
+		listEtudiantEmprintant.getItems().clear();
+		idDocumentTrier.clear();
+		List<Emprint> listEmprint = emprintRepository.findByStatus();
+		Map<Long, Long> map = triListInteger2(studentRepository.findAll(), listEmprint);
+		
+		for (int i = 0; i < map.size(); i++) {
+			Etudiant etudiant = studentRepository.findOne(idDocumentTrier.get(i));
+			listEtudiantEmprintant.getItems().add(i,
+					i + 1 + "-" + " " + etudiant.getNom() + " "+ etudiant.getPrenom()+ "(" + map.get(idDocumentTrier.get(i)) + ")");
+		}
+	}
+
+	// Event Listener on Button.onAction
 	@FXML
 	public void handleDeleteClick(ActionEvent event) {
 		Document selectedDocument = livreTab.getSelectionModel().getSelectedItem();
@@ -239,6 +266,11 @@ public class BibliothequeController implements Initializable {
 			if (MethodUtilitaire.confirmationDialog(selectedDocument, "confirm to delete document",
 					"confirm to delete document", "delete document " + selectedDocument.getTitre() + " ?")) {
 				livreTab.getItems().remove(livreTab.getSelectionModel().getSelectedIndex());
+				List<Emprint> emprints = emprintRepository.findByDocumentId(selectedDocument);
+				for (Emprint e : emprints) {
+					System.out.println("La liste a pour taille " + emprints.size());
+					emprintRepository.delete(e);
+				}
 				documentRepository.delete(selectedDocument);
 				MethodUtilitaire.saveAlert(selectedDocument, "Delete successful",
 						"document " + selectedDocument.getTitre() + "has Deleted successful");
@@ -419,9 +451,9 @@ public class BibliothequeController implements Initializable {
 	// Event Listener on Button.onAction
 	@FXML
 	public void handleRefreshLivreEmprinterClick(ActionEvent event) {
-		documentList.clear();
-		documentList.addAll(documentRepository.findByStatus());
-		livreEmprinterTab.setItems(documentList);
+		documentEmprinterList.clear();
+		documentEmprinterList.addAll(documentRepository.findByStatus());
+		livreEmprinterTab.setItems(documentEmprinterList);
 	}
 
 	// Event Listener on Button.onAction
@@ -483,9 +515,11 @@ public class BibliothequeController implements Initializable {
 		if (isInputValidTabEmprint()) {
 			try {
 				Document document = getDocument();
-				if(document.getStatus()=="Non disponible")
-					MethodUtilitaire.deleteNoPersonSelectedAlert("Document is busing", "Document is busing", "Warning! this document is busing");
+				if (document.getStatus().equals("Non disponible"))
+					MethodUtilitaire.deleteNoPersonSelectedAlert("Document is busing", "Document is busing",
+							"Warning! this document is busing");
 				else {
+					System.out.println(document.getStatus());
 					Emprint emprint = new Emprint();
 					emprint.setDate(getDateEmprint());
 					emprint.setStatus("Non disponible");
@@ -493,7 +527,8 @@ public class BibliothequeController implements Initializable {
 					emprint.setEtudiant(getEtudiant());
 					if (MethodUtilitaire.confirmationDialog(emprint, "Confirm to save trace", "Confirm to save trace",
 							"Do you want to save trace concerning " + emprint.getEtudiant().getNom() + " "
-									+ emprint.getEtudiant().getPrenom() + " whit document " + document.getTitre() + " ?")) {
+									+ emprint.getEtudiant().getPrenom() + " whit document " + document.getTitre()
+									+ " ?")) {
 						emprint.setDocument(documentServiceImpl.update(document));
 						emprintRepository.save(emprint);
 						MethodUtilitaire.saveAlert(emprint, "Save successful", "trace has saved successful");
@@ -514,21 +549,28 @@ public class BibliothequeController implements Initializable {
 	public void handleRemettreClick(ActionEvent event) throws ParseException {
 		if (isInputValidTabEmprint()) {
 			try {
-				Emprint emprint = new Emprint();
-				emprint.setDate(getDateEmprint());
-				emprint.setStatus("Disponible");
 				Document document = getDocument();
-				document.setStatus("Disponible");
-				emprint.setEtudiant(getEtudiant());
-				if (MethodUtilitaire.confirmationDialog(emprint, "Confirm to save delivery", "Confirm to save delivery",
-						"Do you want to save delivery concerning " + emprint.getEtudiant().getNom() + " "
-								+ emprint.getEtudiant().getPrenom() + " whit document " + document.getTitre() + " ?")) {
-					emprint.setDocument(documentServiceImpl.update(document));
-					emprintRepository.save(emprint);
-					MethodUtilitaire.saveAlert(emprint, "Save successful", "delivery has saved successful");
-					loadDataOnTableEmprint();
-				}
-				clearFieldEmprint();
+				if (!document.getStatus().equals("Disponible")) {
+					Emprint emprint = new Emprint();
+					emprint.setDate(getDateEmprint());
+					emprint.setStatus("Disponible");
+					document.setStatus("Disponible");
+					emprint.setEtudiant(getEtudiant());
+					
+					if (MethodUtilitaire.confirmationDialog(emprint, "Confirm to save delivery",
+							"Confirm to save delivery",
+							"Do you want to save delivery concerning " + emprint.getEtudiant().getNom() + " "
+									+ emprint.getEtudiant().getPrenom() + " whit document " + document.getTitre()
+									+ " ?")) {
+						emprint.setDocument(documentServiceImpl.update(document));
+						emprintRepository.save(emprint);
+						MethodUtilitaire.saveAlert(emprint, "Save successful", "delivery has saved successful");
+						loadDataOnTableEmprint();
+					}
+					clearFieldEmprint();
+				} else
+					MethodUtilitaire.deleteNoPersonSelectedAlert("Document deja disponible", "Document deja disponible",
+							"Ce document a déja été déposé");
 			} catch (Exception e) {
 				e.printStackTrace();
 				MethodUtilitaire.deleteNoPersonSelectedAlert("Etudiant id or document id is not exist",
@@ -569,23 +611,148 @@ public class BibliothequeController implements Initializable {
 		emprintTabP.setItems(sortedList);
 	}
 
-	private List<Integer> trieListInteger(List<Integer> list){
+	private Map<Long, Long> trieListInteger(List<Emprint> list) {
+		Map<Long, Long> map = new HashMap<Long, Long>();
+		List<Document> documents = documentRepository.findAll();
 
-		for(int i=0; i<list.size(); i++) {
-			for(int j=i+1; j==list.size(); j++) {
-				if(list.get(i)<list.get(j)) {
-					list.add(i, j);
-					list.add(j, i);
-					list.remove(j+1);
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = 0; j < documents.size(); j++) {
+				if (list.get(i).getDocument().getId_document().equals(documents.get(j).getId_document())) {
+					if (map.containsKey(documents.get(j).getId_document())) {
+						Long replace = map.get(documents.get(j).getId_document());
+						map.replace(documents.get(j).getId_document(), replace + 1);
+						System.out.print("Replace ");
+						System.out.println("Key: " + documents.get(j).getId_document());
+						System.out.println("Value: " + map.get(documents.get(j).getId_document()));
+					} else {
+						map.put(documents.get(j).getId_document(), 1l);
+						System.out.println("Key: " + documents.get(j).getId_document());
+						System.out.println("Value: " + map.get(documents.get(j).getId_document()));
+						System.out.print("Put ");
+
+					}
+				}
+			}
+		}
+
+		Long maxIdDocument = documentRepository.findMaxIdDocument();
+		Map<Long, Long> mapTrier = new HashMap<Long, Long>();
+		Long[] val = new Long[documents.size()];
+		int position;
+		Long echange;
+		
+		System.out.println("taille de documents list" + documents.size());
+		for (int i = 0; i < documents.size(); i++) {
+			if (map.containsKey(documents.get(i).getId_document())) {
+				val[i] = map.get((documents.get(i).getId_document()));
+				System.out.println("valeur du tableau a l'indice " + i + ": " + val[i]);
+			} else {
+				val[i] = 0l;
+				System.out.println("valeur du tableau a l'indice " + i + ": " + val[i]);
+			}
+		}
+		System.out.println("taille du tableau val " + val.length);
+		for (int i = 0; i < val.length; i++) {
+			position = i;
+			System.out.println("i= " + i);
+			System.out.println("Valeur a l'indice " + i + " " + val[i]);
+			for (int j = i + 1; j < val.length; j++) {
+				System.out.println("j= " + j);
+				if (val[j] > val[position]) {
+					position = j;
+				}
+
+			}
+			echange = val[position];
+			val[position] = val[i];
+			val[i] = echange;
+			System.out.println("maptrier recoit " + val[i]);
+			System.out.println("Taille de va " + val.length);
+			System.out.println("Taille de idDocumentTrier apres val " + idDocumentTrier.size());
+			System.out.println("--------- "+maxIdDocument);
+			for (int k = 0; k < maxIdDocument + 1; k++) {
+				if (map.get(Long.parseLong(String.valueOf(k))) == val[i]) {
+					System.out.println(Long.parseLong(String.valueOf(k)));
+					Long value = Long.parseLong(String.valueOf(k));
+					System.out.println("K=" + k + " Contient bien la valeur " + val[i]);
+					mapTrier.put(value, val[i]);
+					if (!idDocumentTrier.contains(value))
+						idDocumentTrier.add(value);
+					System.out.println("Taille de idDocumentTrier dans la boucle " + idDocumentTrier.size());
+
+				}
+			}
+		}
+
+		return mapTrier;
+	}
+	
+	private Map<Long, Long> triListInteger2(List<Etudiant> etudiants, List<Emprint> emprints){
+	
+		//List<Emprint> emprintTrier = new ArrayList<Emprint>();
+		List<Etudiant> etudiantTrier = new ArrayList<Etudiant>();
+		Map<Long, Long> map = new HashMap<Long, Long>();
+		System.out.println("etudiants: "+etudiants);
+		System.out.println("emprints: "+emprints);
+		for(Etudiant e: etudiants) {
+			for(int i=0; i< emprints.size(); i++) {
+				if(emprints.get(i).getEtudiant().getId().equals(e.getId())) {
+					//emprintTrier.add(emprints.get(i));
+					etudiantTrier.add(e);
 				}
 			}
 		}
 		
-		return null;
+		System.out.println("Etudiant trier: "+etudiantTrier.size());
+			for(int j=0; j< etudiantTrier.size(); j++) {
+				if (map.containsKey(etudiantTrier.get(j).getId())) {
+					Long replace = map.get(etudiantTrier.get(j).getId());
+					map.replace(etudiantTrier.get(j).getId(), replace + 1);
+				} else {
+					map.put(etudiantTrier.get(j).getId(), 1l);
+				}
+			}
+			
+			System.out.println("map : "+map.size());
+			
+			Long maxIdEtudiant = studentRepository.findMaxIdDocument();
+			System.out.println("maxIdDocument: "+maxIdEtudiant);
+			Map<Long, Long> mapTrier = new HashMap<Long, Long>();
+			Long[] val = new Long[etudiantTrier.size()];
+			int position;
+			Long echange;
+			
+			for (int i = 0; i < etudiantTrier.size(); i++) {
+					val[i] = map.get((etudiantTrier.get(i).getId()));
+			}
+			
+			for (int i = 0; i < val.length; i++) {
+				position = i;
+				for (int j = i + 1; j < val.length; j++) {
+					if (val[j] > val[position]) {
+						position = j;
+					}
+
+				}
+				echange = val[position];
+				val[position] = val[i];
+				val[i] = echange;
+				
+				for (int k = 0; k < maxIdEtudiant + 1; k++) {
+					if (map.get(Long.parseLong(String.valueOf(k))) == val[i]) {
+						Long value = Long.parseLong(String.valueOf(k));
+						mapTrier.put(value, val[i]);
+						if (!idDocumentTrier.contains(value))
+							idDocumentTrier.add(value);
+					}
+				}
+			}
+		
+		return mapTrier;
 	}
-	
+
 	private void convertFormatDateAllPicker() {
-		String pattern = "yyyy-MM-dd";
+		String pattern = "dd-MM-yyyy";
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
 		date.setConverter(new StringConverter<LocalDate>() {
@@ -610,6 +777,16 @@ public class BibliothequeController implements Initializable {
 		});
 	}
 
+	private void setCurrentDay() {
+		Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+			DateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			String dat = format.format(new Date());
+			date.getEditor().setText(dat);
+		}), new KeyFrame(Duration.seconds(1)));
+		clock.setCycleCount(Animation.INDEFINITE);
+		clock.play();
+	}
+	
 	private void setFiltreClasse() {
 		classeList.clear();
 		List<Classe> list = classeRepository.findAll();
@@ -674,7 +851,7 @@ public class BibliothequeController implements Initializable {
 	private void loadDataOnTableEmprint() {
 		emprintList.clear();
 		if (filter.getSelectionModel().getSelectedItem() == "All document")
-			emprintList.addAll(emprintRepository.findAll());
+			emprintList.addAll(emprintRepository.getAll());
 		else
 			emprintList.addAll(emprintRepository.findByCategory(filter.getSelectionModel().getSelectedItem()));
 		emprintTabP.setItems(emprintList);
@@ -702,6 +879,7 @@ public class BibliothequeController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		setCurrentDay();
 		emprintTabP.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		loadAllCategory();
 		setCategorie();
@@ -737,6 +915,26 @@ public class BibliothequeController implements Initializable {
 		idEmprintTC.setCellValueFactory(new PropertyValueFactory<>("id_emprint"));
 		dateTC.setCellValueFactory(new PropertyValueFactory<>("date"));
 		statusTC.setCellValueFactory(new PropertyValueFactory<>("status"));
+		statusTC.setCellFactory(new Callback<TableColumn<Emprint,String>, TableCell<Emprint,String>>() {
+			
+			@Override
+			public TableCell<Emprint, String> call(TableColumn<Emprint, String> param) {
+				return new TableCell<Emprint, String>(){
+					@Override
+	                    public void updateItem(String item, boolean empty) {
+	                        super.updateItem(item, empty);
+	                        if (!isEmpty()) {
+	                            this.setTextFill(Color.GREEN);
+	                            // Get fancy and change color based on data
+	                            if(item.contains("Non")) 
+	                                this.setTextFill(Color.RED);
+	                            setText(item);
+
+	                        }
+	                    }
+				};
+			}
+		});
 		idDocumentTC.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Emprint, String>, ObservableValue<String>>() {
 
@@ -855,7 +1053,7 @@ public class BibliothequeController implements Initializable {
 	}
 
 	private Date getDateEmprint() throws ParseException {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 		Date date = format.parse(getDate());
 		return date;
 	}
@@ -885,7 +1083,7 @@ public class BibliothequeController implements Initializable {
 	}
 
 	private void EditDocument(Document document) {
-		if(document!=null) {
+		if (document != null) {
 			idDocument.setText(document.getId_document().toString());
 			titre.setText(document.getTitre());
 			auteur.setText(document.getAuteur());
@@ -895,10 +1093,9 @@ public class BibliothequeController implements Initializable {
 	}
 
 	private void EditEmprint(Emprint newValue) {
-		if(newValue!=null) {
+		if (newValue != null) {
 			etudiantId.getEditor().setText(newValue.getEtudiant().getId().toString());
 			documentId.getEditor().setText(newValue.getDocument().getId_document().toString());
-			date.getEditor().setText(newValue.getDate().toString());
 		}
 
 	}

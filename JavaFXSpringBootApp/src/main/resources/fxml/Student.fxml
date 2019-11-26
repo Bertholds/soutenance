@@ -84,9 +84,9 @@
                         <Label fx:id="id" styleClass="label-bright" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
-                  <ButtonBar buttonMinWidth="50.0" layoutX="31.0" layoutY="336.0" prefHeight="36.0" prefWidth="308.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="5.0">
+                  <ButtonBar buttonMinWidth="50.0" layoutX="1.0" layoutY="336.0" prefHeight="39.0" prefWidth="385.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="5.0">
                     <buttons>
-                      <Button defaultButton="true" mnemonicParsing="false" onAction="#handleNewPerson" prefHeight="33.0" prefWidth="107.0" text="New..">
+                      <Button defaultButton="true" mnemonicParsing="false" onAction="#handleNewPerson" prefHeight="26.0" prefWidth="107.0" text="New..">
                            <graphic>
                               <MaterialIconView glyphName="PERSON_ADD" size="25" />
                            </graphic></Button>
@@ -94,10 +94,11 @@
                            <graphic>
                               <MaterialIconView glyphName="MODE_EDIT" size="25" />
                            </graphic></Button>
-                        <Button mnemonicParsing="false" onAction="#handleDeletePerson" prefHeight="33.0" text="Delete">
+                        <Button mnemonicParsing="false" onAction="#handleDeletePerson" prefHeight="30.0" text="Delete">
                            <graphic>
                               <OctIconView glyphName="TRASHCAN" size="25" />
                            </graphic></Button>
+                        <Button mnemonicParsing="false" onAction="#handlePrintClick" prefHeight="39.0" text="Print" />
                     </buttons>
                   </ButtonBar>
                </children>

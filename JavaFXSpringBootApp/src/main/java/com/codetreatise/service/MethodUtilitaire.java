@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.util.Date;
 import java.util.Optional;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -92,7 +93,7 @@ public class MethodUtilitaire {
 		String ip = InetAddress.getLocalHost().toString();
 		System.out.println(ip);
 		operation.setName(name);
-		operation.setHeure(new Time(System.currentTimeMillis()));
+		operation.setDate(new Date(System.currentTimeMillis()));
 		operation.setUtilisateur(utilisateur);
 		operation.setAddress(ip);
 		operation.setCible(cible);
@@ -141,5 +142,6 @@ public class MethodUtilitaire {
 		}
 		return dataSource.getConnection();
 	}
+	
 	
 }

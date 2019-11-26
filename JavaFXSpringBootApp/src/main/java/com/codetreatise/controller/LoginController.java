@@ -54,9 +54,11 @@ public class LoginController implements Initializable {
 	@Autowired
 	private MethodUtilitaire methodUtilitaire;
 	
+	
 	//private static final Logger logger = LogManager.getLogger(LoginController.class);
 
 	File file;
+	Utilisateur utilisateur;
 	
 	private void serializeUser(Utilisateur utilisateur) throws IOException {
 		file = new File("C:/wamp/license.txt");
@@ -70,12 +72,12 @@ public class LoginController implements Initializable {
 	@FXML
 	private void login(ActionEvent event) throws IOException {
 		if (etudiantServiceImpl.isInputValid(getUsername(), getPassword())) {
-			Utilisateur utilisateur = userRepository.authentification(getUsername(), getPassword());
+			 utilisateur = userRepository.authentification(getUsername(), getPassword());
 			try {
 				if (utilisateur.getPass().equals(getPassword()))
 					stageManager.switchScene(FxmlView.MODULE);
 				serializeUser(utilisateur);
-				methodUtilitaire.LogFile("Operation de connection", "", utilisateur);
+				methodUtilitaire.LogFile("Operation de connection", "Pas de cible", utilisateur);
 				//logger.trace("Connection"+utilisateur.getIdutilisateur());
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -94,7 +96,12 @@ public class LoginController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+	
+	}
+	
+	public String getAcces() {
+		
+		return utilisateur.getAcces();
 	}
 
 }

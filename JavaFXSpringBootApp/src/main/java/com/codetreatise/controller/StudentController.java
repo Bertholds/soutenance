@@ -1,6 +1,8 @@
 package com.codetreatise.controller;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -35,6 +37,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 @Controller
 public class StudentController implements Initializable {
@@ -98,16 +109,21 @@ public class StudentController implements Initializable {
 
 	@Autowired
 	private StudentEditDialogController dialog;
+	
+	@Autowired
+	private MethodUtilitaire methodUtilitaire;
 
 	private ObservableList<Etudiant> etudiantList = FXCollections.observableArrayList();
 	private ObservableList<String> filtrage = FXCollections.observableArrayList();
 
 	@FXML
-	private void handleDeletePerson(ActionEvent event) {
+	private void handleDeletePerson(ActionEvent event) throws IOException, Exception {
 
-		int selectedIndex = studentTable.getSelectionModel().getSelectedIndex();
-		if (selectedIndex >= 0) {
+		Etudiant selectedIndex = studentTable.getSelectionModel().getSelectedItem();
+		if (selectedIndex!= null) {
 			studentTable.getItems().remove(selectedIndex);
+			studentRepository.delete(selectedIndex);
+			methodUtilitaire.LogFile("Soppression d'un etudiant", selectedIndex.getId()+"-"+selectedIndex.getNom()+" "+selectedIndex.getPrenom(), MethodUtilitaire.deserializationUser());
 		} else {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
@@ -117,6 +133,32 @@ public class StudentController implements Initializable {
 			alert.setContentText("Please select a person in the table.");
 
 			alert.showAndWait();
+		}
+	}
+	
+	@FXML
+	private void handlePrintClick(ActionEvent event) throws IOException, Exception {
+		try {
+//			System.setProperty("java.awt.headless", "false");
+//			JasperDesign jasperDesign = JRXmlLoader.load("C:\\wamp\\listInscrit.jrxml");
+//			String sql =  "SELECT e.`id`, e.`matricule`, e.`nom`, e.`prenom`, e.`sexe`, c.name "
+//					+ "FROM etudiant e JOIN classe c ON e.id_classe=c.id_classe "
+//					+ "WHERE c.name='"+filtre.getSelectionModel().getSelectedItem()+"'";
+//			JRDesignQuery designQuery = new JRDesignQuery();
+//			designQuery.setText(sql);
+//			jasperDesign.setQuery(designQuery);
+//			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+//			JasperPrint print = JasperFillManager.fillReport(jasperReport, null, MethodUtilitaire.dbConnect());
+//			JasperViewer jrviewer = new JasperViewer(print, false);
+//			//JasperViewer.viewReport(print);
+//			jrviewer.setVisible(true);
+//			jrviewer.toFront();
+			
+		} catch (Exception e) {
+			/*
+			 * e.printStackTrace(); MethodUtilitaire.errorMessageAlert("Failed to print",
+			 * "Failed to print !", e.getMessage());
+			 */
 		}
 	}
 

@@ -223,7 +223,30 @@ public enum FxmlView {
 		public String getFxmlFile() {
 			return "/fxml/Bibliotheque.fxml";
 		}
-	};
+	},
+	DASHBORD {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("dashbord.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/Dashbord.fxml";
+		}
+	},
+	BACKUP {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("backup.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/Backup.fxml";
+		}
+	}
+	;
 
 	public abstract String getTitle();
 

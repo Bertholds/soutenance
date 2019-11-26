@@ -1,5 +1,6 @@
 package com.codetreatise.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -97,6 +98,8 @@ public class UserController implements Initializable {
 	private UserRepository userRepository;
 	@Autowired
 	private UserServiceImpl userServiceImpl;
+	@Autowired
+	private MethodUtilitaire methodUtilitaire;
 
 	ObservableList<String> personelList = FXCollections.observableArrayList();
 	ObservableList<String> roleList = FXCollections.observableArrayList("Administrateur", "Super administrateur",
@@ -119,7 +122,7 @@ public class UserController implements Initializable {
 
 	// Event Listener on Button.onAction
 	@FXML
-	public void handleSaveClick(ActionEvent event) {
+	public void handleSaveClick(ActionEvent event) throws  Exception {
 		if (isInputValid()) {
 			Long id = mapId.get(getUser());
 			Personel personel = staffRepository.findOne(id);
@@ -134,21 +137,23 @@ public class UserController implements Initializable {
 			if (MethodUtilitaire.confirmationDialog(utilisateur, "Confirm to save user", "Confirm to save user",
 					"do you want to save user " + personel.getNom() + " " + personel.getPrenom() + " whith login "
 							+ utilisateur.getLogin() + " and password " + utilisateur.getPass()))
-				newUtilisateur = userServiceImpl.update(utilisateur);
+				newUtilisateur = userRepository.save(utilisateur);
 			MethodUtilitaire.saveAlert(newUtilisateur, "User save successful",
 					"User " + personel.getNom() + " " + personel.getPrenom() + " has saved sucessful");
 			clearField();
 			loadDataOnTable();
+			methodUtilitaire.LogFile("Creation d'un utilisateur", newUtilisateur.getId()+"-"+newUtilisateur.getNom()+" "+newUtilisateur.getPrenom(), MethodUtilitaire.deserializationUser());
 		}
 	}
 
 	// Event Listener on MenuItem[#deleteUsers].onAction
 	@FXML
-	public void deleteUsers(ActionEvent event) {
+	public void deleteUsers(ActionEvent event) throws IOException, Exception {
 		Utilisateur selectedIndex = userTable.getSelectionModel().getSelectedItem();
 		if (selectedIndex != null) {
 			userTable.getItems().remove(selectedIndex);
 			userRepository.delete(selectedIndex);
+			methodUtilitaire.LogFile("Soppression d'un utilisateur", selectedIndex.getId()+"-"+selectedIndex.getNom()+" "+selectedIndex.getPrenom(), MethodUtilitaire.deserializationUser());
 		} else {
 			MethodUtilitaire.deleteNoPersonSelectedAlert("No Selection", "No user Selected",
 					"Please select a user in the table.");
@@ -226,7 +231,6 @@ public class UserController implements Initializable {
 				utilisateur.setLogin(getLogin());
 				utilisateur.setPass(getPass());
 				utilisateur.setAcces(getAcces());
-				// utilisateur.setId(id);
 				if (MethodUtilitaire.confirmationDialog(utilisateur, "Confirm to update user", "Confirm to update user",
 						"do you want to update user " + utilisateur.getNom() + " " + utilisateur.getPrenom()
 								+ " whith login " + utilisateur.getLogin() + " and password " + utilisateur.getPass()))
@@ -235,6 +239,7 @@ public class UserController implements Initializable {
 						"User " + newUtilisateur.getNom() + " " + newUtilisateur.getPrenom() + " has update sucessful");
 				clearField();
 				loadDataOnTable();
+				methodUtilitaire.LogFile("Mise ajour des données d'utilisateur", newUtilisateur.getId()+"-"+newUtilisateur.getNom()+" "+newUtilisateur.getPrenom(), MethodUtilitaire.deserializationUser());
 			} catch (Exception e) {
 				MethodUtilitaire.deleteNoPersonSelectedAlert("No user selected", "No user selected",
 						"Select firstly one user in table and try agane");

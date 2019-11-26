@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -28,6 +30,9 @@ public class Note implements Serializable {
 	private Etudiant etudiant;
 	@OneToOne
 	private Matiere matiere;
+	@ManyToOne
+	@JoinColumn(name = "id_classe")
+	private Classe classe;
 
 	public Note() {
 		super();
@@ -99,6 +104,14 @@ public class Note implements Serializable {
 
 	public Long getId_note() {
 		return id_note;
+	}
+
+	public Classe getClasse() {
+		return classe;
+	}
+
+	public void setClasse(Classe classe) {
+		this.classe = classe;
 	}
 
 }
